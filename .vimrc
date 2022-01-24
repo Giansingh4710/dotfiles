@@ -23,7 +23,10 @@ colorscheme gruvbox
 set background=dark
 
 set timeoutlen=500
-imap ii <Esc>   
+
+imap ii <Esc>
+
+nnoremap Y y$ "only copies for cursor to end of line on'Y'
 nnoremap <C-Up> <Up>"add"ap<Up>
 nnoremap <C-Down> "add"ap
 nnoremap <Tab> <Esc>
