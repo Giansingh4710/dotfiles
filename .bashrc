@@ -6,13 +6,16 @@
 
 # These are my bashrc settings. Feel free to take whatever you want.
 
-BLUE_BOLD='\[\e[01;34m\]'
-RED_BOLD='\[\e[01;31m\]'
-WHITE_BOLD='\[\e[01;0m\]'
-PS1="${RED_BOLD}\t ${BLUE_BOLD}[${RED_BOLD}\W${BLUE_BOLD}]-> ${WHITE_BOLD}"
-
-# Ignore case during tab completion.
+BLUE='\[\e[01;34m\]'
+RED='\[\e[01;32m\]'
+WHITE='\[\e[01;0m\]'
+GREEN='\[\033[32m\]'
+YELLOW='\[\033[33m\]'
 bind 'set completion-ignore-case on'
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+PS1="${GREEN}\w ${YELLOW}\$(parse_git_branch) ${WHITE}$ "
 
 # Get the aliases and functions
 # shellcheck source=/dev/null

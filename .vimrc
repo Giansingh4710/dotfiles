@@ -25,8 +25,8 @@ set background=dark
 set timeoutlen=500
 
 imap ii <Esc>
-
 nnoremap Y y$
+nnoremap E E$
 nnoremap <C-Up> <Up>"add"ap<Up>
 nnoremap <C-Down> "add"ap
 nnoremap <Tab> <Esc>
