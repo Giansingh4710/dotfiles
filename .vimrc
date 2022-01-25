@@ -30,16 +30,8 @@ nnoremap E E$
 nnoremap <C-Up> <Up>"add"ap<Up>
 nnoremap <C-Down> "add"ap
 nnoremap <Tab> <Esc>
-" WSL yank support
-let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
 
 "copies to system clipboard on YY
-if executable(s:clip)
-    augroup WSLYank
-        autocmd!
-        autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
-    augroup END
-endif
 " Reference chart of values:
 "   Ps = 0  -> blinking block.
 "   Ps = 1  -> blinking block (default).
@@ -51,3 +43,12 @@ endif
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[1 q"
 
+" WSL yank support
+let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
+"copies to system clipboard on YY
+if executable(s:clip)
+    augroup WSLYank
+        autocmd!
+        autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+    augroup END
+endif
