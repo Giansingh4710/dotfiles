@@ -31,8 +31,11 @@ fi
 
 # shellcheck source=/dev/null
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-
+alias cs280="cd /mnt/c/Users/gians/Desktop/CS/SchoolStuff/CS280"
+alias cs="cd /mnt/c/Users/gians/Desktop/CS/"
+alias schoolstuff="cd /mnt/c/Users/gians/Desktop/CS/SchoolStuff"
+alias webdev="cd /mnt/c/Users/gians/Desktop/CS/WebDev"
+alias pythons="cd /mnt/c/Users/gians/Desktop/CS/pythons"
 #so in PS1 var, i would do put '/d' to show Week Day
 
 #d - "Weekday Month Date" format (e.g., "Tue May 26")

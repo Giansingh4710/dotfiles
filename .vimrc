@@ -26,6 +26,7 @@ set timeoutlen=500
 
 imap ii <Esc>
 nnoremap Y y$
+nnoremap B 0
 nnoremap E E$
 nnoremap <C-Up> <Up>"add"ap<Up>
 nnoremap <C-Down> "add"ap
