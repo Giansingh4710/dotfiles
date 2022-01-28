@@ -7,6 +7,7 @@ RED='\[\e[01;31m\]'
 WHITE='\[\e[01;0m\]'
 GREEN='\[\033[32m\]'
 YELLOW='\[\033[33m\]'
+set -o vi
 
 bind 'set completion-ignore-case on'
 
@@ -36,6 +37,10 @@ alias cs="cd /mnt/c/Users/gians/Desktop/CS/"
 alias schoolstuff="cd /mnt/c/Users/gians/Desktop/CS/SchoolStuff"
 alias webdev="cd /mnt/c/Users/gians/Desktop/CS/WebDev"
 alias pythons="cd /mnt/c/Users/gians/Desktop/CS/pythons"
+alias open-pdf="xdg-open"
+alias sdoji="python3 /mnt/c/Users/gians/Desktop/CS/pythons/randomstuff/randSikhStuff/sdoJi/sdojiWeb.py"
+
+
 #so in PS1 var, i would do put '/d' to show Week Day
 
 #d - "Weekday Month Date" format (e.g., "Tue May 26")

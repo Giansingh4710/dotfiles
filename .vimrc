@@ -16,7 +16,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox' "color scheme
 Plug 'lyuts/vim-rtags'
 Plug 'https://github.com/ycm-core/YouCompleteMe.git'
-
 call plug#end()
 
 colorscheme gruvbox
@@ -24,13 +23,20 @@ set background=dark
 
 set timeoutlen=500
 
-imap ii <Esc>
+"delete from the begginig of the line to cursor
+nnoremap <C-d> i<ENTER><ESC>kdd
+"yank till end of line
 nnoremap Y y$
+"Go to Begining of line
 nnoremap B 0
+"Go to end of line
 nnoremap E E$
+"<C-up> in vscode to move line up and down
 nnoremap <C-Up> <Up>"add"ap<Up>
 nnoremap <C-Down> "add"ap
-nnoremap <Tab> <Esc>
+"<C-b> from vscode. to open up file directory on left
+"map <C-b> <C-w><C-v>:Ex <Enter>:vertical resize 30 <Enter> 
+"nnoremap <C-B> <C-w><C-h>:q
 
 "copies to system clipboard on YY
 " Reference chart of values:
