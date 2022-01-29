@@ -22,8 +22,12 @@ set background=dark
 
 "set timeoutlen=500
 
+let mapleader="\<Space>"
 "delete from the begginig of the line to cursor
 nnoremap <Bslash> I//<ESC>
+nnoremap <leader><Bslash> I<DEL><DEL><ESC>
+autocmd FileType python nnoremap <Bslash> I#<ESC>
+autocmd FileType python nnoremap <leader><Bslash> I<DEL><ESC>
 
 "yank till end of line
 nnoremap Y y$
@@ -50,7 +54,7 @@ nnoremap <A-Up> <ESC>yyP
 nnoremap <C-b> <C-w><C-v>:Ex<Enter>:vertical resize 30 <Enter> 
 
 "replace words faster
-nnoremap <C-r> <Esc>yiw:%s/<C-R>"//gc<LEFT><LEFT><LEFT>
+nnoremap <leader>r <Esc>yiw:%s/<C-R>"//gc<LEFT><LEFT><LEFT>
 
 "complie and run code faster
 cnoremap cpp !g++ <C-r>%;./a.out 
