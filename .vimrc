@@ -1,4 +1,3 @@
-syntax on
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
@@ -21,22 +20,42 @@ call plug#end()
 colorscheme gruvbox
 set background=dark
 
-set timeoutlen=500
+"set timeoutlen=500
 
 "delete from the begginig of the line to cursor
-nnoremap <C-d> i<ENTER><ESC>kdd
+nnoremap <Bslash> I//<ESC>
+
 "yank till end of line
 nnoremap Y y$
+
 "Go to Begining of line
 nnoremap B 0
+
 "Go to end of line
 nnoremap E E$
+
 "<C-up> in vscode to move line up and down
-nnoremap <C-Up> <Up>"add"ap<Up>
-nnoremap <C-Down> "add"ap
+inoremap <C-Down> <ESC>ddpi
+inoremap <C-Up> <ESC>ddkPi
+nnoremap <C-Down> <ESC>ddp
+nnoremap <C-Up> <ESC>ddkP
+
+"<C-up> in vscode to move line up and down
+inoremap <A-Down> <ESC>yypi
+inoremap <A-Up> <ESC>yyPi
+nnoremap <A-Down> <ESC>yyp
+nnoremap <A-Up> <ESC>yyP
+
 "<C-b> from vscode. to open up file directory on left
-"map <C-b> <C-w><C-v>:Ex <Enter>:vertical resize 30 <Enter> 
-"nnoremap <C-B> <C-w><C-h>:q
+nnoremap <C-b> <C-w><C-v>:Ex<Enter>:vertical resize 30 <Enter> 
+
+"replace words faster
+nnoremap <C-r> <Esc>yiw:%s/<C-R>"//gc<LEFT><LEFT><LEFT>
+
+"complie and run code faster
+cnoremap cpp !g++ <C-r>%;./a.out 
+cnoremap py !python3 <C-r>%
+
 
 "copies to system clipboard on YY
 " Reference chart of values:
