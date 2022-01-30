@@ -26,6 +26,16 @@ set background=dark
 "set timeoutlen=500
 
 let mapleader="\<Space>"
+
+"from youtub vid. make it eaiser to move between multiple vids
+nnoremap <leader>h :wincmd h<CR>
+nnoremap <leader>j :wincmd j<CR>
+nnoremap <leader>k :wincmd k<CR>
+nnoremap <leader>l :wincmd l<CR>
+nnoremap <silent> <leader>+ :vertical resize +5<CR>
+nnoremap <silent> <leader>- :vertical resize -5<CR>
+
+nnoremap <silent> <leader>gd :YcmCompleter GoTo<CR>
 "delete from the begginig of the line to cursor
 nnoremap <Bslash> I//<ESC>
 nnoremap <leader><Bslash> I<DEL><DEL><ESC>
@@ -54,7 +64,7 @@ nnoremap <A-Down> <ESC>yyp
 nnoremap <A-Up> <ESC>yyP
 
 "<C-b> from vscode. to open up file directory on left
-nnoremap <C-b> <C-w><C-v>:Ex<Enter>:vertical resize 30 <Enter> 
+nnoremap <C-b> :wincmd v<ENTER>:Ex<ENTER>:vertical resize 30 <CR> 
 
 "replace words faster
 nnoremap <leader>r <Esc>yiw:%s/<C-R>"//gc<LEFT><LEFT><LEFT>
