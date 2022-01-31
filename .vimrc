@@ -6,15 +6,16 @@ set expandtab
 set smartindent
 set nu
 set relativenumber
-"set nowrap
+set nowrap
 set noswapfile
 set incsearch
 set scrolloff=8
 set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
-
+set laststatus=2
 " :PlugInstall to install plugins
 call plug#begin('~/.vim/plugged')
+Plug 'itchyny/lightline.vim'
 Plug 'morhetz/gruvbox' "color scheme
 Plug 'lyuts/vim-rtags'
 Plug 'https://github.com/ycm-core/YouCompleteMe.git'
