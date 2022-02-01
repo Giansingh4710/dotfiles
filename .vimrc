@@ -47,11 +47,13 @@ nnoremap <leader><Bslash> I<DEL><DEL><ESC>
 vnoremap <Bslash> :norm I//<CR> 
 vnoremap <leader><Bslash> :norm ^xx<CR> 
 
-autocmd FileType python nnoremap <Bslash> I#<ESC>
-autocmd FileType python nnoremap <leader><Bslash> I<DEL><ESC>
-autocmd FileType python vnoremap <Bslash> :norm I#<CR> 
-autocmd FileType python vnoremap <leader><Bslash> :norm ^x<CR> 
-
+augroup commenting
+    autocmd!
+    autocmd FileType python,sh nnoremap <Bslash> I#<ESC>
+    autocmd FileType python,sh nnoremap <leader><Bslash> I<DEL><ESC>
+    autocmd FileType python,sh vnoremap <Bslash> :norm I#<CR> 
+    autocmd FileType python,sh vnoremap <leader><Bslash> :norm ^x<CR> 
+augroup END
 autocmd FileType vim nnoremap <Bslash> I"<ESC>
 autocmd FileType vim nnoremap <leader><Bslash> I<DEL><ESC>
 autocmd FileType vim vnoremap <Bslash> :norm I"<CR> 
