@@ -15,13 +15,16 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 set laststatus=2
 " :PlugInstall to install plugins
 call plug#begin('~/.vim/plugged')
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'itchyny/lightline.vim'
 Plug 'morhetz/gruvbox' "color scheme
 Plug 'lyuts/vim-rtags'
 Plug 'https://github.com/ycm-core/YouCompleteMe.git'
 call plug#end()
 
-colorscheme gruvbox
+set background=dark
+colorscheme PaperColor
+"colorscheme gruvbox
 set background=dark
 
 "set timeoutlen=500
@@ -37,11 +40,23 @@ nnoremap <silent> <leader>+ :vertical resize +5<CR>
 nnoremap <silent> <leader>- :vertical resize -5<CR>
 
 nnoremap <silent> <leader>gd :YcmCompleter GoTo<CR>
+
 "delete from the begginig of the line to cursor
 nnoremap <Bslash> I//<ESC>
 nnoremap <leader><Bslash> I<DEL><DEL><ESC>
+vnoremap <Bslash> :norm I//<CR> 
+vnoremap <leader><Bslash> :norm ^xx<CR> 
+
 autocmd FileType python nnoremap <Bslash> I#<ESC>
 autocmd FileType python nnoremap <leader><Bslash> I<DEL><ESC>
+autocmd FileType python vnoremap <Bslash> :norm I#<CR> 
+autocmd FileType python vnoremap <leader><Bslash> :norm ^x<CR> 
+
+autocmd FileType vim nnoremap <Bslash> I"<ESC>
+autocmd FileType vim nnoremap <leader><Bslash> I<DEL><ESC>
+autocmd FileType vim vnoremap <Bslash> :norm I"<CR> 
+autocmd FileType vim vnoremap <leader><Bslash> :norm ^x<CR>
+
 
 "yank till end of line
 nnoremap Y y$
@@ -84,7 +99,7 @@ cnoremap py !python3 <C-r>%
 "   Ps = 4  -> steady underline.
 "   Ps = 5  -> blinking bar (xterm).
 "   Ps = 6  -> steady bar (xterm).
-let &t_SI = "\e[6 q"
+let &t_SI = "\e[5 q"
 let &t_EI = "\e[1 q"
 
 " WSL yank support
