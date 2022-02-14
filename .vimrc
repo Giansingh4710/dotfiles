@@ -14,17 +14,23 @@ set colorcolumn=80
 set laststatus=2
 set complete+=kspell
 set completeopt=menuone,longest
+set wildmode=list,full
+set omnifunc=syntaxcomplete#complete
 
 " :PlugInstall to install plugins
 call plug#begin('~/.vim/plugged')
+Plug 'preservim/nerdtree'
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-b> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
 Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
 Plug 'terryma/vim-multiple-cursors'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'itchyny/lightline.vim'
+Plug 'NLKNguyen/papercolor-theme' "colorscheme
+Plug 'itchyny/lightline.vim' "the cool bar on the bottom that tells you if your in instert/command/normal mode 
 Plug 'morhetz/gruvbox' "color scheme
-Plug 'vim-scripts/AutoComplPop'
+Plug 'vim-scripts/AutoComplPop' "auto completion pops up automaticaly instead of <C-p>
 Plug 'https://github.com/ycm-core/YouCompleteMe.git'
-" Plug 'tpope/vim-commentary'
 Plug 'preservim/nerdcommenter'
 filetype plugin on
 call plug#end()
@@ -48,9 +54,11 @@ nnoremap <silent> <leader>- :vertical resize -5<CR>
 nnoremap <silent> <leader>gd :YcmCompleter GoTo<CR>
 
 "I like html files to only be indented by 2 spaces instead of normal 4
-autocmd FileType html set tabstop=2
-autocmd FileType html set softtabstop=2
-autocmd FileType html set shiftwidth=2
+autocmd FileType html,javascript set tabstop=2
+autocmd FileType html,javascript set softtabstop=2
+autocmd FileType html,javascript set shiftwidth=2
+
+inoremap jk <ESC>
 
 "yank till end of line
 nnoremap Y y$
@@ -60,9 +68,6 @@ nnoremap B 0
 
 "Go to end of line
 nnoremap E E$
-
-"<C-b> from vscode. to open up file directory on left
-nnoremap <C-b> :wincmd v<ENTER>:Ex<ENTER>:vertical resize 30 <CR> 
 
 "replace words faster
 nnoremap <leader>r <Esc>yiw:%s/<C-R>"//gc<LEFT><LEFT><LEFT>
