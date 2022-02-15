@@ -19,6 +19,7 @@ set omnifunc=syntaxcomplete#complete
 set background=dark
 let mapleader="\<Space>"
 filetype plugin on
+set t_Co=256
 
 " :PlugInstall to install plugins
 call plug#begin('~/.vim/plugged')
@@ -31,13 +32,9 @@ call plug#begin('~/.vim/plugged')
     Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
     Plug 'terryma/vim-multiple-cursors'
 
-    Plug 'NLKNguyen/papercolor-theme' "colorscheme
-    colorscheme PaperColor
 
     Plug 'itchyny/lightline.vim' "the cool bar on the bottom that tells you if your in instert/command/normal mode 
 
-    Plug 'morhetz/gruvbox' "color scheme
-    "colorscheme gruvbox
 
     Plug 'vim-scripts/AutoComplPop' "auto completion pops up automaticaly instead of <C-p>
 
@@ -47,7 +44,14 @@ call plug#begin('~/.vim/plugged')
     Plug 'preservim/nerdcommenter'
     "for commenting. nerdcommenter toggle is <leader>c<Space>.
     map <leader>/ <space>c<space>
+
+
+    Plug 'NLKNguyen/papercolor-theme' "colorscheme
+    Plug 'morhetz/gruvbox' "color scheme
 call plug#end()
+
+colorscheme gruvbox
+"colorscheme PaperColor
 
 
 "from youtub vid. make it eaiser to move between multiple vids
