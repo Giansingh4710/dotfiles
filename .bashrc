@@ -31,3 +31,4 @@ alias webdev="cd /mnt/c/Users/gians/Desktop/CS/WebDev"
 alias pythons="cd /mnt/c/Users/gians/Desktop/CS/pythons"
 alias open-pdf="xdg-open"
 alias sdoji="python3 /mnt/c/Users/gians/Desktop/CS/pythons/randomstuff/randSikhStuff/sdoJi/sdojiWeb.py"
+

@@ -26,18 +26,13 @@ call plug#begin('~/.vim/plugged')
     Plug 'preservim/nerdtree'
     nnoremap <leader>n :NERDTreeFocus<CR>
     nnoremap <C-n> :NERDTree<CR>
-    nnoremap <C-b> :NERDTreeToggle<CR>
+    nnoremap <C-t> :NERDTreeToggle<CR>
     nnoremap <C-f> :NERDTreeFind<CR>
 
     Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
     Plug 'terryma/vim-multiple-cursors'
-
-
     Plug 'itchyny/lightline.vim' "the cool bar on the bottom that tells you if your in instert/command/normal mode 
-
-
     Plug 'vim-scripts/AutoComplPop' "auto completion pops up automaticaly instead of <C-p>
-
     Plug 'https://github.com/ycm-core/YouCompleteMe.git'
     nnoremap  <leader>gd :YcmCompleter GoTo<CR>
 
@@ -45,14 +40,12 @@ call plug#begin('~/.vim/plugged')
     "for commenting. nerdcommenter toggle is <leader>c<Space>.
     map <leader>/ <space>c<space>
 
-
     Plug 'NLKNguyen/papercolor-theme' "colorscheme
     Plug 'morhetz/gruvbox' "color scheme
 call plug#end()
 
 colorscheme gruvbox
 "colorscheme PaperColor
-
 
 "from youtub vid. make it eaiser to move between multiple vids
 nnoremap <leader>h :wincmd h<CR>
