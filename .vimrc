@@ -1,4 +1,4 @@
-syntax on
+syntax enable
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
@@ -17,9 +17,14 @@ set completeopt=menuone,longest
 set wildmode=list,full
 set omnifunc=syntaxcomplete#complete
 set background=dark
-let mapleader="\<Space>"
-filetype plugin on
 set t_Co=256
+
+let mapleader="\<Space>"
+
+"fuzzy finder
+filetype plugin on
+set wildmenu
+set path+=** "search every subdirectory in dir, and every dir in subdirectory
 
 " :PlugInstall to install plugins
 call plug#begin('~/.vim/plugged')
@@ -42,6 +47,8 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'NLKNguyen/papercolor-theme' "colorscheme
     Plug 'morhetz/gruvbox' "color scheme
+
+    Plug 'christoomey/vim-tmux-navigator' "tmux and vim window switcher
 call plug#end()
 
 colorscheme gruvbox
