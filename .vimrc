@@ -39,7 +39,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'itchyny/lightline.vim' "the cool bar on the bottom that tells you if your in instert/command/normal mode 
     Plug 'vim-scripts/AutoComplPop' "auto completion pops up automaticaly instead of <C-p>
     Plug 'https://github.com/ycm-core/YouCompleteMe.git'
-    nnoremap  <leader>gd :YcmCompleter GoTo<CR>
+    nnoremap gd :YcmCompleter GoTo<CR>
 
     Plug 'preservim/nerdcommenter'
     "for commenting. nerdcommenter toggle is <leader>c<Space>.
@@ -54,13 +54,11 @@ call plug#end()
 colorscheme gruvbox
 "colorscheme PaperColor
 
-"from youtub vid. make it eaiser to move between multiple vids
-nnoremap <leader>h :wincmd h<CR>
-nnoremap <leader>j :wincmd j<CR>
-nnoremap <leader>k :wincmd k<CR>
-nnoremap <leader>l :wincmd l<CR>
-nnoremap <leader>+ :vertical resize +5<CR>
-nnoremap <leader>- :vertical resize -5<CR>
+"make it easier to resize
+nnoremap <leader>h :wincmd <<CR>
+nnoremap <leader>j :wincmd +<CR>
+nnoremap <leader>k :wincmd -<CR>
+nnoremap <leader>l :wincmd ><CR>
 
 "I like html files to only be indented by 2 spaces instead of normal 4
 autocmd FileType html,javascript set tabstop=2
@@ -97,9 +95,8 @@ cnoremap py !python3 <C-r>%
 let &t_SI = "\e[5 q"
 let &t_EI = "\e[1 q"
 
-" WSL yank support
-let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
 "copies to system clipboard on YY
+let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
 if executable(s:clip)
     augroup WSLYank
         autocmd!
