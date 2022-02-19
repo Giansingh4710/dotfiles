@@ -78,8 +78,8 @@ nnoremap <leader>r <Esc>yiw:%s/<C-R>"//gc<LEFT><LEFT><LEFT>
 vnoremap <leader>r yy:%s/<C-R>"//gc<LEFT><LEFT><LEFT>
 
 "complie and run code faster
-cnoremap cpp !g++ <C-r>%;./a.out 
-cnoremap py !python3 <C-r>%
+cnoremap ,cpp !g++ <C-r>%;./a.out 
+cnoremap ,py !python3 <C-r>%
 
 "starter templetes for files
 nnoremap ,cpp :r ~/.dotfiles/skeletons/cpp<CR>gg"_dd4j
@@ -111,8 +111,18 @@ augroup END
 "   Ps = 4  -> steady underline.
 "   Ps = 5  -> blinking bar (xterm).
 "   Ps = 6  -> steady bar (xterm).
-let &t_SI = "\e[5 q"
-let &t_EI = "\e[1 q"
+"let &t_SI = "\e[5 q"
+"let &t_EI = "\e[1 q"
+
+if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
+else
+    let &t_SI = "\e[5 q"
+    let &t_EI = "\e[2 q"
+endif
+
+
 
 "WSL yank support
 let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path

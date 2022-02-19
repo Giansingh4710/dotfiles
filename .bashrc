@@ -3,7 +3,14 @@
 echo "Remember Vaheguru Ji With Every Breath"
 screenfetch
 
-export TERM=screen-256color
+alias cs280="cd /mnt/c/Users/gians/Desktop/CS/SchoolStuff/CS280"
+alias cs="cd /mnt/c/Users/gians/Desktop/CS/"
+alias schoolstuff="cd /mnt/c/Users/gians/Desktop/CS/SchoolStuff"
+alias webdev="cd /mnt/c/Users/gians/Desktop/CS/WebDev"
+alias pythons="cd /mnt/c/Users/gians/Desktop/CS/pythons"
+alias open-pdf="xdg-open"
+alias sdoji="python3 /mnt/c/Users/gians/Desktop/CS/pythons/randomstuff/randSikhStuff/sdoJi/sdojiWeb.py"
+
 BLUE='\[\e[01;34m\]'
 RED='\[\e[01;31m\]'
 WHITE='\[\e[01;0m\]'
@@ -27,13 +34,6 @@ fi
 
 # shellcheck source=/dev/null
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-alias cs280="cd /mnt/c/Users/gians/Desktop/CS/SchoolStuff/CS280"
-alias cs="cd /mnt/c/Users/gians/Desktop/CS/"
-alias schoolstuff="cd /mnt/c/Users/gians/Desktop/CS/SchoolStuff"
-alias webdev="cd /mnt/c/Users/gians/Desktop/CS/WebDev"
-alias pythons="cd /mnt/c/Users/gians/Desktop/CS/pythons"
-alias open-pdf="xdg-open"
-alias sdoji="python3 /mnt/c/Users/gians/Desktop/CS/pythons/randomstuff/randSikhStuff/sdoJi/sdojiWeb.py"
 
 #so in PS1 var, i would do put '/d' to show Week Day
 #d - "Weekday Month Date" format (e.g., "Tue May 26")
