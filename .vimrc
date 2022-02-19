@@ -1,4 +1,5 @@
 syntax enable
+set nocompatible
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
@@ -18,7 +19,7 @@ set wildmode=list,full
 set omnifunc=syntaxcomplete#complete
 set background=dark
 set t_Co=256
-
+set showcmd
 let mapleader="\<Space>"
 
 "fuzzy finder
@@ -29,30 +30,26 @@ set path+=** "search every subdirectory in dir, and every dir in subdirectory
 " :PlugInstall to install plugins
 call plug#begin('~/.vim/plugged')
     Plug 'preservim/nerdtree'
-    nnoremap <leader>n :NERDTreeFocus<CR>
-    nnoremap <C-n> :NERDTree<CR>
-    nnoremap <C-t> :NERDTreeToggle<CR>
-    nnoremap <C-f> :NERDTreeFind<CR>
-
+        nnoremap <leader>n :NERDTreeFocus<CR>
+        nnoremap <C-n> :NERDTree<CR>
+        nnoremap <C-t> :NERDTreeToggle<CR>
+        nnoremap <C-f> :NERDTreeFind<CR>
     Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
     Plug 'terryma/vim-multiple-cursors'
     Plug 'itchyny/lightline.vim' "the cool bar on the bottom that tells you if your in instert/command/normal mode 
     Plug 'vim-scripts/AutoComplPop' "auto completion pops up automaticaly instead of <C-p>
     Plug 'https://github.com/ycm-core/YouCompleteMe.git'
-    nnoremap gd :YcmCompleter GoTo<CR>
-
+        nnoremap gd :YcmCompleter GoTo<CR>
     Plug 'preservim/nerdcommenter'
-    "for commenting. nerdcommenter toggle is <leader>c<Space>.
-    map <leader>/ <space>c<space>
-
+        "for commenting. nerdcommenter toggle is <leader>c<Space>.
+        map <leader>/ <space>c<space>
     Plug 'NLKNguyen/papercolor-theme' "colorscheme
     Plug 'morhetz/gruvbox' "color scheme
-
     Plug 'christoomey/vim-tmux-navigator' "tmux and vim window switcher
 call plug#end()
 
-colorscheme gruvbox
-"colorscheme PaperColor
+"colorscheme gruvbox
+colorscheme PaperColor
 
 "make it easier to resize
 nnoremap <leader>h :wincmd <<CR>
@@ -84,6 +81,28 @@ vnoremap <leader>r yy:%s/<C-R>"//gc<LEFT><LEFT><LEFT>
 cnoremap cpp !g++ <C-r>%;./a.out 
 cnoremap py !python3 <C-r>%
 
+"starter templetes for files
+nnoremap ,cpp :r ~/.dotfiles/skeletons/cpp<CR>gg"_dd4j
+nnoremap ,html :r ~/.dotfiles/skeletons/html<CR>gg"_dd9j
+nnoremap ,java :r !bash ~/.dotfiles/skeletons/java.sh %<CR>gg"_dd2j
+
+"for highlighting Yanked Text
+function! DeleteTemporaryMatch(timerId)
+        call matchdelete(g:idTemporaryHighlight)
+endfunction
+
+function! FlashYankedText()
+    let g:idTemporaryHighlight = matchadd('IncSearch', ".\\%>'\\[\\_.*\\%<']..")
+    call timer_start(500,"DeleteTemporaryMatch")
+endfunction
+
+augroup highlightYankedText
+    autocmd!
+    autocmd TextYankPost * call FlashYankedText()
+augroup END
+
+
+
 " Reference chart of values:
 "   Ps = 0  -> blinking block.
 "   Ps = 1  -> blinking block (default).
@@ -95,11 +114,11 @@ cnoremap py !python3 <C-r>%
 let &t_SI = "\e[5 q"
 let &t_EI = "\e[1 q"
 
-"copies to system clipboard on YY
-let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
+"WSL yank support
+let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path
 if executable(s:clip)
     augroup WSLYank
         autocmd!
-        autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+        autocmd TextYankPost * if v:event.operator ==# 'y' |call system(s:clip, @0) | endif
     augroup END
 endif

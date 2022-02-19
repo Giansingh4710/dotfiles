@@ -3,6 +3,7 @@
 echo "Remember Vaheguru Ji With Every Breath"
 screenfetch
 
+export TERM=screen-256color
 BLUE='\[\e[01;34m\]'
 RED='\[\e[01;31m\]'
 WHITE='\[\e[01;0m\]'
