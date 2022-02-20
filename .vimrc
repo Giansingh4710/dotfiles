@@ -53,6 +53,8 @@ call plug#end()
 "colorscheme gruvbox
 colorscheme PaperColor
 
+inoremap jk <ESC>
+
 "make it easier to resize
 nnoremap <leader>h :wincmd <<CR>
 nnoremap <leader>j :wincmd +<CR>
@@ -64,14 +66,13 @@ autocmd FileType html,javascript set tabstop=2
 autocmd FileType html,javascript set softtabstop=2
 autocmd FileType html,javascript set shiftwidth=2
 
-inoremap jk <ESC>
+"c++ formating :help cinoptions-values 
+autocmd FileType cpp set cinoptions=l1 
 
 "yank till end of line
 nnoremap Y y$
-
 "Go to Begining of line
 nnoremap B 0
-
 "Go to end of line
 nnoremap E E$
 
@@ -82,6 +83,23 @@ vnoremap <leader>r yy:%s/<C-R>"//gc<LEFT><LEFT><LEFT>
 "complie and run code faster
 cnoremap ,cpp !g++ <C-r>%;./a.out 
 cnoremap ,py !python3 <C-r>%
+
+function DiffWindo()
+    if &diff
+        :diffoff
+    else
+        if len(tabpagebuflist()) > 1
+            :windo diffthis
+        else
+            :vs
+            :Ex
+            "call feedkeys(':vs<CR>')
+        endif
+    endif
+endfunction
+
+nnoremap <leader>d :call DiffWindo()<CR>
+
 
 "starter templetes for files
 nnoremap ,cpp :r ~/.dotfiles/skeletons/cpp<CR>gg"_dd4j
@@ -95,7 +113,7 @@ endfunction
 
 function! FlashYankedText()
     let g:idTemporaryHighlight = matchadd('IncSearch', ".\\%>'\\[\\_.*\\%<']..")
-    call timer_start(500,"DeleteTemporaryMatch")
+    call timer_start(50,"DeleteTemporaryMatch")
 endfunction
 
 augroup highlightYankedText
