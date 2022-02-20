@@ -19,6 +19,7 @@ set wildmode=list,full
 set omnifunc=syntaxcomplete#complete
 set background=dark
 set t_Co=256
+set foldmethod=indent
 set showcmd
 let mapleader="\<Space>"
 
@@ -29,6 +30,7 @@ set path+=** "search every subdirectory in dir, and every dir in subdirectory
 
 " :PlugInstall to install plugins
 call plug#begin('~/.vim/plugged')
+    Plug 'kshenoy/vim-signature' "view your marks
     Plug 'preservim/nerdtree'
         nnoremap <leader>n :NERDTreeFocus<CR>
         nnoremap <C-n> :NERDTree<CR>
