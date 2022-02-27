@@ -1,15 +1,16 @@
 #!/bin/bash
 
 echo "Remember Vaheguru Ji With Every Breath"
-screenfetch
+#screenfetch
 
 alias cs280="cd /mnt/c/Users/gians/Desktop/CS/SchoolStuff/CS280"
 alias cs="cd /mnt/c/Users/gians/Desktop/CS/"
 alias schoolstuff="cd /mnt/c/Users/gians/Desktop/CS/SchoolStuff"
 alias webdev="cd /mnt/c/Users/gians/Desktop/CS/WebDev"
 alias pythons="cd /mnt/c/Users/gians/Desktop/CS/pythons"
-alias open-pdf="xdg-open"
+alias opdf="xdg-open"
 alias sdoji="python3 /mnt/c/Users/gians/Desktop/CS/pythons/randomstuff/randSikhStuff/sdoJi/sdojiWeb.py"
+alias start="explorer.exe"
 
 BLUE='\[\e[01;34m\]'
 RED='\[\e[01;31m\]'
@@ -61,3 +62,5 @@ fi
 #\ - a backslash
 #[ - begin a sequence of non-printing characters, which could be used to embed a terminal control sequence into the prompt
 #] - end a sequence of non-printing characters
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

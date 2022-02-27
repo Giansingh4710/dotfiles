@@ -1,7 +1,8 @@
 #!/bin/bash
-filesForSymLink=(".vimrc" ".bashrc" ".tmux.conf")
+filesForSymLink=(".vimrc" ".bashrc" ".tmux.conf" "init.vim")
+pathToSymLink=(~/.vimrc ~/.bashrc ~/.tmux.conf ~/.config/nvim/init.vim)
 for i in ${!filesForSymLink[@]}
 do
-    ln -fs ~/.dotfiles/${filesForSymLink[i]} ~/${filesForSymLink[i]} 
-    echo "symlink created for ${filesForSymLink[i]}"
+    sudo ln -sf ~/.dotfiles/${filesForSymLink[i]} ${pathToSymLink[i]} 
+    #echo "symlink created for ${filesForSymLink[i]}"
 done

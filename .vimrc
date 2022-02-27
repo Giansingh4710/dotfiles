@@ -8,9 +8,7 @@ set nu
 set relativenumber
 set nowrap
 set noswapfile
-set incsearch
-set nohlsearch
-set scrolloff=8
+set scrolloff=5
 set colorcolumn=80
 set laststatus=2
 set complete+=kspell
@@ -19,17 +17,40 @@ set wildmode=list,full
 set omnifunc=syntaxcomplete#complete
 set background=dark
 set t_Co=256
+
 set foldmethod=indent
+"open all folds when you open a file 
+set nofoldenable
+"have vim define folds automatically by indent level, but would also like to create folds manually
+
+"better searching
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+nnoremap <CR> :nohlsearch<CR>
+
 set showcmd
 let mapleader="\<Space>"
 
 "fuzzy finder
-filetype plugin on
+"filetype plugin on
 set wildmenu
-set path+=** "search every subdirectory in dir, and every dir in subdirectory
+"set path+=** "search every subdirectory in dir, and every dir in subdirectory
 
 " :PlugInstall to install plugins
 call plug#begin('~/.vim/plugged')
+    Plug 'mattn/emmet-vim'
+    let g:user_emmet_leader_key=','
+
+    Plug 'pangloss/vim-javascript'
+    Plug 'maxmellon/vim-jsx-pretty'
+    let g:vim_jsx_pretty_colorful_config = 1 " default 0
+
+    "fuzzy finding
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
+
     Plug 'kshenoy/vim-signature' "view your marks
     Plug 'preservim/nerdtree'
         nnoremap <leader>n :NERDTreeFocus<CR>
@@ -38,18 +59,28 @@ call plug#begin('~/.vim/plugged')
         nnoremap <C-f> :NERDTreeFind<CR>
     Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
     Plug 'terryma/vim-multiple-cursors'
+
     Plug 'itchyny/lightline.vim' "the cool bar on the bottom that tells you if your in instert/command/normal mode 
+    "show absolute path in lightline
+    let g:lightline = {
+                \ 'active': {
+                \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified' ] ],
+                \ }
+                \ }
+
     Plug 'vim-scripts/AutoComplPop' "auto completion pops up automaticaly instead of <C-p>
     Plug 'https://github.com/ycm-core/YouCompleteMe.git'
-        nnoremap gd :YcmCompleter GoTo<CR>
+    nnoremap gd :YcmCompleter GoTo<CR>
+
     Plug 'preservim/nerdcommenter'
-        "for commenting. nerdcommenter toggle is <leader>c<Space>.
-        map <leader>/ <space>c<space>
+    "for commenting. nerdcommenter toggle is <leader>c<Space>.
+    map <leader>/ <space>c<space>
+
     Plug 'NLKNguyen/papercolor-theme' "colorscheme
     Plug 'morhetz/gruvbox' "color scheme
-    Plug 'christoomey/vim-tmux-navigator' "tmux and vim window switcher
-call plug#end()
 
+    Plug 'christoomey/vim-tmux-navigator' "tmux and vim window switcher BEST
+call plug#end()
 "colorscheme gruvbox
 colorscheme PaperColor
 
@@ -84,22 +115,36 @@ vnoremap <leader>r yy:%s/<C-R>"//gc<LEFT><LEFT><LEFT>
 cnoremap ,cpp !g++ <C-r>%;./a.out 
 cnoremap ,py !python3 <C-r>%
 
+"compare windows
 function DiffWindo()
     if &diff
-        :diffoff
+        :windo diffoff
     else
         if len(tabpagebuflist()) > 1
             :windo diffthis
         else
             :vs
             :Ex
-            "call feedkeys(':vs<CR>')
         endif
     endif
 endfunction
-
 nnoremap <leader>d :call DiffWindo()<CR>
 
+"bookmark in NerdTree
+function BookmarkDir()
+    if exists("g:NERDTree") && g:NERDTree.IsOpen()
+        :Bookmark
+    else
+        echo "NERDTree not Open"
+    endif
+endfunction
+nnoremap <leader>b :call BookmarkDir()<CR>
+
+"open a new tab
+nnoremap <leader>t :tabnew<CR>:Ex<CR>
+
+"open fzf
+nnoremap <leader>f :Files<CR>
 
 "starter templetes for files
 nnoremap ,cpp :r ~/.dotfiles/skeletons/cpp<CR>gg"_dd4j
@@ -108,7 +153,7 @@ nnoremap ,java :r !bash ~/.dotfiles/skeletons/java.sh %<CR>gg"_dd2j
 
 "for highlighting Yanked Text
 function! DeleteTemporaryMatch(timerId)
-        call matchdelete(g:idTemporaryHighlight)
+    call matchdelete(g:idTemporaryHighlight)
 endfunction
 
 function! FlashYankedText()
