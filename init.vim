@@ -106,6 +106,8 @@ colorscheme PaperColor
     nnoremap <leader>j :wincmd +<CR>
     nnoremap <leader>k :wincmd -<CR>
     nnoremap <leader>l :wincmd ><CR>
+    "make a split into a tab BUT keep the split in the other tab
+    nnoremap <C-w>t :tabnew %<CR>
     "yank till end of line
     nnoremap Y y$
     "Go to Begining of line
