@@ -19,7 +19,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'jiangmiao/auto-pairs' "completes bracket pairs
     Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "css colors
     Plug 'Yggdroot/indentLine' "show indent lines
-    "Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
     Plug 'https://github.com/jaredgorski/SpaceCamp'
     Plug 'NLKNguyen/papercolor-theme' "colorscheme
@@ -67,7 +67,6 @@ colorscheme PaperColor
 
 "Basic Defaults
     syntax enable
-    set nocompatible
     set mouse=a
     set tabstop=4 softtabstop=4
     set shiftwidth=4
@@ -85,8 +84,8 @@ colorscheme PaperColor
     set completeopt=menuone,longest
     set wildmode=list,full
     set omnifunc=syntaxcomplete#complete
-    set background=dark
-    set t_Co=256
+    "set background=dark
+    "set t_Co=256
     set foldmethod=indent
     "set nofoldenable "open folds when file open
 
@@ -98,8 +97,6 @@ colorscheme PaperColor
     nnoremap <CR> :nohlsearch<CR>
     set showcmd
     set wildmenu
-
-    set termguicolors
 "Done
 
 "Remapings
