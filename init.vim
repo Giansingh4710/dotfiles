@@ -19,15 +19,19 @@ call plug#begin('~/.vim/plugged')
     Plug 'jiangmiao/auto-pairs' "completes bracket pairs
     Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "css colors
     Plug 'Yggdroot/indentLine' "show indent lines
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    "Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
+    Plug 'https://github.com/jaredgorski/SpaceCamp'
     Plug 'NLKNguyen/papercolor-theme' "colorscheme
     Plug 'morhetz/gruvbox' "color scheme
 call plug#end()
 
+    
+colorscheme PaperColor
 "Settings for plugins
-    colorscheme gruvbox
-    "colorscheme PaperColor
+    "colorscheme gruvbox
+    colorscheme PaperColor
+    "colorscheme spacecamp
 
     " Find files using Telescope command-line sugar.
     nnoremap <leader>ff <cmd>Telescope find_files<cr>
@@ -37,17 +41,15 @@ call plug#end()
 
     let g:Hexokinase_highlighters = [ 'backgroundfull' ]
 
+    let g:lightline = {
+                \ 'active': {
+                    \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified'] ],
+                    \ }
+                    \ }
     "for commenting. nerdcommenter toggle is <leader>c<Space>.
     map <leader>/ <space>c<space>
 
     let g:user_emmet_leader_key=','
-
-    "show absolute path in lightline
-    let g:lightline = {
-                \ 'active': {
-                    \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified' ] ],
-                    \ }
-                    \ }
     nnoremap <leader>n :NERDTreeFocus<CR>
     nnoremap <C-n> :NERDTree<CR>
     nnoremap <C-t> :NERDTreeToggle<CR>
@@ -64,9 +66,6 @@ call plug#end()
 "Done
 
 "Basic Defaults
-    "set listchars=tab:\|\ 
-    set list lcs=tab:\|\
-    "set list
     syntax enable
     set nocompatible
     set mouse=a
@@ -79,7 +78,7 @@ call plug#end()
     set relativenumber
     set nowrap
     set noswapfile
-    set scrolloff=5
+    "set scrolloff=5
     set colorcolumn=80
     set laststatus=2
     set complete+=kspell
@@ -90,12 +89,12 @@ call plug#end()
     set t_Co=256
     set foldmethod=indent
     "set nofoldenable "open folds when file open
-    
+
     "better searching
     set incsearch
     "set hlsearch
     set ignorecase
-    set smartcase
+    "set smartcase
     nnoremap <CR> :nohlsearch<CR>
     set showcmd
     set wildmenu
@@ -103,7 +102,7 @@ call plug#end()
     set termguicolors
 "Done
 
-" Remapings
+"Remapings
     inoremap jk <ESC>
     "make it easier to resize
     nnoremap <leader>h :wincmd <<CR>
@@ -126,8 +125,8 @@ call plug#end()
     "open a new tab
     nnoremap <leader>t :tabnew<CR>:Ex<CR>
 
-    nnoremap <leader>ev :vs $MYVIMRC<CR>
-    nnoremap <leader>sv :w<cr>:source $MYVIMRC<CR>
+    nnoremap <leader>ev :vs ~/.dotfiles/init.vim<CR>
+    nnoremap <leader>sv :w<cr>:source ~/.dotfiles/init.vim<CR>
 
     "If PUM (complete menu) is visible, then execute <C-y> (which selects an "item), otherwise regular tab
     inoremap <expr> <TAB> pumvisible() ? "<C-y>" : "<TAB>"
@@ -136,7 +135,7 @@ call plug#end()
     nnoremap ,cpp :r ~/.dotfiles/skeletons/cpp<CR>gg"_dd4j
     nnoremap ,html :r ~/.dotfiles/skeletons/html<CR>gg"_dd9j
     nnoremap ,java :r !bash ~/.dotfiles/skeletons/java.sh %<CR>gg"_dd2j
-    
+
     "compare windows
     function! DiffWindo()
         if &diff
@@ -151,7 +150,7 @@ call plug#end()
         endif
     endfunction
     nnoremap <leader>d :call DiffWindo()<CR>
-" Done Remapings
+"Done Remapings
 
 "Other Things
     "I like html files to only be indented by 2 spaces instead of normal 4
@@ -167,27 +166,27 @@ call plug#end()
     augroup END
 
     if has('nvim')
-        " Use Alt + ; to go to normal mode
+        "" Use Alt + ; to go to normal mode
         tnoremap <A-;> <C-\><C-n>
-        " Use Alt + Shift + ; to go to command mode
+        "" Use Alt + Shift + ; to go to command mode
         tnoremap <A-:> <C-\><C-n>:
-        " Open new terminals in splits
-        cabbrev term <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'split term://bash' : 'term')<CR>
-        cabbrev vterm <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vsplit term://bash' : 'vterm')<CR>
+        "" Open new terminals in splits
+        "cabbrev term <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'split term://bash' : 'term')<CR>
+        "cabbrev vterm <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vsplit term://bash' : 'vterm')<CR>
         augroup term_cmds
             autocmd!
-            " Bypass normal mode when changing focus to terminal buffer
+            "" Bypass normal mode when changing focus to terminal buffer
             autocmd BufWinEnter,WinEnter term://* startinsert
-            " Toggle numbers off when in terminal mode, on when in normal mode
+            "" Toggle numbers off when in terminal mode, on when in normal mode
             autocmd TermEnter term://* setlocal nonu nornu
             autocmd TermLeave term://* setlocal nu rnu
-            " Immediately close terminal window when process finishes
+            "" Immediately close terminal window when process finishes
             autocmd TermClose term://* close
         augroup END
     else
-        " Use Alt + ; to go to normal mode
+        "" Use Alt + ; to go to normal mode
         tnoremap <A-:> <C-w><S-n>
-        " Use Alt + Shift + ; to go to command mode
+        "" Use Alt + Shift + ; to go to command mode
         tnoremap <A-:> <C-w><S-n>:
         cnoreabbrev vterm vert term
     endif
