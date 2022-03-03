@@ -13,13 +13,13 @@ call plug#begin('~/.vim/plugged')
     Plug 'preservim/nerdtree'
     Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
     Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
-    Plug 'vim-scripts/AutoComplPop' "auto completion pops up automaticaly instead of <C-p>
+    "Plug 'vim-scripts/AutoComplPop' "auto completion pops up automaticaly instead of <C-p>
     Plug 'preservim/nerdcommenter'
     Plug 'christoomey/vim-tmux-navigator' "tmux and vim window switcher BEST
-    Plug 'jiangmiao/auto-pairs' "completes bracket pairs
     Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "css colors
     Plug 'Yggdroot/indentLine' "show indent lines
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'hrsh7th/nvim-cmp'
 
     Plug 'https://github.com/jaredgorski/SpaceCamp'
     Plug 'NLKNguyen/papercolor-theme' "colorscheme
@@ -68,6 +68,7 @@ colorscheme PaperColor
 "Basic Defaults
     syntax enable
     set mouse=a
+    set cursorline
     set tabstop=4 softtabstop=4
     set shiftwidth=4
     set encoding=UTF-8
@@ -170,8 +171,8 @@ colorscheme PaperColor
         "" Use Alt + Shift + ; to go to command mode
         tnoremap <A-:> <C-\><C-n>:
         "" Open new terminals in splits
-        "cabbrev term <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'split term://bash' : 'term')<CR>
-        "cabbrev vterm <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vsplit term://bash' : 'vterm')<CR>
+        cabbrev term <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'split term://bash' : 'term')<CR>
+        cabbrev vterm <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vsplit term://bash' : 'vterm')<CR>
         augroup term_cmds
             autocmd!
             "" Bypass normal mode when changing focus to terminal buffer
