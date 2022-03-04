@@ -3,7 +3,7 @@
 let mapleader="\<Space>"
 
 ":PlugInstall to install plugins
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
     Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
     Plug 'mattn/emmet-vim' "autocomplet tags
     Plug 'itchyny/lightline.vim' "status bar
@@ -15,22 +15,24 @@ call plug#begin('~/.vim/plugged')
     Plug 'preservim/nerdcommenter'
     Plug 'christoomey/vim-tmux-navigator' "tmux and vim window switcher BEST
     Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "css colors
-    Plug 'glepnir/dashboard-nvim'
+    Plug 'glepnir/dashboard-nvim' "nice dashboard when you do just nvim
     "Plug 'Yggdroot/indentLine' "show indent lines
-    "Plug 'hrsh7th/nvim-cmp'
 
     "ide stuff
     Plug 'nvim-lua/plenary.nvim'
-    Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-telescope/telescope.nvim' "fuzzy finder
     Plug 'neovim/nvim-lspconfig'
     Plug 'williamboman/nvim-lsp-installer', { 'branch': 'main' }
-    Plug 'hrsh7th/nvim-compe'
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+    "Plug 'nvim-lua/popup.nvim'
+    "Plug 'hrsh7th/nvim-compe'
+    "Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    "Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
     Plug 'https://github.com/rafi/awesome-vim-colorschemes'
 call plug#end()
+
+"for lua config
+lua require('gian')
 
 "Settings for plugins
     "colorscheme gruvbox
@@ -245,23 +247,18 @@ call plug#end()
 
 
     " >> Lsp key bindings
-    nnoremap gd    <cmd>lua vim.lsp.buf.definition()<CR>
-    nnoremap <C-]> <cmd>lua vim.lsp.buf.definition()<CR>
-    nnoremap gD    <cmd>lua vim.lsp.buf.declaration()<CR>
-    nnoremap gr    <cmd>lua vim.lsp.buf.references()<CR>
-    nnoremap gi    <cmd>lua vim.lsp.buf.implementation()<CR>
-    nnoremap K     <cmd>Lspsaga hover_doc<CR>
-    nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-    nnoremap <C-p> <cmd>Lspsaga diagnostic_jump_prev<CR>
-    nnoremap <C-n> <cmd>Lspsaga diagnostic_jump_next<CR>
-    nnoremap gf    <cmd>lua vim.lsp.buf.formatting()<CR>
-    nnoremap gn    <cmd>lua vim.lsp.buf.rename()<CR>
-    nnoremap ga    <cmd>Lspsaga code_action<CR>
-    xnoremap ga    <cmd>Lspsaga range_code_action<CR>
-    nnoremap gs    <cmd>Lspsaga signature_help<CR>
-    nnoremap <leader>b :call BookmarkDir()<CR>
-lua <<EOF
-    require("lsp")
-    require("treesitter")
-    require("completion")
-EOF
+    "nnoremap gd    <cmd>lua vim.lsp.buf.definition()<CR>
+    "nnoremap <C-]> <cmd>lua vim.lsp.buf.definition()<CR>
+    "nnoremap gD    <cmd>lua vim.lsp.buf.declaration()<CR>
+    "nnoremap gr    <cmd>lua vim.lsp.buf.references()<CR>
+    "nnoremap gi    <cmd>lua vim.lsp.buf.implementation()<CR>
+    "nnoremap K     <cmd>Lspsaga hover_doc<CR>
+    "nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+    "nnoremap <C-p> <cmd>Lspsaga diagnostic_jump_prev<CR>
+    "nnoremap <C-n> <cmd>Lspsaga diagnostic_jump_next<CR>
+    "nnoremap gf    <cmd>lua vim.lsp.buf.formatting()<CR>
+    "nnoremap gn    <cmd>lua vim.lsp.buf.rename()<CR>
+    "nnoremap ga    <cmd>Lspsaga code_action<CR>
+    "xnoremap ga    <cmd>Lspsaga range_code_action<CR>
+    "nnoremap gs    <cmd>Lspsaga signature_help<CR>
+    "nnoremap <leader>b :call BookmarkDir()<CR>
