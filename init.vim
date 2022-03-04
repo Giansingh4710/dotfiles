@@ -1,8 +1,10 @@
 "Neo Vim
 
+"for lua config
+lua require('gian')
+
 let mapleader="\<Space>"
 
-":PlugInstall to install plugins
 call plug#begin('~/.config/nvim/plugged')
     Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
     Plug 'mattn/emmet-vim' "autocomplet tags
@@ -16,7 +18,8 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'christoomey/vim-tmux-navigator' "tmux and vim window switcher BEST
     Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "css colors
     Plug 'glepnir/dashboard-nvim' "nice dashboard when you do just nvim
-    "Plug 'Yggdroot/indentLine' "show indent lines
+    Plug 'Yggdroot/indentLine' "show indent lines
+    Plug 'kyazdani42/nvim-web-devicons'
 
     "ide stuff
     Plug 'nvim-lua/plenary.nvim'
@@ -31,32 +34,46 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'https://github.com/rafi/awesome-vim-colorschemes'
 call plug#end()
 
-"for lua config
-lua require('gian')
 
 "Settings for plugins
-    "colorscheme gruvbox
-    "colorscheme PaperColor
     colorscheme dogrun
+    hi Normal guibg=NONE ctermbg=NONE "makes backdround transparent
 
-    " Default value is clap
-    let g:dashboard_default_executive ='telescope'
-    "SPC mean the leaderkey
-    let g:dashboard_custom_shortcut={
-        \ 'last_session'       : 'SPC s l',
-        \ 'find_history'       : 'SPC f h',
-        \ 'find_file'          : 'SPC f f',
-        \ 'new_file'           : 'SPC c n',
-        \ 'change_colorscheme' : 'SPC t c',
-        \ 'find_word'          : 'SPC f a',
-        \ 'book_marks'         : 'SPC f b',
-        \ }
+    "Nerd Tree
+        nnoremap <leader>n :NERDTreeFocus<CR>
+        "nnoremap <C-n> :NERDTree<CR>
+        nnoremap <C-t> :NERDTreeToggle<CR>
+        nnoremap <C-f> :NERDTreeFind<CR>
+        "bookmark in NerdTree
+        function! BookmarkDir()
+            if exists("g:NERDTree") && g:NERDTree.IsOpen()
+                :Bookmark
+            else
+                echo "NERDTree not Open"
+            endif
+        endfunction
+        nnoremap <leader>b :call BookmarkDir()<CR>
+
+    "Dashboard when you type nvim
+        " Default value is clap
+        let g:dashboard_default_executive ='telescope'
+        "SPC mean the leaderkey
+        let g:dashboard_custom_shortcut={
+            \ 'last_session'       : 'SPC s l',
+            \ 'find_history'       : 'SPC f h',
+            \ 'find_file'          : 'SPC f f',
+            \ 'new_file'           : 'SPC c n',
+            \ 'change_colorscheme' : 'SPC t c',
+            \ 'find_word'          : 'SPC f a',
+            \ 'book_marks'         : 'SPC f b',
+            \ }
 
     " Find files using Telescope command-line sugar.
-    nnoremap <leader>ff <cmd>Telescope find_files<cr>
-    nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-    nnoremap <leader>fb <cmd>Telescope buffers<cr>
-    nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+        nnoremap <leader>ff <cmd>Telescope find_files<cr>
+        nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+        nnoremap <leader>fb <cmd>Telescope buffers<cr>
+        nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
     let g:Hexokinase_highlighters = [ 'backgroundfull' ]
     let g:lightline = {
                 \ 'active': {
@@ -65,21 +82,7 @@ lua require('gian')
                     \ }
     "for commenting. nerdcommenter toggle is <leader>c<Space>.
     map <leader>/ <space>c<space>
-
     let g:user_emmet_leader_key=','
-    nnoremap <leader>n :NERDTreeFocus<CR>
-    "nnoremap <C-n> :NERDTree<CR>
-    nnoremap <C-t> :NERDTreeToggle<CR>
-    nnoremap <C-f> :NERDTreeFind<CR>
-    "bookmark in NerdTree
-    function! BookmarkDir()
-        if exists("g:NERDTree") && g:NERDTree.IsOpen()
-            :Bookmark
-        else
-            echo "NERDTree not Open"
-        endif
-    endfunction
-
 "Done
 
 "Basic Defaults
@@ -150,8 +153,8 @@ lua require('gian')
     "open a new tab
     nnoremap <leader>t :tabnew<CR>:Ex<CR>
 
-    nnoremap <leader>ev :vs ~/.dotfiles/init.vim<CR>
-    nnoremap <leader>sv :w<cr>:source ~/.dotfiles/init.vim<CR>
+    nnoremap <leader>ev :tabnew $MYVIMRC<CR>:cd %:p:h<CR>
+    nnoremap <leader>sv :w<cr>:source $MYVIMRC<CR>
 
     "If PUM (complete menu) is visible, then execute <C-y> (which selects an "item), otherwise regular tab
     inoremap <expr> <TAB> pumvisible() ? "<C-y>" : "<TAB>"
@@ -261,4 +264,3 @@ lua require('gian')
     "nnoremap ga    <cmd>Lspsaga code_action<CR>
     "xnoremap ga    <cmd>Lspsaga range_code_action<CR>
     "nnoremap gs    <cmd>Lspsaga signature_help<CR>
-    "nnoremap <leader>b :call BookmarkDir()<CR>
