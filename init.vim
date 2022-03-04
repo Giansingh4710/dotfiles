@@ -7,8 +7,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
     Plug 'mattn/emmet-vim' "autocomplet tags
     Plug 'itchyny/lightline.vim' "status bar
-    Plug 'nvim-lua/plenary.nvim' "for telescope.nvim
-    Plug 'nvim-telescope/telescope.nvim' "fuzzy finding
     Plug 'kshenoy/vim-signature' "view your marks
     Plug 'preservim/nerdtree'
     Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
@@ -17,30 +15,47 @@ call plug#begin('~/.vim/plugged')
     Plug 'preservim/nerdcommenter'
     Plug 'christoomey/vim-tmux-navigator' "tmux and vim window switcher BEST
     Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "css colors
-    Plug 'Yggdroot/indentLine' "show indent lines
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'hrsh7th/nvim-cmp'
+    Plug 'glepnir/dashboard-nvim'
+    "Plug 'Yggdroot/indentLine' "show indent lines
+    "Plug 'hrsh7th/nvim-cmp'
 
-    Plug 'https://github.com/jaredgorski/SpaceCamp'
-    Plug 'NLKNguyen/papercolor-theme' "colorscheme
-    Plug 'morhetz/gruvbox' "color scheme
+    "ide stuff
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-lua/popup.nvim'
+    Plug 'nvim-telescope/telescope.nvim' "fuzzy finder
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'williamboman/nvim-lsp-installer', { 'branch': 'main' }
+    Plug 'hrsh7th/nvim-compe'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+
+    Plug 'https://github.com/rafi/awesome-vim-colorschemes'
 call plug#end()
 
-    
-colorscheme PaperColor
 "Settings for plugins
     "colorscheme gruvbox
-    colorscheme PaperColor
-    "colorscheme spacecamp
+    "colorscheme PaperColor
+    colorscheme dogrun
+
+    " Default value is clap
+    let g:dashboard_default_executive ='telescope'
+    "SPC mean the leaderkey
+    let g:dashboard_custom_shortcut={
+        \ 'last_session'       : 'SPC s l',
+        \ 'find_history'       : 'SPC f h',
+        \ 'find_file'          : 'SPC f f',
+        \ 'new_file'           : 'SPC c n',
+        \ 'change_colorscheme' : 'SPC t c',
+        \ 'find_word'          : 'SPC f a',
+        \ 'book_marks'         : 'SPC f b',
+        \ }
 
     " Find files using Telescope command-line sugar.
     nnoremap <leader>ff <cmd>Telescope find_files<cr>
     nnoremap <leader>fg <cmd>Telescope live_grep<cr>
     nnoremap <leader>fb <cmd>Telescope buffers<cr>
     nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-
     let g:Hexokinase_highlighters = [ 'backgroundfull' ]
-
     let g:lightline = {
                 \ 'active': {
                     \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified'] ],
@@ -51,7 +66,7 @@ colorscheme PaperColor
 
     let g:user_emmet_leader_key=','
     nnoremap <leader>n :NERDTreeFocus<CR>
-    nnoremap <C-n> :NERDTree<CR>
+    "nnoremap <C-n> :NERDTree<CR>
     nnoremap <C-t> :NERDTreeToggle<CR>
     nnoremap <C-f> :NERDTreeFind<CR>
     "bookmark in NerdTree
@@ -62,11 +77,19 @@ colorscheme PaperColor
             echo "NERDTree not Open"
         endif
     endfunction
-    nnoremap <leader>b :call BookmarkDir()<CR>
+
 "Done
 
 "Basic Defaults
     syntax enable
+    set cmdheight=2 "more space in the neovim command line for displaying messages
+    set pumheight=10 "pop up menu height
+    set showtabline=2 "always show tabs
+    set termguicolors "set term gui colors (most terminals support this)
+    set timeoutlen=1000 "time to wait for a mapped sequence to complete (in milliseconds)
+    set updatetime=300 "                        -- faster completion (4000ms default)
+    set cursorline " = true,                       -- highlight the current line
+    set sidescrolloff=8 ",
     set mouse=a
     set cursorline
     set tabstop=4 softtabstop=4
@@ -210,8 +233,6 @@ colorscheme PaperColor
         let &t_EI = "\e[2 q"
     endif
 
-
-
     "WSL yank support
     let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path
     if executable(s:clip)
@@ -220,3 +241,27 @@ colorscheme PaperColor
             autocmd TextYankPost * if v:event.operator ==# 'y' |call system(s:clip, @0) | endif
         augroup END
     endif
+"Done
+
+
+    " >> Lsp key bindings
+    nnoremap gd    <cmd>lua vim.lsp.buf.definition()<CR>
+    nnoremap <C-]> <cmd>lua vim.lsp.buf.definition()<CR>
+    nnoremap gD    <cmd>lua vim.lsp.buf.declaration()<CR>
+    nnoremap gr    <cmd>lua vim.lsp.buf.references()<CR>
+    nnoremap gi    <cmd>lua vim.lsp.buf.implementation()<CR>
+    nnoremap K     <cmd>Lspsaga hover_doc<CR>
+    nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+    nnoremap <C-p> <cmd>Lspsaga diagnostic_jump_prev<CR>
+    nnoremap <C-n> <cmd>Lspsaga diagnostic_jump_next<CR>
+    nnoremap gf    <cmd>lua vim.lsp.buf.formatting()<CR>
+    nnoremap gn    <cmd>lua vim.lsp.buf.rename()<CR>
+    nnoremap ga    <cmd>Lspsaga code_action<CR>
+    xnoremap ga    <cmd>Lspsaga range_code_action<CR>
+    nnoremap gs    <cmd>Lspsaga signature_help<CR>
+    nnoremap <leader>b :call BookmarkDir()<CR>
+lua <<EOF
+    require("lsp")
+    require("treesitter")
+    require("completion")
+EOF

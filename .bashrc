@@ -11,6 +11,7 @@ alias pythons="cd /mnt/c/Users/gians/Desktop/CS/pythons"
 alias opdf="xdg-open"
 alias sdoji="python3 /mnt/c/Users/gians/Desktop/CS/pythons/randomstuff/randSikhStuff/sdoJi/sdojiWeb.py"
 alias start="explorer.exe"
+alias nv="nvim"
 
 BLUE='\[\e[01;34m\]'
 RED='\[\e[01;31m\]'
