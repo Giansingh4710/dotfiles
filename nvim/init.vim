@@ -1,11 +1,6 @@
 "Neo Vim
 
-"for lua config
-lua require('gian')
-
-let mapleader="\<Space>"
-
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.vim/plugged')
     Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
     Plug 'mattn/emmet-vim' "autocomplet tags
     Plug 'itchyny/lightline.vim' "status bar
@@ -16,29 +11,45 @@ call plug#begin('~/.config/nvim/plugged')
     "Plug 'vim-scripts/AutoComplPop' "auto completion pops up automaticaly instead of <C-p>
     Plug 'preservim/nerdcommenter'
     Plug 'christoomey/vim-tmux-navigator' "tmux and vim window switcher BEST
-    Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "css colors
-    Plug 'glepnir/dashboard-nvim' "nice dashboard when you do just nvim
     Plug 'Yggdroot/indentLine' "show indent lines
-    Plug 'kyazdani42/nvim-web-devicons'
-
-    "ide stuff
-    Plug 'nvim-lua/plenary.nvim'
-    Plug 'nvim-telescope/telescope.nvim' "fuzzy finder
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'williamboman/nvim-lsp-installer', { 'branch': 'main' }
-    "Plug 'nvim-lua/popup.nvim'
-    "Plug 'hrsh7th/nvim-compe'
-    "Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    "Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-
+    Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "css colors
     Plug 'https://github.com/rafi/awesome-vim-colorschemes'
+
+    if has('nvim')
+        Plug 'glepnir/dashboard-nvim' "nice dashboard when you do just nvim
+        Plug 'nvim-lua/popup.nvim' " -- An implementation of the Popup API from vim in Neovim
+        Plug 'nvim-lua/plenary.nvim' " -- Useful lua functions used ny lots of plugins
+        Plug 'kyazdani42/nvim-web-devicons'
+        Plug 'akinsho/toggleterm.nvim'
+        Plug 'folke/which-key.nvim'
+        Plug 'nvim-telescope/telescope.nvim'
+        " -- cmp plugins
+        Plug 'hrsh7th/nvim-cmp' " -- The completion plugin
+        Plug 'hrsh7th/cmp-buffer' " -- buffer completions
+        Plug 'hrsh7th/cmp-path' " -- path completions
+        Plug 'hrsh7th/cmp-cmdline' " -- cmdline completions
+        Plug 'saadparwaiz1/cmp_luasnip' " -- snippet completions
+        Plug 'hrsh7th/cmp-nvim-lsp'
+        " -- snippets
+        Plug 'L3MON4D3/LuaSnip' " --snippet engine
+        Plug 'rafamadriz/friendly-snippets' " -- a bunch of snippets to use
+        " -- LSP
+
+        Plug 'neovim/nvim-lspconfig' " -- enable LSP
+        Plug 'williamboman/nvim-lsp-installer' " -- simple to use language server installer
+        Plug 'tamago324/nlsp-settings.nvim' " -- language server settings defined in json for
+        Plug 'jose-elias-alvarez/null-ls.nvim' " -- for formatters and linters
+        " -- Treesitter
+        Plug 'nvim-treesitter/nvim-treesitter',
+        Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+    endif
 call plug#end()
 
-
+let mapleader="\<Space>"
 "Settings for plugins
-    colorscheme dogrun
+    colorscheme gruvbox
     hi Normal guibg=NONE ctermbg=NONE "makes backdround transparent
-
+    
     "Nerd Tree
         nnoremap <leader>n :NERDTreeFocus<CR>
         "nnoremap <C-n> :NERDTree<CR>
@@ -54,26 +65,6 @@ call plug#end()
         endfunction
         nnoremap <leader>b :call BookmarkDir()<CR>
 
-    "Dashboard when you type nvim
-        " Default value is clap
-        let g:dashboard_default_executive ='telescope'
-        "SPC mean the leaderkey
-        let g:dashboard_custom_shortcut={
-            \ 'last_session'       : 'SPC s l',
-            \ 'find_history'       : 'SPC f h',
-            \ 'find_file'          : 'SPC f f',
-            \ 'new_file'           : 'SPC c n',
-            \ 'change_colorscheme' : 'SPC t c',
-            \ 'find_word'          : 'SPC f a',
-            \ 'book_marks'         : 'SPC f b',
-            \ }
-
-    " Find files using Telescope command-line sugar.
-        nnoremap <leader>ff <cmd>Telescope find_files<cr>
-        nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-        nnoremap <leader>fb <cmd>Telescope buffers<cr>
-        nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-
     let g:Hexokinase_highlighters = [ 'backgroundfull' ]
     let g:lightline = {
                 \ 'active': {
@@ -83,6 +74,27 @@ call plug#end()
     "for commenting. nerdcommenter toggle is <leader>c<Space>.
     map <leader>/ <space>c<space>
     let g:user_emmet_leader_key=','
+    if has('nvim')
+        "Dashboard when you type nvim
+            " Default value is clap
+            let g:dashboard_default_executive ='telescope'
+            "SPC mean the leaderkey
+            let g:dashboard_custom_shortcut={
+                \ 'last_session'       : 'SPC s l',
+                \ 'find_history'       : 'SPC f h',
+                \ 'find_file'          : 'SPC f f',
+                \ 'new_file'           : 'SPC c n',
+                \ 'change_colorscheme' : 'SPC t c',
+                \ 'find_word'          : 'SPC f a',
+                \ 'book_marks'         : 'SPC f b',
+                \ }
+            
+        "Telescope. Find files using Telescope command-line sugar.
+            nnoremap <leader>ff <cmd>Telescope find_files<cr>
+            nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+            nnoremap <leader>fb <cmd>Telescope buffers<cr>
+            nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+    endif
 "Done
 
 "Basic Defaults
@@ -154,7 +166,7 @@ call plug#end()
     nnoremap <leader>t :tabnew<CR>:Ex<CR>
 
     nnoremap <leader>ev :tabnew $MYVIMRC<CR>:cd %:p:h<CR>
-    nnoremap <leader>sv :w<cr>:source $MYVIMRC<CR>
+    nnoremap <leader>sv :w<cr>:source $MYVIMRC <CR>
 
     "If PUM (complete menu) is visible, then execute <C-y> (which selects an "item), otherwise regular tab
     inoremap <expr> <TAB> pumvisible() ? "<C-y>" : "<TAB>"
@@ -194,6 +206,8 @@ call plug#end()
     augroup END
 
     if has('nvim')
+        "make terminal pop up in normalmode. It works in insert mode but not normal mode for some reason
+        nnoremap <C-\> :ToggleTerm<cr>
         "" Use Alt + ; to go to normal mode
         tnoremap <A-;> <C-\><C-n>
         "" Use Alt + Shift + ; to go to command mode
@@ -247,20 +261,4 @@ call plug#end()
         augroup END
     endif
 "Done
-
-
-    " >> Lsp key bindings
-    "nnoremap gd    <cmd>lua vim.lsp.buf.definition()<CR>
-    "nnoremap <C-]> <cmd>lua vim.lsp.buf.definition()<CR>
-    "nnoremap gD    <cmd>lua vim.lsp.buf.declaration()<CR>
-    "nnoremap gr    <cmd>lua vim.lsp.buf.references()<CR>
-    "nnoremap gi    <cmd>lua vim.lsp.buf.implementation()<CR>
-    "nnoremap K     <cmd>Lspsaga hover_doc<CR>
-    "nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-    "nnoremap <C-p> <cmd>Lspsaga diagnostic_jump_prev<CR>
-    "nnoremap <C-n> <cmd>Lspsaga diagnostic_jump_next<CR>
-    "nnoremap gf    <cmd>lua vim.lsp.buf.formatting()<CR>
-    "nnoremap gn    <cmd>lua vim.lsp.buf.rename()<CR>
-    "nnoremap ga    <cmd>Lspsaga code_action<CR>
-    "xnoremap ga    <cmd>Lspsaga range_code_action<CR>
-    "nnoremap gs    <cmd>Lspsaga signature_help<CR>
+lua require('user')

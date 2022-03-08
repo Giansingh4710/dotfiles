@@ -20,7 +20,7 @@ GREEN='\[\033[32m\]'
 YELLOW='\[\033[33m\]'
 set -o vi
 
-bind 'set completion-ignore-case on'
+
 parse_git_branch(){
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
