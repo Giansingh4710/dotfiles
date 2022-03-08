@@ -94,6 +94,7 @@ local mappings = {
 
     l = {
         name = "LSP",
+        t={"<cmd>ToggleDiag<cr>","Toggle LSP on/off"},
         a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
         d = {
             "<cmd>Telescope lsp_document_diagnostics<cr>",

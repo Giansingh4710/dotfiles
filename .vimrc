@@ -1,4 +1,4 @@
-"Neo Vim
+"Vim
 
 let mapleader="\<Space>"
 call plug#begin('~/.vim/plugged')
@@ -39,7 +39,6 @@ call plug#begin('~/.vim/plugged')
         Plug 'williamboman/nvim-lsp-installer' " -- simple to use language server installer
         Plug 'tamago324/nlsp-settings.nvim' " -- language server settings defined in json for
         Plug 'jose-elias-alvarez/null-ls.nvim' " -- for formatters and linters
-        Plug 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim' " toggle lsp on off
         " -- Treesitter
         Plug 'nvim-treesitter/nvim-treesitter',
         Plug 'JoosepAlviste/nvim-ts-context-commentstring'
@@ -119,7 +118,7 @@ call plug#end()
     set relativenumber
     set nowrap
     set noswapfile
-    set scrolloff=8
+    "set scrolloff=5
     set colorcolumn=80
     set laststatus=2
     set complete+=kspell
@@ -136,7 +135,7 @@ call plug#end()
     "set hlsearch
     set ignorecase
     "set smartcase
-    nnoremap <Leader><CR> :nohlsearch<CR>
+    nnoremap <CR> :nohlsearch<CR>
     set showcmd
     set wildmenu
 "Done
@@ -205,6 +204,34 @@ call plug#end()
         autocmd!
         au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=100}
     augroup END
+
+    if has('nvim')
+        "make terminal pop up in normalmode. It works in insert mode but not normal mode for some reason
+        nnoremap <C-\> :ToggleTerm<cr>
+        "" Use Alt + ; to go to normal mode
+        tnoremap <A-;> <C-\><C-n>
+        "" Use Alt + Shift + ; to go to command mode
+        tnoremap <A-:> <C-\><C-n>:
+        "" Open new terminals in splits
+        cabbrev term <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'split term://bash' : 'term')<CR>
+        cabbrev vterm <C-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'vsplit term://bash' : 'vterm')<CR>
+        augroup term_cmds
+            autocmd!
+            "" Bypass normal mode when changing focus to terminal buffer
+            autocmd BufWinEnter,WinEnter term://* startinsert
+            "" Toggle numbers off when in terminal mode, on when in normal mode
+            autocmd TermEnter term://* setlocal nonu nornu
+            autocmd TermLeave term://* setlocal nu rnu
+            "" Immediately close terminal window when process finishes
+            autocmd TermClose term://* close
+        augroup END
+    else
+        "" Use Alt + ; to go to normal mode
+        tnoremap <A-:> <C-w><S-n>
+        "" Use Alt + Shift + ; to go to command mode
+        tnoremap <A-:> <C-w><S-n>:
+        cnoreabbrev vterm vert term
+    endif
 
     " Reference chart of values:
     "   Ps = 0  -> blinking block.
