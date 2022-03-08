@@ -1,5 +1,6 @@
 "Neo Vim
 
+let mapleader="\<Space>"
 call plug#begin('~/.vim/plugged')
     Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
     Plug 'mattn/emmet-vim' "autocomplet tags
@@ -34,7 +35,6 @@ call plug#begin('~/.vim/plugged')
         Plug 'L3MON4D3/LuaSnip' " --snippet engine
         Plug 'rafamadriz/friendly-snippets' " -- a bunch of snippets to use
         " -- LSP
-
         Plug 'neovim/nvim-lspconfig' " -- enable LSP
         Plug 'williamboman/nvim-lsp-installer' " -- simple to use language server installer
         Plug 'tamago324/nlsp-settings.nvim' " -- language server settings defined in json for
@@ -42,10 +42,10 @@ call plug#begin('~/.vim/plugged')
         " -- Treesitter
         Plug 'nvim-treesitter/nvim-treesitter',
         Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+        lua require('user')
     endif
 call plug#end()
 
-let mapleader="\<Space>"
 "Settings for plugins
     colorscheme gruvbox
     hi Normal guibg=NONE ctermbg=NONE "makes backdround transparent
@@ -261,4 +261,3 @@ let mapleader="\<Space>"
         augroup END
     endif
 "Done
-lua require('user')
