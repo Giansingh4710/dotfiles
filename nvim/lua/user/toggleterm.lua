@@ -10,7 +10,7 @@ toggleterm.setup({
 	hide_numbers = false,
 	shade_filetypes = {},
 	shade_terminals = true,
-	shading_factor = 2,
+	shading_factor = 1,
 	start_in_insert = true,
 	insert_mappings = true,
 	persist_size = true,
@@ -64,7 +64,7 @@ function _HTOP_TOGGLE()
 	htop:toggle()
 end
 
-local python = Terminal:new({ cmd = "python", hidden = true })
+local python = Terminal:new({ cmd = "python3", hidden = false })
 
 function _PYTHON_TOGGLE()
 	python:toggle()

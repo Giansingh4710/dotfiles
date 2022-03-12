@@ -38,7 +38,7 @@ call plug#begin('~/.vim/plugged')
         Plug 'neovim/nvim-lspconfig' " -- enable LSP
         Plug 'williamboman/nvim-lsp-installer' " -- simple to use language server installer
         Plug 'tamago324/nlsp-settings.nvim' " -- language server settings defined in json for
-        Plug 'jose-elias-alvarez/null-ls.nvim' " -- for formatters and linters
+        "Plug 'jose-elias-alvarez/null-ls.nvim' " -- for formatters and linters
         Plug 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim' " toggle lsp on off
         " -- Treesitter
         Plug 'nvim-treesitter/nvim-treesitter',
@@ -48,7 +48,7 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 "Settings for plugins
-    colorscheme gruvbox
+    colorscheme dogrun
     hi Normal guibg=NONE ctermbg=NONE "makes backdround transparent
     
     "Nerd Tree
@@ -77,24 +77,16 @@ call plug#end()
     let g:user_emmet_leader_key=','
     if has('nvim')
         "Dashboard when you type nvim
-            " Default value is clap
-            let g:dashboard_default_executive ='telescope'
-            "SPC mean the leaderkey
-            let g:dashboard_custom_shortcut={
-                \ 'last_session'       : 'SPC s l',
-                \ 'find_history'       : 'SPC f h',
-                \ 'find_file'          : 'SPC f f',
-                \ 'new_file'           : 'SPC c n',
-                \ 'change_colorscheme' : 'SPC t c',
-                \ 'find_word'          : 'SPC f a',
-                \ 'book_marks'         : 'SPC f b',
-                \ }
-            
-        "Telescope. Find files using Telescope command-line sugar.
-            nnoremap <leader>ff <cmd>Telescope find_files<cr>
-            nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-            nnoremap <leader>fb <cmd>Telescope buffers<cr>
-            nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+        let g:dashboard_default_executive ='telescope'
+        let g:dashboard_custom_shortcut={
+            \ 'last_session'       : 'SPC s l',
+            \ 'find_history'       : 'SPC f h',
+            \ 'find_file'          : 'SPC f f',
+            \ 'new_file'           : 'SPC c n',
+            \ 'change_colorscheme' : 'SPC t c',
+            \ 'find_word'          : 'SPC f a',
+            \ 'book_marks'         : 'SPC f b',
+            \ }
     endif
 "Done
 
@@ -102,9 +94,8 @@ call plug#end()
     syntax enable
     set cmdheight=2 "more space in the neovim command line for displaying messages
     set pumheight=10 "pop up menu height
-    set showtabline=2 "always show tabs
     set termguicolors "set term gui colors (most terminals support this)
-    set timeoutlen=1000 "time to wait for a mapped sequence to complete (in milliseconds)
+    set timeoutlen=500 "time to wait for a mapped sequence to complete (in milliseconds)
     set updatetime=300 "                        -- faster completion (4000ms default)
     set cursorline " = true,                       -- highlight the current line
     set sidescrolloff=8 ",
@@ -119,7 +110,7 @@ call plug#end()
     set relativenumber
     set nowrap
     set noswapfile
-    set scrolloff=8
+    "set scrolloff=8
     set colorcolumn=80
     set laststatus=2
     set complete+=kspell
@@ -183,7 +174,11 @@ call plug#end()
             :windo diffoff
         else
             if len(tabpagebuflist()) > 1
-                :windo diffthis
+                ":windo diffthis
+                :10 wincmd l "go to the right most pane
+                :diffthis
+                :wincmd h "go to the pane on left and compare it to that
+                :diffthis 
             else
                 :vs
                 :Ex
