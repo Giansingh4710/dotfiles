@@ -74,7 +74,7 @@ call plug#end()
                     \ }
     "for commenting. nerdcommenter toggle is <leader>c<Space>.
     map <leader>/ <space>c<space>
-    let g:user_emmet_leader_key=','
+    let g:user_emmet_leader_key='<'
     if has('nvim')
         "Dashboard when you type nvim
         let g:dashboard_default_executive ='telescope'
@@ -99,7 +99,7 @@ call plug#end()
     set updatetime=300 "                        -- faster completion (4000ms default)
     set cursorline " = true,                       -- highlight the current line
     set sidescrolloff=8 ",
-    set mouse=a
+    set mouse=a  
     set cursorline
     set tabstop=4 softtabstop=4
     set shiftwidth=4
@@ -110,13 +110,14 @@ call plug#end()
     set relativenumber
     set nowrap
     set noswapfile
-    "set scrolloff=8
+    set scrolloff=8
     set colorcolumn=80
     set laststatus=2
     set complete+=kspell
     set completeopt=menuone,longest
     set wildmode=list,full
-    set omnifunc=syntaxcomplete#complete
+    set confirm
+            
     "set background=dark
     "set t_Co=256
     set foldmethod=indent
@@ -153,10 +154,11 @@ call plug#end()
     "complie and run code faster
     cnoremap ,cpp !g++ <C-r>%;./a.out 
     cnoremap ,py !python3 <C-r>%
-
     "open a new tab
     nnoremap <leader>t :tabnew<CR>:Ex<CR>
 
+    "starter for multiline comment for react,js,java type langs
+    noremap gcc <ESC>O{/*<CR>*/}<ESC>
     nnoremap <leader>ev :tabnew $MYVIMRC<CR>:cd %:p:h<CR>
     nnoremap <leader>sv :w<cr>:source $MYVIMRC <CR>
 
