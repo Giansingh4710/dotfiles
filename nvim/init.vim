@@ -99,6 +99,7 @@ call plug#end()
     set updatetime=300 "                        -- faster completion (4000ms default)
     set cursorline " = true,                       -- highlight the current line
     set sidescrolloff=8 ",
+    set backspace=indent,eol,start "allow backspace to work
     set mouse=a  
     set cursorline
     set tabstop=4 softtabstop=4
