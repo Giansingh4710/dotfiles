@@ -1,4 +1,5 @@
-"Neo Vim
+
+"Vim
 
 let mapleader="\<Space>"
 call plug#begin('~/.vim/plugged')
@@ -48,8 +49,10 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 "Settings for plugins
+    set t_Co=256
     colorscheme gruvbox
-    "hi Normal guibg=NONE ctermbg=NONE "makes backdround transparent
+    set background=dark
+    hi Normal guibg=NONE ctermbg=NONE "makes backdround transparent
     
     "Nerd Tree
         nnoremap <leader>n :NERDTreeFocus<CR>
@@ -118,7 +121,6 @@ call plug#end()
     set completeopt=menuone,longest
     set wildmode=list,full
     set confirm
-    set encoding=utf-8
             
     "set background=dark
     "set t_Co=256
@@ -158,9 +160,6 @@ call plug#end()
     cnoremap ,py !python3 <C-r>%
     "open a new tab
     nnoremap <leader>t :tabnew<CR>:Ex<CR>
-    "move bufers  
-    nnoremap <leader>bl :bnext<CR>
-    nnoremap <leader>bh :bprev<CR>
 
     "starter for multiline comment for react,js,java type langs
     noremap gcc <ESC>O{/*<CR>*/}<ESC>
