@@ -79,20 +79,47 @@ local opts = {
 }
 
 local mappings = {
+    d = { ":call DiffWindo()<CR>","Compare Windows"},
+    h = { ":bprev<CR>","Prev Buff"},
+    l = { ":bnext<CR>","Next Buff"},
+    q = { "<cmd>Bdelete!<CR>","Buff Delete"},
+    c = { "<cmd>Bdelete!<CR>", "Close Buffer" },
+    ["<CR>"] = {":nohlsearch<cr>", "NO Highlight"},
+    S= {":w<CR>:so %<CR>","Save and Source"},
+
+    -- a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Action" },
+    v = { "<cmd>vsplit<cr>", "vsplit" },
+    ["/"] = { '<cmd>lua require("Comment.api").toggle_current_linewise()<CR>', "Comment" },
+    -- ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
+    b = {
+        name="Bookmarks",
+        a = { "<cmd>BookmarkAnnotate<cr>", "Annotate" },
+        b = { "<cmd>BookmarkToggle<cr>", "Toggle" },
+        c = { "<cmd>BookmarkClearAll<cr>", "Clear All" },
+        j = { "<cmd>silent BookmarkPrev<cr>", "Prev" },
+        k = { "<cmd>BookmarkNext<cr>", "Next" },
+        s = { "<cmd>silent BookmarkShowAll<cr>", "Prev" },
+        S = { "<cmd>Telescope harpoon marks<cr>", "Search Files" },
+    },
     f={
         name="Find",
-        f= {
-            "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>",
-            "Find files",
-        },
-        g={ "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
-        b= {
-            "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
-            "Buffers",
-        },
+        b = { "<cmd>Telescope buffers<cr>", "Find Buffer" },
+        c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
+        f = { "<cmd>Telescope find_files<cr>", "Find files" },
+        t = { "<cmd>Telescope live_grep<cr>", "Find Text" },
+        s = { "<cmd>Telescope grep_string<cr>", "Find String" },
+        h = { "<cmd>Telescope help_tags<cr>", "Help" },
+        H = { "<cmd>Telescope highlights<cr>", "Highlights" },
+        i = { "<cmd>lua require('telescope').extensions.media_files.media_files()<cr>", "Media" },
+        l = { "<cmd>Telescope resume<cr>", "Last Search" },
+        M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
+        r = { "<cmd>Telescope oldfiles<cr>", "Recent File" },
+        R = { "<cmd>Telescope registers<cr>", "Registers" },
+        k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
+        C = { "<cmd>Telescope commands<cr>", "Commands" },
     },
 
-    l = {
+    L = {
         name = "LSP",
         t={"<cmd>ToggleDiag<cr>","Toggle LSP on/off"},
         a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
@@ -149,3 +176,4 @@ local mappings = {
 
 which_key.setup(setup)
 which_key.register(mappings, opts)
+

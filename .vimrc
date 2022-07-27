@@ -15,42 +15,12 @@ call plug#begin('~/.vim/plugged')
     Plug 'Yggdroot/indentLine' "show indent lines
     Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "css colors
     Plug 'https://github.com/rafi/awesome-vim-colorschemes'
-
-    if has('nvim')
-        Plug 'nvim-lua/popup.nvim' " -- An implementation of the Popup API from vim in Neovim
-        Plug 'nvim-lua/plenary.nvim' " -- Useful lua functions used ny lots of plugins
-        Plug 'kyazdani42/nvim-web-devicons'
-        Plug 'akinsho/toggleterm.nvim'
-        Plug 'folke/which-key.nvim'
-        Plug 'nvim-telescope/telescope.nvim'
-        " -- cmp plugins
-        Plug 'hrsh7th/nvim-cmp' " -- The completion plugin
-        Plug 'hrsh7th/cmp-buffer' " -- buffer completions
-        Plug 'hrsh7th/cmp-path' " -- path completions
-        Plug 'hrsh7th/cmp-cmdline' " -- cmdline completions
-        Plug 'saadparwaiz1/cmp_luasnip' " -- snippet completions
-        Plug 'hrsh7th/cmp-nvim-lsp'
-        " -- snippets
-        Plug 'L3MON4D3/LuaSnip' " --snippet engine
-        Plug 'rafamadriz/friendly-snippets' " -- a bunch of snippets to use
-        " -- LSP
-        Plug 'neovim/nvim-lspconfig' " -- enable LSP
-        Plug 'williamboman/nvim-lsp-installer' " -- simple to use language server installer
-        Plug 'tamago324/nlsp-settings.nvim' " -- language server settings defined in json for
-        "Plug 'jose-elias-alvarez/null-ls.nvim' " -- for formatters and linters
-        Plug 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim' " toggle lsp on off
-        " -- Treesitter
-        Plug 'nvim-treesitter/nvim-treesitter',
-        Plug 'JoosepAlviste/nvim-ts-context-commentstring'
-        lua require('user')
-    endif
 call plug#end()
 
 "Settings for plugins
-    set t_Co=256
-    colorscheme gruvbox
     set background=dark
-    hi Normal guibg=NONE ctermbg=NONE "makes backdround transparent
+    colorscheme gruvbox
+    "hi Normal guibg=NONE ctermbg=NONE "makes backdround transparent
     
     "Nerd Tree
         nnoremap <leader>n :NERDTreeFocus<CR>
