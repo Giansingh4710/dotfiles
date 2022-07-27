@@ -48,6 +48,7 @@ call plug#end()
 
 "Settings for plugins
     colorscheme gruvbox
+    set background=dark
     "hi Normal guibg=NONE ctermbg=NONE "makes backdround transparent
     
     "Nerd Tree
@@ -157,9 +158,6 @@ call plug#end()
     cnoremap ,py !python3 <C-r>%
     "open a new tab
     nnoremap <leader>t :tabnew<CR>:Ex<CR>
-    "move bufers  
-    nnoremap <leader>bl :bnext<CR>
-    nnoremap <leader>bh :bprev<CR>
 
     "starter for multiline comment for react,js,java type langs
     noremap gcc <ESC>O{/*<CR>*/}<ESC>
