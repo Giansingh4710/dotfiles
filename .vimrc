@@ -1,4 +1,3 @@
-
 "Vim
 
 let mapleader="\<Space>"
@@ -18,7 +17,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'https://github.com/rafi/awesome-vim-colorschemes'
 
     if has('nvim')
-        Plug 'glepnir/dashboard-nvim' "nice dashboard when you do just nvim
         Plug 'nvim-lua/popup.nvim' " -- An implementation of the Popup API from vim in Neovim
         Plug 'nvim-lua/plenary.nvim' " -- Useful lua functions used ny lots of plugins
         Plug 'kyazdani42/nvim-web-devicons'
@@ -121,6 +119,7 @@ call plug#end()
     set completeopt=menuone,longest
     set wildmode=list,full
     set confirm
+    set encoding=utf-8
             
     "set background=dark
     "set t_Co=256
