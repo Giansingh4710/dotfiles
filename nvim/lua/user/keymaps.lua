@@ -40,8 +40,8 @@ keymap("o", "L", "$", opts)
 
 -- Visual --
 -- Stay in indent mode
--- keymap("v", "<", "<gv", opts)
--- keymap("v", ">", ">gv", opts)
+keymap("v", "<", "<gv", opts)
+keymap("v", ">", ">gv", opts)
 
 keymap("v", "p", '"_dP', opts)
 -- keymap("v", "P", '"_dP', opts)

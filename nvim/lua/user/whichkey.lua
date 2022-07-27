@@ -80,8 +80,8 @@ local opts = {
 
 local mappings = {
     d = { ":call DiffWindo()<CR>","Compare Windows"},
-    h = { ":bprev<CR>","Prev Buff"},
-    l = { ":bnext<CR>","Next Buff"},
+    -- h = { ":bprev<CR>","Prev Buff"},
+    -- l = { ":bnext<CR>","Next Buff"},
     q = { "<cmd>Bdelete!<CR>","Buff Delete"},
     c = { "<cmd>Bdelete!<CR>", "Close Buffer" },
     ["<CR>"] = {":nohlsearch<cr>", "NO Highlight"},
@@ -119,7 +119,7 @@ local mappings = {
         C = { "<cmd>Telescope commands<cr>", "Commands" },
     },
 
-    L = {
+    l = {
         name = "LSP",
         t={"<cmd>ToggleDiag<cr>","Toggle LSP on/off"},
         a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
