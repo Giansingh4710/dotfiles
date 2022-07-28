@@ -79,6 +79,7 @@ local opts = {
 }
 
 local mappings = {
+    e = {":lua require'lir.float'.toggle()<CR>","lir File Explorer"},
     d = { ":call DiffWindo()<CR>","Compare Windows"},
     H = { ":bprev<CR>","Prev Buff"},
     L = { ":bnext<CR>","Next Buff"},
