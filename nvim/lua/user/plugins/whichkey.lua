@@ -80,8 +80,8 @@ local opts = {
 
 local mappings = {
     d = { ":call DiffWindo()<CR>","Compare Windows"},
-    -- h = { ":bprev<CR>","Prev Buff"},
-    -- l = { ":bnext<CR>","Next Buff"},
+    H = { ":bprev<CR>","Prev Buff"},
+    L = { ":bnext<CR>","Next Buff"},
     q = { "<cmd>Bdelete!<CR>","Buff Delete"},
     c = { "<cmd>Bdelete!<CR>", "Close Buffer" },
     ["<CR>"] = {":nohlsearch<cr>", "NO Highlight"},
@@ -99,7 +99,6 @@ local mappings = {
         j = { "<cmd>silent BookmarkPrev<cr>", "Prev" },
         k = { "<cmd>BookmarkNext<cr>", "Next" },
         s = { "<cmd>silent BookmarkShowAll<cr>", "Prev" },
-        S = { "<cmd>Telescope harpoon marks<cr>", "Search Files" },
     },
     f={
         name="Find",

@@ -7,7 +7,7 @@ local hide_in_width = function()
     return vim.fn.winwidth(0) > 80
 end
 
-local icons = require "user.icons"
+local icons = require "user.plugins.icons"
 
 local diagnostics = {
     "diagnostics",
@@ -296,7 +296,7 @@ lualine.setup {
 --  return vim.o.columns > 100
 -- end
 --
--- local icons = require "user.icons"
+-- local icons = require "user.plugins.icons"
 --
 -- local diagnostics = {
 --     "diagnostics",

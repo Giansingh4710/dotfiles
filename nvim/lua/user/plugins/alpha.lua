@@ -11,7 +11,7 @@ local function button(sc, txt, keybind, keybind_opts)
   return b
 end
 
--- local icons = require "user.icons"
+-- local icons = require "user.plugin.icons"
 
 dashboard.section.header.val = {
   [[                               __                ]],
