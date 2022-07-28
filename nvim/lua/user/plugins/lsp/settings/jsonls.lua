@@ -1,4 +1,7 @@
+print("VAHEGUURURU, from lsp/settings/jsonls.lua")
 local status_ok, schemastore = pcall(require, "schemastore")
+print(status_ok)
+print(schemastore)
 if not status_ok then
   return
 end
