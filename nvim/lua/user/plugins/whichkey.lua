@@ -80,6 +80,7 @@ local opts = {
 
 local mappings = {
     N = {":!Notepad.exe %<CR>","Open in Notepad"},
+    V = {":tabnew $MYVIMRC<CR>","edit Vimrc"},
     e = {":lua require'lir.float'.toggle()<CR>","lir File Explorer"},
     d = { ":call DiffWindo()<CR>","Compare Windows"},
     H = { ":bprev<CR>","Prev Buff"},
