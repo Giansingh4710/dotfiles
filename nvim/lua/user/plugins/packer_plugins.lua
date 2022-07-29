@@ -47,10 +47,26 @@ packer.init({
 return packer.startup(function(use)
 	-- Plugin Mangager
 	use("wbthomason/packer.nvim") -- Have packer manage itself
-
-	--use("kshenoy/vim-signature") --view your marks
+	use("rcarriga/nvim-notify") --cool notifications
+	use("stevearc/dressing.nvim") --cool looks
+	use("moll/vim-bbye") --better buffer delete
+	use("lewis6991/impatient.nvim") --faster nvim
+	use("tversteeg/registers.nvim") --cool displau for registers
+	use("kyazdani42/nvim-web-devicons")
+	use("akinsho/bufferline.nvim") --top tab line
+	use("christianchiarulli/lualine.nvim") -- bottom Statusline
+	use("lukas-reineke/indent-blankline.nvim") --shows indent
+	use("tamago324/lir.nvim") --file Explorer
+	use("numToStr/Comment.nvim") --comments
+	use("akinsho/toggleterm.nvim")
+	use("folke/which-key.nvim")
+	use("NvChad/nvim-colorizer.lua") --show colors in css files stc
+	use("lunarvim/onedarker.nvim") --colorschemes
+	use "lunarvim/darkplus.nvim" --colorschemes
+	use("lunarvim/colorschemes") --colorschemes
 	use("preservim/nerdtree")
 	use("christoomey/vim-tmux-navigator") --tmux and vim window switcher BEST
+	use("MattesGroeger/vim-bookmarks") -- view marks
 
 	-- Lua Development
 	use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
@@ -60,14 +76,14 @@ return packer.startup(function(use)
 
 	-- LSP
 	use("neovim/nvim-lspconfig") -- enable LSP
-	use "williamboman/nvim-lsp-installer" -- simple to use language server installer
+	use("williamboman/nvim-lsp-installer") -- simple to use language server installer
 	use("williamboman/mason.nvim")
 	use("williamboman/mason-lspconfig.nvim")
 	use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
 	use("ray-x/lsp_signature.nvim")
 	use("simrat39/symbols-outline.nvim")
 	use("b0o/SchemaStore.nvim")
-	use("RRethy/vim-illuminate")
+	use("RRethy/vim-illuminate") --highlighs words if over them like match ()
 	use("j-hui/fidget.nvim")
 	use({ "lvimuser/lsp-inlayhints.nvim", branch = "readme" })
 
@@ -93,103 +109,24 @@ return packer.startup(function(use)
 	use("windwp/nvim-ts-autotag")
 	use("nvim-treesitter/nvim-treesitter-textobjects")
 
-	-- Marks
-	use("MattesGroeger/vim-bookmarks")
 
 	-- Fuzzy Finder/Telescope
 	use("nvim-telescope/telescope.nvim")
 	use("nvim-telescope/telescope-media-files.nvim")
 	use("tom-anders/telescope-vim-bookmarks.nvim")
 
-	-- Color
-	use("NvChad/nvim-colorizer.lua")
-	use("ziontee113/color-picker.nvim")
-
-	-- Colorschemes
-	use("lunarvim/onedarker.nvim")
-	-- use "lunarvim/darkplus.nvim"
-	use "folke/tokyonight.nvim"
-	use "lunarvim/colorschemes"
-
-	-- Utility
-    use "rcarriga/nvim-notify"
-    use "stevearc/dressing.nvim"
-	-- use("ghillb/cybu.nvim")-- cool buffers cycle; J interfers with old vim map
-	use("moll/vim-bbye") --better buffer delete
-	use("lewis6991/impatient.nvim") --faster nvim
-	-- use("lalitmee/browse.nvim")
-
-	-- Registers
-	use("tversteeg/registers.nvim")
-
-	-- Icon
-	use("kyazdani42/nvim-web-devicons")
-
-	-- Debugging
-	use("mfussenegger/nvim-dap")
-	use("rcarriga/nvim-dap-ui")
-	-- use "theHamsta/nvim-dap-virtual-text"
-	-- use "Pocco81/DAPInstall.nvim"
-
-	-- Tabline
-	use "akinsho/bufferline.nvim"
-	-- use "tiagovla/scope.nvim"
-
-	-- Statusline
-	use("christianchiarulli/lualine.nvim")
-
-	-- Startup
-	use("goolord/alpha-nvim")
-
-	-- Indent
-	use("lukas-reineke/indent-blankline.nvim")
-
-	-- File Explorer
-	-- use("kyazdani42/nvim-tree.lua")
-	use("tamago324/lir.nvim")
-
-	-- Comment
-	use("numToStr/Comment.nvim")
-	-- use("folke/todo-comments.nvim")
-
-	-- Terminal
-	use("akinsho/toggleterm.nvim")
-
 	-- Project
 	use("ahmedkhalf/project.nvim")
 	use("windwp/nvim-spectre")
-
 	-- Git
 	use("lewis6991/gitsigns.nvim")
-	-- use("f-person/git-blame.nvim")
-	-- use("ruifm/gitlinker.nvim")
 	use("mattn/webapi-vim")
 
-	-- Github
-	use("pwntester/octo.nvim")
+  -- graveyard
+	-- use("ghillb/cybu.nvim")-- cool buffers cycle; J interfers with old vim map
+	-- use("folke/tokyonight.nvim") --colorschemes
+	-- use("kshenoy/vim-signature") --view your marks
 
-	-- Editing Support
-	-- use("windwp/nvim-autopairs")
-	-- use("folke/zen-mode.nvim")
-	-- use("andymass/vim-matchup") --% action for ifs but better 
-	use("karb94/neoscroll.nvim")-- cool scrollling
-
-
-	-- Keybinding
-	use("folke/which-key.nvim")
-	-- Java
-	use("mfussenegger/nvim-jdtls")
-	-- Rust
-	use({ "christianchiarulli/rust-tools.nvim", branch = "modularize_and_inlay_rewrite" })
-	use("Saecki/crates.nvim")
-	-- Typescript TODO: set this up, also add keybinds to ftplugin
-	use("jose-elias-alvarez/typescript.nvim")
-	-- Markdown
-	use({
-		"iamcco/markdown-preview.nvim",
-		run = "cd app && npm install",
-		ft = "markdown",
-	})
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

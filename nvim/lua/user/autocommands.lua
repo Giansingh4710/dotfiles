@@ -1,15 +1,9 @@
-vim.api.nvim_create_autocmd("TextYankPost",{
-    callback = function()
-        vim.cmd [[silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=150}]]
-    end
+-- highlight yanked text
+vim.api.nvim_create_autocmd({ "TextYankPost" }, {
+  callback = function()
+    vim.highlight.on_yank { higroup = "Visual", timeout = 200 }
+  end,
 })
-
--- vim.api.nvim_create_autocmd("TextYankPost",{
---     callback = function()
---         print("")
---         vim.cmd [[if v:event.operator ==# 'y' |call system(s:clip, @0) | endif]]
---     end
--- })
 
 -- -- vim.api.nvim_create_autocmd({ "User" }, {
 -- --   pattern = { "AlphaReady" },
@@ -143,11 +137,6 @@ vim.api.nvim_create_autocmd("TextYankPost",{
 --   end,
 -- })
 --
--- vim.api.nvim_create_autocmd({ "TextYankPost" }, {
---   callback = function()
---     vim.highlight.on_yank { higroup = "Visual", timeout = 200 }
---   end,
--- })
 --
 -- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 --   pattern = { "*.java" },

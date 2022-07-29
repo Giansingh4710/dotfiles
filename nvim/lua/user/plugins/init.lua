@@ -18,10 +18,10 @@ require("user.plugins.project") --project management
 
 require("user.plugins.dressing")
 require("user.plugins.indentline")
-require("user.plugins.neoscroll")
 require("user.plugins.notify")
 require("user.plugins.lir")
 require("user.plugins.fidget") --eye candy for nvim-lsp
+-- require("user.plugins.neoscroll")
 -- require("user.plugins.autopairs")
 -- require("user.plugins.nvim-tree")
 --require "user.ts-context"
