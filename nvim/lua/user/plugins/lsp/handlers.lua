@@ -11,7 +11,6 @@ M.capabilities = cmp_nvim_lsp.update_capabilities(M.capabilities)
 
 M.setup = function()
 	local signs = {
-
 		{ name = "DiagnosticSignError", text = "" },
 		{ name = "DiagnosticSignWarn", text = "" },
 		{ name = "DiagnosticSignHint", text = "" },
@@ -23,7 +22,7 @@ M.setup = function()
 	end
 
 	local config = {
-		virtual_text = false, -- disable virtual text
+		virtual_text = true, -- disable virtual text
 		signs = {
 			active = signs, -- show signs
 		},
@@ -49,6 +48,15 @@ M.setup = function()
 	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
 		border = "rounded",
 	})
+
+	-- vim.lsp.handlers["textDocument/definition"] = function(err, result, method, ...)
+	-- 	if vim.tbl_islist(result) and #result > 1 then
+	-- 		local filtered_result = filter(result, filterReactDTS)
+	--      print(filtered_result)
+	-- 		return vim.lsp.handlers["textDocument/definition"](err, filtered_result, method, ...)
+	-- 	end
+	-- 	vim.lsp.handlers["textDocument/definition"](err, result, method, ...)
+	-- end
 end
 
 local function lsp_keymaps(bufnr)
@@ -80,7 +88,7 @@ M.on_attach = function(client, bufnr)
 	if client.name == "sumneko_lua" then
 		print("sumneko_lua attached")
 		-- print(client)
-		-- client.resolved_capabilities.document_formatting = false
+		client.resolved_capabilities.document_formatting = false
 	end
 
 	lsp_keymaps(bufnr)

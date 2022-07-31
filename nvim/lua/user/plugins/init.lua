@@ -12,7 +12,6 @@ require("user.plugins.lualine")
 require("user.plugins.toggleterm")
 require("user.plugins.whichkey")
 require("user.plugins.cmp")
-require("user.plugins.lsp")
 require("user.plugins.colorizer") -- show colors like blue
 require("user.plugins.project") --project management
 
