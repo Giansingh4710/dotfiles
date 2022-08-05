@@ -2,7 +2,6 @@ require("user.plugins.packer_plugins")
 
 require("user.plugins.impatient") --fast nvim load
 
-require("user.plugins.colorscheme")
 require("user.plugins.telescope")
 require("user.plugins.treesitter")
 require("user.plugins.comment")
@@ -20,8 +19,9 @@ require("user.plugins.indentline")
 require("user.plugins.notify")
 require("user.plugins.lir")
 require("user.plugins.fidget") --eye candy for nvim-lsp
+require("user.plugins.autopairs") --makes pairs for [ ( ect
+require("user.plugins.zen-mode") --makes pairs for [ ( ect
 -- require("user.plugins.neoscroll")
--- require("user.plugins.autopairs")
 -- require("user.plugins.nvim-tree")
 --require "user.ts-context"
 

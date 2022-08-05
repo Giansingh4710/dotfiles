@@ -159,7 +159,7 @@ telescope.setup({
 		buffers = {
 			theme = "dropdown",
 			previewer = false,
-			initial_mode = "normal",
+			-- initial_mode = "normal",
 		},
 		planets = {
 			show_pluto = true,

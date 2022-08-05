@@ -39,6 +39,7 @@ vim.opt.guifont = "monospace:h17"               -- the font used in graphical ne
 vim.opt.fillchars.eob=" "
 vim.opt.shortmess:append "c"
 vim.opt.whichwrap:append("<,>,[,],h,l")
-vim.opt.iskeyword:append("-")
+-- vim.opt.iskeyword:append("-")
 vim.opt.colorcolumn = "80"
 vim.cmd("set whichwrap+=<,>,[,],h,l") --got to next line if end of line
+vim.cmd("set relativenumber")

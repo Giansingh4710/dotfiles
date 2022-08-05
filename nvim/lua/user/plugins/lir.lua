@@ -1,3 +1,4 @@
+-- ranger like file explorer
 local status_ok, lir = pcall(require, "lir")
 if not status_ok then
 	return
