@@ -1,19 +1,20 @@
 local status_ok, toggleterm = pcall(require, "toggleterm")
 if not status_ok then
+    print("toggleterm not working")
 	return
 end
 
 toggleterm.setup({
-	size = 20,
-	open_mapping = [[<c-\>]],
+	size = 25,
+	open_mapping = [[\\]],
 	hide_numbers = true,
 	shade_filetypes = {},
 	shade_terminals = true,
-	shading_factor = 2,
+	shading_factor = 1,
 	start_in_insert = true,
 	insert_mappings = true,
 	persist_size = true,
-	direction = "float",
+	direction = "horizontal",
 	close_on_exit = true,
 	shell = vim.o.shell,
 	float_opts = {
@@ -25,7 +26,6 @@ toggleterm.setup({
 		},
 	},
 })
-vim.cmd [[nnoremap <C-\> :ToggleTerm direction=float<cr>]]
 
 function _G.set_terminal_keymaps()
   local opts = {noremap = true}
@@ -64,8 +64,9 @@ function _HTOP_TOGGLE()
 	htop:toggle()
 end
 
-local python = Terminal:new({ cmd = "python", hidden = true })
+local python = Terminal:new({ cmd = "python3", hidden = false })
 
 function _PYTHON_TOGGLE()
 	python:toggle()
 end
+
