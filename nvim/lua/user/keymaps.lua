@@ -114,3 +114,7 @@ keymap("n","<C-f>", ":NERDTreeFind<CR>",opts)
 -- keymap("n","<leader>q", ":Bdelete<CR>",opts)
 -- keymap("n","<leader><cr>", ":nohlsearch<cr>",opts)
 
+--snippets
+keymap("n",",cpp", ':r ~/.dotfiles/skeletons/cpp<CR>gg"_dd4j',opts)
+keymap("n",",html", ':r ~/.dotfiles/skeletons/html<CR>gg"_dd9j',opts)
+keymap("n",",java", ':r !bash ~/.dotfiles/skeletons/java.sh %<CR>gg"_dd2j',opts)

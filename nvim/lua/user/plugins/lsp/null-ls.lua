@@ -21,7 +21,7 @@ null_ls.setup {
     formatting.prettier,
     formatting.shfmt, --go install mvdan.cc/sh/v3/cmd/shfmt@latest
     formatting.google_java_format,
-    diagnostics.flake8,
+    -- diagnostics.flake8,
     diagnostics.eslint,
     diagnostics.shellcheck, --sudo apt install shellcheck
   },
