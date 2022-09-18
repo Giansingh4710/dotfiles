@@ -1,4 +1,5 @@
-alias cs280="cd /mnt/c/Users/gians/Desktop/CS/SchoolStuff/CS280"
+#!/bin/bash
+alias cs288="cd /mnt/c/Users/gians/Desktop/CS/SchoolStuff/CS288"
 alias cs="cd /mnt/c/Users/gians/Desktop/CS/"
 alias schoolstuff="cd /mnt/c/Users/gians/Desktop/CS/SchoolStuff"
 alias webdev="cd /mnt/c/Users/gians/Desktop/CS/WebDev"
