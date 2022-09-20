@@ -1,7 +1,7 @@
 "Vim
 
 let mapleader="\<Space>"
-call plug#begin('~/.vim/plugged')
+call plug#begin()
     Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
     Plug 'mattn/emmet-vim' "autocomplet tags
     Plug 'itchyny/lightline.vim' "status bar
