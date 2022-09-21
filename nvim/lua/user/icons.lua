@@ -2,6 +2,9 @@
 -- go to the above and then enter <c-v>u<unicode> and the symbold should appear
 -- or go here and upload the font file: https://mathew-kurian.github.io/CharacterMap/
 -- find more here: https://www.nerdfonts.com/cheat-sheet
+--
+-- download nerdfonts so the terminal can recognize icons
+-- https://webinstall.dev/nerdfont/
 
 return {
 	kind = {
