@@ -5,12 +5,12 @@ end
 
 local actions = require("telescope.actions")
 -- telescope.load_extension("media_files")
-local icons = require("user.plugins.icons")
+local icons = require("user.icons")
 
 telescope.setup({
 	defaults = {
 		prompt_prefix = icons.ui.Telescope .. " ",
-		selection_caret = " ",
+		selection_caret = icons.ui.SelectionCaret .. " ",
 		path_display = { "smart" },
 		file_ignore_patterns = {
 			".git/",
@@ -184,14 +184,6 @@ telescope.setup({
 			theme = "dropdown",
 			initial_mode = "normal",
 		},
-
-		-- Default configuration for builtin pickers goes here:
-		-- picker_name = {
-		--   picker_config_key = value,
-		--   ...
-		-- }
-		-- Now the picker_config_key will be applied every time you call this
-		-- builtin picker
 	},
 	extensions = {
 		media_files = {
@@ -202,21 +194,3 @@ telescope.setup({
 		},
 	},
 })
-
--- telescope.setup {
---   defaults = {
---     prompt_prefix = " ",
---     selection_caret = " ",
---     path_display = { "smart" },
---     file_ignore_patterns = { ".git/", "node_modules" },
---
---     mappings = {
---       i = {
---         ["<Down>"] = actions.cycle_history_next,
---         ["<Up>"] = actions.cycle_history_prev,
---         ["<C-j>"] = actions.move_selection_next,
---         ["<C-k>"] = actions.move_selection_previous,
---       },
---     },
---   },
--- }

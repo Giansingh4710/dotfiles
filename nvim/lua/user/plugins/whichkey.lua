@@ -3,6 +3,8 @@ if not status_ok then
 	return
 end
 
+local icons = require("user.icons")
+
 local setup = {
 	plugins = {
 		marks = true, -- shows a list of your marks on ' and `
@@ -34,9 +36,9 @@ local setup = {
 		-- ["<tab>"] = "TAB",
 	},
 	icons = {
-		breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-		separator = "➜", -- symbol used between a key and it's label
-		group = "+", -- symbol prepended to a group
+		breadcrumb = icons.ui.ArrowClosed, -- symbol used in the command line area that shows your active key combo
+		separator = icons.ui.ArrowRight, -- symbol used between a key and it's label
+		group = icons.ui.Plus, -- symbol prepended to a group
 	},
 	popup_mappings = {
 		scroll_down = "<c-d>", -- binding to scroll down inside the popup

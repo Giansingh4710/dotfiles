@@ -104,15 +104,12 @@ vim.keymap.set('n', 'gb', '<Plug>(comment_toggle_blockwise)')
 vim.keymap.set('x', '<leader>/', '<Plug>(comment_toggle_linewise_visual)')
 vim.keymap.set('x', 'gb', '<Plug>(comment_toggle_blockwise_visual)')
 
-keymap("n","<C-n>", ":NERDTree<CR>",opts)
-keymap("n","<C-t>", ":NERDTreeToggle<CR>",opts)
-keymap("n","<C-f>", ":NERDTreeFind<CR>",opts)
+-- keymap("n","<C-n>", ":NERDTree<CR>",opts)
+-- keymap("n","<C-t>", ":NERDTreeToggle<CR>",opts)
+-- keymap("n","<C-f>", ":NERDTreeFind<CR>",opts)
 
--- keymap("n", "<leader>d", ":call DiffWindo()<CR>",opts)
--- keymap("n", "<leader>h", ":bprev<CR>",opts)
--- keymap("n", "<leader>l", ":bnext<CR>",opts)
--- keymap("n","<leader>q", ":Bdelete<CR>",opts)
--- keymap("n","<leader><cr>", ":nohlsearch<cr>",opts)
+vim.cmd("nnoremap <expr> <leader>n g:NERDTree.IsOpen() ? ':NERDTreeClose<CR>' : @%=='' ? ':NERDTree<CR>' : ':NERDTreeFind<CR>'")
+-- vim.cmd("nnoremap <expr> <leader>n g:NERDTree.IsOpen() ? ':NERDTreeClose<CR>' : ':NERDTreeFind<CR>'")
 
 --snippets
 keymap("n",",cpp", ':r ~/.dotfiles/skeletons/cpp<CR>gg"_dd4j',opts)
