@@ -15,7 +15,6 @@ require("user.plugins.toggleterm")
 require("user.plugins.whichkey")
 require("user.plugins.cmp")
 require("user.plugins.colorizer") -- show colors like blue
-require("user.plugins.project") --project management
 
 require("user.plugins.dressing") -- makes things look nice like user input
 require("user.plugins.indentline")

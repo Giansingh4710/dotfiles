@@ -23,7 +23,7 @@ call plug#end()
     "hi Normal guibg=NONE ctermbg=NONE "makes backdround transparent
     
     "Nerd Tree
-        nnoremap <leader>n :NERDTreeFocus<CR>
+        nnoremap <expr> <leader>n g:NERDTree.IsOpen() ? ':NERDTreeClose<CR>' : @%=='' ? ':NERDTreeToggle<CR>' : ':NERDTreeFind<CR>'
         "nnoremap <C-n> :NERDTree<CR>
         nnoremap <C-t> :NERDTreeToggle<CR>
         nnoremap <C-f> :NERDTreeFind<CR>
@@ -73,7 +73,7 @@ call plug#end()
     set backspace=indent,eol,start "allow backspace to work
     set mouse=a  
     set cursorline
-    set tabstop=4 softtabstop=4
+    set tabstop=2 softtabstop=2
     set shiftwidth=4
     set encoding=UTF-8
     set expandtab
@@ -131,9 +131,9 @@ call plug#end()
     nnoremap <leader>t :tabnew<CR>:Ex<CR>
 
     "starter for multiline comment for react,js,java type langs
-    noremap gcc <ESC>O{/*<CR>*/}<ESC>
-    nnoremap <leader>ev :tabnew $MYVIMRC<CR>:cd %:p:h<CR>
-    nnoremap <leader>sv :w<cr>:source $MYVIMRC <CR>
+    "noremap gcc <ESC>O{/*<CR>*/}<ESC>
+    nnoremap <leader>V :tabnew $MYVIMRC<CR>:cd %:p:h<CR>
+    nnoremap <leader>S :w<cr>:source $MYVIMRC <CR>
 
     "If PUM (complete menu) is visible, then execute <C-y> (which selects an "item), otherwise regular tab
     inoremap <expr> <TAB> pumvisible() ? "<C-y>" : "<TAB>"
@@ -164,17 +164,8 @@ call plug#end()
 "Done Remapings
 
 "Other Things
-    "I like html files to only be indented by 2 spaces instead of normal 4
-    autocmd FileType html,javascript set tabstop=2
-    autocmd FileType html,javascript set softtabstop=2
-    autocmd FileType html,javascript set shiftwidth=2
     "c++ formating :help cinoptions-values 
     autocmd FileType cpp set cinoptions=l1 
-
-    augroup highlight_yank
-        autocmd!
-        au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=100}
-    augroup END
 
     " Reference chart of values:
     "   Ps = 0  -> blinking block.

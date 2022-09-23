@@ -43,7 +43,10 @@ keymap("o", "L", "$", opts)
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
 
+--no save to register
 keymap("v", "p", '"_dP', opts)
+keymap("v", "x", '"_d', opts)
+keymap("x", "x", '"_d', opts)
 -- keymap("v", "P", '"_dP', opts)
 
 -- Custom
@@ -105,10 +108,10 @@ vim.keymap.set('x', '<leader>/', '<Plug>(comment_toggle_linewise_visual)')
 vim.keymap.set('x', 'gb', '<Plug>(comment_toggle_blockwise_visual)')
 
 -- keymap("n","<C-n>", ":NERDTree<CR>",opts)
--- keymap("n","<C-t>", ":NERDTreeToggle<CR>",opts)
--- keymap("n","<C-f>", ":NERDTreeFind<CR>",opts)
+keymap("n","<C-t>", ":NERDTreeToggle<CR>",opts)
+keymap("n","<C-f>", ":NERDTreeFind<CR>",opts)
 
-vim.cmd("nnoremap <expr> <leader>n g:NERDTree.IsOpen() ? ':NERDTreeClose<CR>' : @%=='' ? ':NERDTree<CR>' : ':NERDTreeFind<CR>'")
+vim.cmd("nnoremap <expr> <leader>n g:NERDTree.IsOpen() ? ':NERDTreeClose<CR>' : @%=='' ? ':NERDTreeToggle<CR>' : ':NERDTreeFind<CR>'")
 -- vim.cmd("nnoremap <expr> <leader>n g:NERDTree.IsOpen() ? ':NERDTreeClose<CR>' : ':NERDTreeFind<CR>'")
 
 --snippets

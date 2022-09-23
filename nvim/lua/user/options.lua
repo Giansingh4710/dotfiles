@@ -43,3 +43,5 @@ vim.opt.whichwrap:append("<,>,[,],h,l")
 vim.opt.colorcolumn = "80"
 vim.cmd("set whichwrap+=<,>,[,],h,l") --got to next line if end of line
 vim.cmd("set relativenumber")
+vim.cmd("set autochdir")
+-- vim.opt.autochdir = false
