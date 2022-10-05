@@ -12,8 +12,7 @@ call plug#begin()
     "Plug 'vim-scripts/AutoComplPop' "auto completion pops up automaticaly instead of <C-p>
     Plug 'preservim/nerdcommenter'
     Plug 'christoomey/vim-tmux-navigator' "tmux and vim window switcher BEST
-    Plug 'Yggdroot/indentLine' "show indent lines
-    Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } "css colors
+    "Plug 'Yggdroot/indentLine' "show indent lines
     Plug 'https://github.com/rafi/awesome-vim-colorschemes'
 call plug#end()
 
@@ -62,6 +61,7 @@ call plug#end()
 "Done
 
 "Basic Defaults
+    set clipboard=unnamed
     syntax enable
     set cmdheight=2 "more space in the neovim command line for displaying messages
     set pumheight=10 "pop up menu height

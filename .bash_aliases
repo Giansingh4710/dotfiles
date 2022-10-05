@@ -14,3 +14,13 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   alias randShabad="python3 /mnt/c/Users/gians/Desktop/CS/pythons/randomstuff/randSikhStuff/randShabad.py"
   alias vimv="~/.dotfiles/vimv.sh"
 fi
+
+if [[ "$OSTYPE" == "darwin21"* ]]; then
+  alias sdo="open /Applications/Safari.app https://sdoji.xyz/"
+  alias vim="nvim"
+  alias vimv="~/dotfiles/vimv.sh"
+  alias python="python3"
+  alias py="python3"
+  alias toggleyabai="~/.config/skhd/toggleyabai.sh"
+  alias cs288="cd /Users/gians/Desktop/CS288"
+fi

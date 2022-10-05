@@ -1,6 +1,7 @@
 -- local colorscheme = "darkplus" --vscode
+local colorscheme = "one"
 -- local colorscheme = "onedarker"
-local colorscheme = "ayu"
+-- local colorscheme = "gruvbox"
 
 local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 if not status_ok then

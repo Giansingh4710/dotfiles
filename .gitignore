@@ -39,5 +39,7 @@ luac.out
 *.x86_64
 *.hex
 
+# annoying mac file for finder
+*.DS_Store
 
 plugin/packer_compiled.lua

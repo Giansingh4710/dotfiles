@@ -115,6 +115,9 @@ vim.cmd("nnoremap <expr> <leader>n g:NERDTree.IsOpen() ? ':NERDTreeClose<CR>' : 
 -- vim.cmd("nnoremap <expr> <leader>n g:NERDTree.IsOpen() ? ':NERDTreeClose<CR>' : ':NERDTreeFind<CR>'")
 
 --snippets
-keymap("n",",cpp", ':r ~/.dotfiles/skeletons/cpp<CR>gg"_dd4j',opts)
-keymap("n",",html", ':r ~/.dotfiles/skeletons/html<CR>gg"_dd9j',opts)
-keymap("n",",java", ':r !bash ~/.dotfiles/skeletons/java.sh %<CR>gg"_dd2j',opts)
+keymap("n",",cpp", ':r ~/dotfiles/skeletons/cpp<CR>gg"_dd4j',opts)
+keymap("n",",html", ':r ~/dotfiles/skeletons/html<CR>gg"_dd9j',opts)
+keymap("n", ",java", ':r !bash ~/dotfiles/skeletons/java.sh %<CR>gg"_dd2j',opts)
+
+keymap("n","sc", 'Bi"<esc>f i"<esc>',opts)
+
