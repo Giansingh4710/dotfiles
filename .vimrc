@@ -61,6 +61,7 @@ call plug#end()
 "Done
 
 "Basic Defaults
+    set clipboard=unnamed
     syntax enable
     set cmdheight=2 "more space in the neovim command line for displaying messages
     set pumheight=10 "pop up menu height

@@ -10,21 +10,24 @@
 ## Quickly restart the yabai launch agent
 ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
+hyper - t : "./toggleyabai.sh"
+hyper - a : brew services start yabai #doesnt work sad face
+
 ## open terminal
 hyper - return : /Applications/iTerm.app/Contents/MacOS/iTerm2
 
 ## swap window
-hyper - h : yabai -m window --swap west
-hyper - j : yabai -m window --swap south
-hyper - k : yabai -m window --swap north
-hyper - l : yabai -m window --swap east # 0x21 is the "[" key
+shift + alt - h : yabai -m window --swap west
+shift + alt - j : yabai -m window --swap south
+shift + alt - k : yabai -m window --swap north
+shift + alt - l : yabai -m window --swap east # 0x21 is the "[" key
 # hyper - 0x21 : yabai -m window --swap east # 0x21 is the "[" key
 
 ## got to windows
-shift + alt - h : yabai -m window --focus west
-shift + alt - j : yabai -m window --focus south
-shift + alt - k : yabai -m window --focus north
-shift + alt - l : yabai -m window --focus east # 0x21 is the "[" key
+hyper - h : yabai -m window --focus west
+hyper - j : yabai -m window --focus south
+hyper - k : yabai -m window --focus north
+hyper - l : yabai -m window --focus east # 0x21 is the "[" key
 
 #detache from yabai
 alt - t : yabai -m window --toggle float;\ yabai -m window --grid 4:4:1:1:2:2
