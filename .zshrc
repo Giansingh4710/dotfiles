@@ -35,4 +35,4 @@
  # eval "$(~/.rbenv/bin/rbenv init - zsh)" #for rubyenv(rbenv) for react native
 
 eval "$(starship init zsh)"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="powerlevel10k/powerlevel10k"

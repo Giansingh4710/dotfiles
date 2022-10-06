@@ -16,11 +16,12 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 fi
 
 if [[ "$OSTYPE" == "darwin21"* ]]; then
-  alias sdo="open /Applications/Safari.app https://sdoji.xyz/"
+  alias sdo="open /Applications/Safari.app https://sdoji.xyz/other_pages/all.html"
   alias vim="nvim"
   alias vimv="~/dotfiles/vimv.sh"
   alias python="python3"
   alias py="python3"
   alias toggleyabai="~/.config/skhd/toggleyabai.sh"
-  alias cs288="cd /Users/gians/Desktop/CS288"
+  alias cs288="cd /Users/gians/Desktop/dev/SchoolStuff/CS288"
+  alias webdev="cd /Users/gians/Desktop/dev/webdev"
 fi
