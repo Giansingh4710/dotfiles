@@ -21,6 +21,7 @@ if [[ "$OSTYPE" == "darwin21"* ]]; then
   alias vimv="~/dotfiles/vimv.sh"
   alias python="python3"
   alias py="python3"
+  alias pip="pip3"
   alias toggleyabai="~/.config/skhd/toggleyabai.sh"
   alias cs288="cd /Users/gians/Desktop/dev/SchoolStuff/CS288"
   alias webdev="cd /Users/gians/Desktop/dev/webdev"
