@@ -46,6 +46,5 @@ vim.cmd("set relativenumber")
 vim.cmd("set autochdir")
 
 -- makes background transparent
-vim.cmd("highlight Normal guibg=none")
-vim.cmd("highlight NonText guibg=none")
--- vim.opt.autochdir = false
+--[[ vim.cmd("highlight Normal guibg=none") ]]
+--[[ vim.cmd("highlight NonText guibg=none") ]]

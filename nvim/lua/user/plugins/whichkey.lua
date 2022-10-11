@@ -94,6 +94,7 @@ vim.api.nvim_create_user_command("ToggleAutoPairs", function()
 	end)
 end, {})
 
+local api = require('Comment.api')
 local mappings = {
 	N = { ":!Notepad.exe %<CR>", "Open in Notepad" },
 	V = { ":tabnew $MYVIMRC<CR>", "edit Vimrc" },
@@ -108,7 +109,7 @@ local mappings = {
 	a = { "<cmd>ToggleAutoPairs<CR>", "Toggle AutoPairs" },
 	-- a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Action" },
 	v = { "<cmd>vsplit<cr>", "vsplit" },
-	["/"] = { '<cmd>lua require("Comment.api").toggle_current_linewise()<CR>', "Comment" },
+	["/"] = { api.toggle.linewise.current, "Comment" },
 	-- ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
 	b = {
 		name = "Bookmarks",
@@ -194,3 +195,4 @@ local mappings = {
 
 which_key.setup(setup)
 which_key.register(mappings, opts)
+

@@ -3,13 +3,14 @@ require("user.plugins.packer_plugins")
 require("user.plugins.lsp")
 require("user.plugins.impatient") --fast nvim load
 
+require("user.plugins.bufferline") --top tab line
+require("user.plugins.marks")
 require("user.plugins.treesitter")
 require("user.plugins.colorscheme")
 require("user.plugins.telescope")
 require("user.plugins.nvim-ts-autotag") --treesitter autotag vscode like tags
 require("user.plugins.comment")
 require("user.plugins.gitsigns")
-require("user.plugins.bufferline") --top tab line
 require("user.plugins.lualine") --bottom line
 require("user.plugins.toggleterm")
 require("user.plugins.whichkey")

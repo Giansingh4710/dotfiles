@@ -86,9 +86,10 @@ M.on_attach = function(client, bufnr)
 	end
 
 	if client.name == "sumneko_lua" then
-		print("sumneko_lua attached")
+		--[[ print("sumneko_lua attached") ]]
 		-- print(client)
-		client.resolved_capabilities.document_formatting = false
+		client.server_capabilities.document_formatting = false
+		--client.resolved_capabilities.document_formatting = false
 	end
 
 	lsp_keymaps(bufnr)
