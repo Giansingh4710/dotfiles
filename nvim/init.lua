@@ -3,5 +3,5 @@
 require("user.keymaps")
 require("user.registers")
 require("user.autocommands")
-require("user.options")
 require("user.plugins")
+require("user.options")

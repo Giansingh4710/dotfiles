@@ -44,6 +44,7 @@ vim.opt.colorcolumn = "80"
 vim.cmd("set whichwrap+=<,>,[,],h,l") --got to next line if end of line
 vim.cmd("set relativenumber")
 vim.cmd("set autochdir")
+vim.cmd("set formatoptions-=cro") -- dont add comment when i go to new line from a comment line
 
 -- makes background transparent
 --[[ vim.cmd("highlight Normal guibg=none") ]]

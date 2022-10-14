@@ -10,7 +10,7 @@
 ## Quickly restart the yabai launch agent
 ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
-hyper - t : "./toggleyabai.sh"
+hyper - t : ~/dotfiles/skhd/toggleyabai.sh
 hyper - a : brew services start yabai #doesnt work sad face
 
 ## open terminal
