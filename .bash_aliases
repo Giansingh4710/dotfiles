@@ -1,7 +1,7 @@
 #!/bin/bash
 
 alias vim="nvim"
-alias vimv="~/dotfiles/vimv.sh"
+alias vimv="~/dotfiles/scripts/vimv.sh"
 alias vimrc="vim ~/dotfiles/nvim/init.lua"
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -21,8 +21,11 @@ if [[ "$OSTYPE" == "darwin21"* ]]; then
   alias py="python3"
   alias pip="pip3"
   alias webdev="cd /Users/gians/Desktop/dev/webdev"
+  alias mobile="cd /Users/gians/Desktop/dev/mobile"
   alias cs288="cd /Users/gians/Desktop/dev/SchoolStuff/CS288"
   alias toggleyabai="~/.config/skhd/toggleyabai.sh"
   alias sdo="open /Applications/Safari.app https://sdoji.xyz/other_pages/all.html"
   alias sdoji="cd /Users/gians/Desktop/dev/webdev/sdo-ji/ ; vim index.html"
+  alias delDsStore="~/dotfiles/scripts/delDsStore.sh"
+  alias addX="~/dotfiles/scripts/addX.sh"
 fi
