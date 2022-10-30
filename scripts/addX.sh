@@ -1,10 +1,12 @@
 #!/bin/bash
 
 addRWX(){
-  for item in *
-  do
-    if [ -f "$item" ];then
-      chmod u+x "$item"
+	allDirs=$(ls -a)
+	for item in $allDirs; do
+		if [ "$item" = "." ] || [ "$item" = ".." ]; then
+			continue
+    elif [ -f "$item" ];then
+      chmod u+rwx "$item"
       echo "added executabe: $item"
     elif [ -d "$item" ];then
       cd "$item"

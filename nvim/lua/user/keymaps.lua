@@ -121,3 +121,4 @@ keymap("n", ",java", ':r !bash ~/dotfiles/skeletons/java.sh %<CR>gg"_dd2j',opts)
 
 keymap("n","sc", 'Bi"<esc>f i"<esc>',opts)
 
+keymap('n','gF','"hyiW:e <C-r>h<CR>', opts) --go file but make file under cursor (put in h register)

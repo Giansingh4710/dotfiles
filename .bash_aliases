@@ -1,8 +1,10 @@
 #!/bin/bash
 
 alias vim="nvim"
-alias vimv="~/dotfiles/scripts/vimv.sh"
 alias vimrc="vim ~/dotfiles/nvim/init.lua"
+alias vimv="~/dotfiles/scripts/vimv.sh"
+alias addX="~/dotfiles/scripts/addX.sh"
+alias dl="~/dotfiles/scripts/download_files/run.sh"
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   alias cs288="cd /mnt/c/Users/gians/Desktop/CS/SchoolStuff/CS288"
@@ -27,5 +29,4 @@ if [[ "$OSTYPE" == "darwin21"* ]]; then
   alias sdo="open /Applications/Safari.app https://sdoji.xyz/other_pages/all.html"
   alias sdoji="cd /Users/gians/Desktop/dev/webdev/sdo-ji/ ; vim index.html"
   alias delDsStore="~/dotfiles/scripts/delDsStore.sh"
-  alias addX="~/dotfiles/scripts/addX.sh"
 fi
