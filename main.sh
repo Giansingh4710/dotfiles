@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 filesForSymLink[0]=".bashrc"
 filesForSymLink[1]=".tmux.conf"
@@ -42,3 +42,23 @@ for i in "${!filesForSymLink[@]}"; do
 		echo "Error linking $pathToItem -> $whereToPutItem "
 	fi
 done
+
+
+if [[ "$OSTYPE" == "darwin21"* ]]; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" #install brew
+
+  brew install karabiner-elements #change functions of keys on keyboard
+  brew install yabai #window tile manager
+  brew install skhd #key binding for stuff like yabai and anything
+  #brew services start/stop (name of service)
+  #brew services restart --all ; brew service list
+
+  brew install neovim
+  brew install node #for lsp and other stuff. Node is node lol
+  brew install shellcheck #lsp for bash (neovim)
+  brew install rectangle #mac cool move window
+  brew install starship #shows cool stuff in terminal like git and time spent in cli app
+  brew install youtube-dl
+  brew install tmux
+  brew install tree 
+fi
