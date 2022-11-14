@@ -21,21 +21,26 @@ select opt in "GurmatVeechar" "AKJ.org" "GoldenKhajana" "YouTube/SoundCloud etc"
   if [[ $opt == "GurmatVeechar" ]];then
     echo "Enter links from GurmatVeechar.com separated by a comma(,): "
     read -r -a links #Read the split words into an array based on comma delimiter
+    echo python3 $MainDir/code/gv.py "$path"  "${links[@]}"
     python3 $MainDir/code/gv.py "$path"  "${links[@]}"
   elif [[ $opt == "AKJ.org" ]];then
     echo "Enter names of Keertani separated by a comma(,): "
     read -r -a names
+    echo python3 $MainDir/code/akjorg.py "$path"  "${names[@]}"
     python3 $MainDir/code/akjorg.py "$path"  "${names[@]}"
   elif [[ $opt == "GoldenKhajana" ]];then
     echo "Enter a link from Golden Khajan: "
     read -r link
+    echo python3 $MainDir/code/goldenKhajan.py "$path" "$link"
     python3 $MainDir/code/goldenKhajan.py "$path" "$link"
   elif [[ $opt == "YouTube/SoundCloud etc" ]];then
     echo "Enter a link for youtube-dl: "
     read -r link
+    echo youtube-dl --extract-audio --audio-format mp3 "$link"
     youtube-dl --extract-audio --audio-format mp3 "$link"
   elif [[ $opt == "Get Length Of Audio Files" ]];then
     echo "Enter the Paath to the Dir: "
+    echo python3 $MainDir/code/len_of_files.py "$path"
     python3 $MainDir/code/len_of_files.py "$path"
   fi
   exit

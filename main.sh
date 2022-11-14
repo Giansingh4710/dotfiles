@@ -24,7 +24,7 @@ for i in "${!filesForSymLink[@]}"; do
 	theItem=${filesForSymLink[$i]}
 	pathToItem=~/dotfiles/$theItem
 	whereToPutItem=${pathToSymLink[$i]}
-	if [[ "$OSTYPE" != "darwin21"* ]]; then # if mac
+	if [[ "$OSTYPE" != "darwin2"* ]]; then # if mac
 		if {
 			  [ "$theItem" == "karabiner" ] ||
 				[ "$theItem" == "skhd" ] ||
@@ -43,22 +43,32 @@ for i in "${!filesForSymLink[@]}"; do
 	fi
 done
 
+downloadStuff(){
+  if [[ "$OSTYPE" == "darwin2"* ]]; then
+    brew install "$1"
+  fi
+}
 
-if [[ "$OSTYPE" == "darwin21"* ]]; then
+if [[ "$OSTYPE" == "darwin2"* ]]; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" #install brew
 
   brew install karabiner-elements #change functions of keys on keyboard
   brew install yabai #window tile manager
   brew install skhd #key binding for stuff like yabai and anything
+
+
+  brew services start yabai
+  brew services start skhd
   #brew services start/stop (name of service)
   #brew services restart --all ; brew service list
 
-  brew install neovim
-  brew install node #for lsp and other stuff. Node is node lol
-  brew install shellcheck #lsp for bash (neovim)
-  brew install rectangle #mac cool move window
-  brew install starship #shows cool stuff in terminal like git and time spent in cli app
-  brew install youtube-dl
-  brew install tmux
-  brew install tree 
+  downloadStuff rectangle #mac cool move window
 fi
+
+downloadStuff neovim
+#downloadStuff node #for lsp and other stuff. Node is node lol
+#downloadStuff shellcheck #lsp for bash (neovim)
+#downloadStuff starship #shows cool stuff in terminal like git and time spent in cli app
+#downloadStuff youtube-dl
+#downloadStuff tmux
+#downloadStuff tree 

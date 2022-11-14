@@ -18,7 +18,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   alias randShabad="python3 /mnt/c/Users/gians/Desktop/CS/pythons/randomstuff/randSikhStuff/randShabad.py"
 fi
 
-if [[ "$OSTYPE" == "darwin21"* ]]; then
+if [[ "$OSTYPE" == "darwin2"* ]]; then
   alias python="python3"
   alias py="python3"
   alias pip="pip3"
