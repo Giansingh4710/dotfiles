@@ -51,7 +51,7 @@ return packer.startup(function(use)
   use("MattesGroeger/vim-bookmarks") -- view marks
 
   use("stevearc/dressing.nvim") --cool looks
-  use("tversteeg/registers.nvim") --cool displau for registers
+  use({"tversteeg/registers.nvim",commit="395e119782845fe8fa3b7d6d17c60745a2004515"}) --cool displau for registers
   use("tamago324/lir.nvim") --file Explorer
   use("folke/which-key.nvim")
   use("NvChad/nvim-colorizer.lua") --show colors in css files stc
