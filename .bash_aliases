@@ -22,6 +22,7 @@ if [[ "$OSTYPE" == "darwin2"* ]]; then
   alias python="python3"
   alias py="python3"
   alias pip="pip3"
+  alias dev="cd /Users/gians/Desktop/dev"
   alias webdev="cd /Users/gians/Desktop/dev/webdev"
   alias mobile="cd /Users/gians/Desktop/dev/mobile"
   alias cs288="cd /Users/gians/Desktop/dev/SchoolStuff/CS288"
