@@ -15,7 +15,7 @@ fi
 printf "\nThe Diretory: %s\n\n" "$path"
 
 IFS=',' # Set comma as delimiter
-MainDir=/Users/gians/dotfiles/scripts/download_files/
+MainDir=~/dotfiles/scripts/download_files
 
 select opt in "GurmatVeechar" "AKJ.org" "GoldenKhajana" "YouTube/SoundCloud etc" "Get Length Of Audio Files";do 
   if [[ $opt == "GurmatVeechar" ]];then

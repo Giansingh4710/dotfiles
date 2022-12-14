@@ -42,4 +42,4 @@ luac.out
 # annoying mac file for finder
 *.DS_Store
 
-plugin/packer_compiled.lua
+./nvim/plugin/packer_compiled.lua
