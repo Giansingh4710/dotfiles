@@ -20,21 +20,40 @@ pathToSymLink[6]=~/.config/karabiner
 pathToSymLink[7]=~/.config/skhd
 pathToSymLink[8]=~/.config/yabai
 
+# chsh -s $(which zsh) #change shell to zsh
+
+if [ ! -d ~/.config/ ];then
+  mkdir ~/.config
+  echo Made .config dir
+fi
+
+if [ ! -d ~/OLD_FILES ];then
+  mkdir ~/OLD_FILES
+  echo Made OLD_FILES dir
+fi
+
 for i in "${!filesForSymLink[@]}"; do
 	theItem=${filesForSymLink[$i]}
 	pathToItem=~/dotfiles/$theItem
 	whereToPutItem=${pathToSymLink[$i]}
-	if [[ "$OSTYPE" != "darwin2"* ]]; then # if mac
+	if [[ "$OSTYPE" != "darwin2"* ]]; then # if not a mac
 		if {
 			  [ "$theItem" == "karabiner" ] ||
 				[ "$theItem" == "skhd" ] ||
 				[ "$theItem" == "yabai" ]
 		}; then
-			echo "No symlink created because '$theItem' is for MAC ONLY"
+			# echo "No symlink created because '$theItem' is for MAC ONLY"
 			continue
 		fi
 	fi
-	rm -r "$whereToPutItem"
+
+  if [ -f "$whereToPutItem" ];then
+	  mv "$whereToPutItem" ~/OLD_FILES/
+  fi
+  if [ -d "$whereToPutItem" ];then
+	  mv "$whereToPutItem" ~/OLD_FILES/
+  fi
+
 	ln -sf "$pathToItem" "$whereToPutItem"
 	if [ $? -eq 0 ]; then
 		echo "symlink created for ${filesForSymLink[$i]}"
@@ -46,6 +65,8 @@ done
 downloadStuff(){
   if [[ "$OSTYPE" == "darwin2"* ]]; then
     brew install "$1"
+  else
+    sudo apt install "$1"
   fi
 }
 
@@ -65,7 +86,7 @@ if [[ "$OSTYPE" == "darwin2"* ]]; then
   downloadStuff rectangle #mac cool move window
 fi
 
-downloadStuff neovim
+#downloadStuff neovim
 #downloadStuff node #for lsp and other stuff. Node is node lol
 #downloadStuff shellcheck #lsp for bash (neovim)
 #downloadStuff starship #shows cool stuff in terminal like git and time spent in cli app

@@ -4,7 +4,7 @@
  fi
 
  # Path to your oh-my-zsh installation.
- export ZSH="$HOME/.oh-my-zsh"
+ # export ZSH="$HOME/.oh-my-zsh"
 
  plugins=(
    git
@@ -13,7 +13,7 @@
    macos
  )
 
- source $ZSH/oh-my-zsh.sh
+ # source $ZSH/oh-my-zsh.sh
 
  if [ -f ~/.bash_aliases ]; then
      . ~/.bash_aliases
