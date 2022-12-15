@@ -5,6 +5,7 @@ alias vimrc="vim ~/dotfiles/nvim/init.lua"
 alias vimv="~/dotfiles/scripts/vimv.sh"
 alias addX="~/dotfiles/scripts/addX.sh"
 alias dl="~/dotfiles/scripts/download_files/run.sh"
+alias delFiles="~/dotfiles/scripts/delFiles.sh"
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   alias cs288="cd /mnt/c/Users/gians/Desktop/CS/SchoolStuff/CS288"
