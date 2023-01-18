@@ -5,19 +5,15 @@
 #python3 ./code/goldenKhajan.py ./BobJones "http://sikhsoul.com/golden_khajana/index.php?q=f&f=%2FKeertan%2FBhai+Amolak+Singh"
 #../yt-dl/win/youtube-dl.exe --extract-audio --audio-format mp3 "https://www.youtube.com/watch?v=DutadE8psQs"
 
-PS3="Enter the Number: "
-printf "Enter path: "
-read -r path
-if [ ! -d "$path" ];then
-  path=$(pwd)
-fi
+PS3="Enter the Number: "  # for thr select loop. This will be the prompt
+path=$(pwd)
 
 printf "\nThe Diretory: %s\n\n" "$path"
 
 IFS=',' # Set comma as delimiter
 MainDir=~/dotfiles/scripts/download_files
 
-select opt in "GurmatVeechar" "AKJ.org" "GoldenKhajana" "YouTube/SoundCloud etc" "Get Length Of Audio Files";do 
+select opt in "GurmatVeechar" "AKJ.org" "GoldenKhajana" "YouTube/SoundCloud etc" "Get Length Of Audio Files" "Number Files";do 
   if [[ $opt == "GurmatVeechar" ]];then
     echo "Enter links from GurmatVeechar.com separated by a comma(,): "
     read -r -a links #Read the split words into an array based on comma delimiter
@@ -39,9 +35,11 @@ select opt in "GurmatVeechar" "AKJ.org" "GoldenKhajana" "YouTube/SoundCloud etc"
     echo youtube-dl --extract-audio --audio-format mp3 "$link"
     youtube-dl --extract-audio --audio-format mp3 "$link"
   elif [[ $opt == "Get Length Of Audio Files" ]];then
-    echo "Enter the Paath to the Dir: "
-    echo python3 $MainDir/code/len_of_files.py "$path"
+    echo "Executed: '" python3 $MainDir/code/len_of_files.py "$path '"
     python3 $MainDir/code/len_of_files.py "$path"
+  elif [[ $opt == "Number Files" ]];then
+    echo "Executed: '" python3 $MainDir/code/len_of_files.py "$path '"
+    python3 $MainDir/code/number_files.py "$path"
   fi
   exit
 done

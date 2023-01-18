@@ -74,7 +74,7 @@ call plug#end()
     set mouse=a  
     set cursorline
     set tabstop=2 softtabstop=2
-    set shiftwidth=4
+    set shiftwidth=2
     set encoding=UTF-8
     set expandtab
     set smartindent
@@ -142,6 +142,11 @@ call plug#end()
     nnoremap ,cpp :r ~/.dotfiles/skeletons/cpp<CR>gg"_dd4j
     nnoremap ,html :r ~/.dotfiles/skeletons/html<CR>gg"_dd9j
     nnoremap ,java :r !bash ~/.dotfiles/skeletons/java.sh %<CR>gg"_dd2j
+
+    nnoremap H ^
+    nnoremap L $
+    vnoremap H ^
+    vnoremap L $
 
     "compare windows
     function! DiffWindo()
