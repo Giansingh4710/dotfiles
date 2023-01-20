@@ -6,7 +6,10 @@
 #../yt-dl/win/youtube-dl.exe --extract-audio --audio-format mp3 "https://www.youtube.com/watch?v=DutadE8psQs"
 
 PS3="Enter the Number: "  # for thr select loop. This will be the prompt
-path=$(pwd)
+path=$1
+if [ ! -d "$path" ];then
+  path=$(pwd)
+fi
 
 printf "\nThe Diretory: %s\n\n" "$path"
 
