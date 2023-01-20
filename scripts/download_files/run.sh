@@ -36,9 +36,11 @@ select opt in "GurmatVeechar" "AKJ.org" "GoldenKhajana" "YouTube/SoundCloud etc"
     youtube-dl --extract-audio --audio-format mp3 "$link"
   elif [[ $opt == "Get Length Of Audio Files" ]];then
     echo "Executed: '" python3 $MainDir/code/len_of_files.py "$path '"
+    echo
     python3 $MainDir/code/len_of_files.py "$path"
   elif [[ $opt == "Number Files" ]];then
     echo "Executed: '" python3 $MainDir/code/len_of_files.py "$path '"
+    echo
     python3 $MainDir/code/number_files.py "$path"
   fi
   exit

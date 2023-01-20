@@ -1,4 +1,4 @@
-import os
+import os, sys
 
 def printDirs(theDir,theTrackNumber,depth):
     for item_in_dir in os.listdir(theDir):
@@ -15,4 +15,6 @@ def printDirs(theDir,theTrackNumber,depth):
     return theTrackNumber
 trackNum = 1
 depth = 0
-printDirs(".",trackNum,depth)
+# dir = len(sys.argv)>1 ? sys.argv[1] : "."
+dir = sys.argv[1] if len(sys.argv)>1 else "."
+printDirs(dir,trackNum,depth)
