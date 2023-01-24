@@ -1,8 +1,16 @@
 #!/bin/bash
 
 delDsStore() {
-	allDirs=$(ls -a)
-	for item in $allDirs; do
+	# allDirs=$(ls -a)
+	for item in *; do
+		if [ -d "$item" ]; then
+			cd "$item" || exit
+			delDsStore
+			cd ../
+		fi
+	done
+
+	for item in .*; do
 		if [ "$item" = "." ] || [ "$item" = ".." ]; then
 			continue
 		elif [ "$item" = ".DS_Store" ]; then

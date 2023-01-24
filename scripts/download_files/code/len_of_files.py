@@ -2,11 +2,13 @@ import os, sys
 from mutagen.mp3 import MP3
 
 
-timeInSeconds=0
-count=0
+len_of_files_in_seconds = 0
+total_files = 0
+failed_files = 0
 def goThroughFiles(dir):
-    global timeInSeconds
-    global count
+    global len_of_files_in_seconds
+    global total_files
+    global failed_files
     for thing in os.listdir(dir):
         if thing=="System Volume Information": continue
         path=dir+"/"+thing
@@ -17,18 +19,15 @@ def goThroughFiles(dir):
             except Exception as e:
                 print(f"Couldn't Parse Dir: {path}")
         elif os.path.isfile(path):
+            total_files+=1
             try:
-                count+=1
                 audio=MP3(path)
-                # print(path)
-                timeInSeconds+=audio.info.length
+                len_of_files_in_seconds+=audio.info.length
             except Exception as e:
                 print(f'{thing} failed : {e}')
-    return timeInSeconds,count                     
+                failed_files+=1
 
-
-def nicePrint(seconds):
-    # print(f"There are a total of {seconds} seconds of audio which is also:")
+def nicePrintTime(seconds):
     minutes=seconds/60
     print(f"\nMinutes: {minutes}")
     hours=minutes/60
@@ -46,7 +45,8 @@ def nicePrint(seconds):
     print(f"{int(fullDays)} days, {int(fullHour)} hours, {int(fullminutes)} minutes, {int(timeleft)} seconds")
 
 directory = sys.argv[1]
-# os.chdir(directory)
-a,count=goThroughFiles(directory)
-nicePrint(a)
-print(f"Total Files: {count}")
+goThroughFiles(directory)
+nicePrintTime(len_of_files_in_seconds)
+print(f"\nSuccessful Files: {total_files-failed_files}")
+print(f"Failed Files: {failed_files}")
+print(f"Total Files: {total_files}")
