@@ -1,8 +1,7 @@
 #!/bin/bash
 
 deleteFile() {
-  allDirs=$(ls -a)
-  for item in $allDirs; do
+  for item in *; do
     if [ "$item" = "." ] || [ "$item" = ".." ]; then
       continue
     elif [[ "$item" = $1 ]]; then #didn't quote $1 becuase of things like *.out
