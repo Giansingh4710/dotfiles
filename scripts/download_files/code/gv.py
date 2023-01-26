@@ -5,7 +5,7 @@ from datetime import datetime as dt
 mb=re.compile(r"([0-9]{1,3}(\.[0-9]*)?\s((MB)|(KB)))")
 
 totalFiles=0
-def getAllLinks(url,folder):
+def getAllLinks(url,folder,printLink):
     res=requests.get(url)
     soup=bs(res.text, 'html.parser')
     khatas=soup.find_all("table",cellpadding=4)
@@ -30,9 +30,10 @@ def getAllLinks(url,folder):
             title=f"{str(count).zfill(3)} ) {title}"+"???"+theMB #the last part contians the MBs of the file.
             folderWithLinks[folder].append(title)
             folderWithLinks[folder].append(newUrl)
+            if printLink: print(newUrl)
         else:
             newFolder=title
-            newFolderWithLinks=getAllLinks(newUrl,newFolder)
+            newFolderWithLinks=getAllLinks(newUrl,newFolder,printLink)
             if folder=="main": # the purpose og this statement is so that when we make the folders to download the files, the folders in the folder end up in the folder lol
                 folderWithLinks.update(newFolderWithLinks)
             else:
@@ -88,14 +89,18 @@ def download(khatas,thePath):
             print(f'{title} - {links[i]}')
 
 def EnterUrl(link,path,folderNameToPutAllFiles="main"):
-    start=str(dt.now())
-
     if path[-1]!="/":
         path+="/"
 
-    khatas=getAllLinks(link,folderNameToPutAllFiles)
-    download(khatas,path)
+    ans = input("Would you like Print the links or Download? [p/d]: ")
+    printing = 'p' in ans.lower()
 
+    start=str(dt.now())
+    khatas = getAllLinks(link,folderNameToPutAllFiles,printing)
+    if printing:
+        return
+
+    download(khatas,path)
     end=str(dt.now())
 
     print(f"\nTotal MBs: {allMbSum}")

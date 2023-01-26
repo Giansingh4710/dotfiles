@@ -7,6 +7,7 @@ alias addX="~/dotfiles/scripts/addX.sh"
 alias dl="~/dotfiles/scripts/download_files/run.sh"
 alias delFiles="~/dotfiles/scripts/delFiles.sh"
 alias playSDO="~/dotfiles/scripts/playSDO.sh"
+alias coolCmds="vim ~/dotfiles/scripts/coolCmds.txt"
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   alias cs288="cd /mnt/c/Users/gians/Desktop/CS/SchoolStuff/CS288"

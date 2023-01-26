@@ -2,6 +2,21 @@
 
 deleteFile() {
   for item in *; do
+    if [[ "$item" = $1 ]]; then #didn't quote $1 becuase of things like *.out
+      if [ "$2" = "yes" ];then
+        rm "$item"
+        echo "delete $(pwd)/$item"
+      else
+        echo "$(pwd)/$item"
+      fi
+    elif [ -d "$item" ]; then
+      cd "$item" || exit
+      deleteFile "$1" "$2"
+      cd ../
+    fi
+  done
+
+  for item in .*; do
     if [ "$item" = "." ] || [ "$item" = ".." ]; then
       continue
     elif [[ "$item" = $1 ]]; then #didn't quote $1 becuase of things like *.out
