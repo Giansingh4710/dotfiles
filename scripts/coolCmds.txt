@@ -2,20 +2,23 @@
 
 -anaconda
   conda config --set auto_activate_base false : to stop anaconda from starting
-
+  conda config --set auto_activate_base true : to start anaconda from starting
+  jupyter notebook
 
 -unix
-    find $(pwd) -type f -not -path '*/\.*' ; finds all files
-    df -h ; see space on harddrive
-    afplay ; plays audio in terminal
-    ps
-    top
-    kill
-    which $SHELL
-    bash
-    zsh
-    uptime
-    curl ; to Download stuff
+  find / -type f | xargs grep -i LoadModule : find all files that have 'LoadModule' in it
+  find / -type f -name "*.html" : file all html files
+  find $(pwd) -type f -not -path '*/\.*' ; finds all files
+  df -h ; see space on harddrive
+  afplay ; plays audio in terminal
+  ps
+  top
+  kill
+  which $SHELL
+  bash
+  zsh
+  uptime
+  curl ; to Download stuff
 
 -mac
   - from https;//www.youtube.com/watch?v=qOrlYzqXPa8
