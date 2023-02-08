@@ -39,3 +39,7 @@
 
   - make chromedriver usable; from https;//timonweb.com/misc/fixing-error-chromedriver-cannot-be-opened-because-the-developer-cannot-be-verified-unable-to-launch-the-chrome-browser-on-mac-os/
     xattr -d com.apple.quarantine /Users/gians/Downloads/chromedriver 
+
+git commit --amend --no-edit
+git reset --hard HEAD 
+php -S localhost:8080
