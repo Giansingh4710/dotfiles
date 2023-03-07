@@ -32,7 +32,7 @@ def getKeertanis(keertanis):
     return peopleUrl
 
 #this will take in the dictionary generated from the getKeertanis func
-def getShabads(keertanis,maxDepth=100,recursed=0):
+def getShabads(keertanis,printing,maxDepth=100,recursed=0):
     print("Finding tracks...")
     keertanTracks={}
     for keertani in keertanis:
@@ -56,11 +56,17 @@ def getShabads(keertanis,maxDepth=100,recursed=0):
             theLinks=[i.find_element_by_tag_name("a").get_attribute("href") for i in actualPages] #get all the links for the differt pages of the keertani if they have more than 1
             for i in theLinks: #links to the differt pages of the same keerani
                 if None not in theLinks:  #When you are on like page "2 of 5", the second li tag will have no href since you are in that link rn so it will give none. This way in the next itteration when you recurse, it wont keep recusing again becaue there will be a none in the list. This way it will only recurse once for each page
-                    tracksOnOtherPage=getShabads({keertani:i},maxDepth,recursed+1)
+                    tracksOnOtherPage=getShabads({keertani:i},printing,maxDepth,recursed+1)
                     for track in tracksOnOtherPage[keertani]:
+                        if printing:
+                            print(track)
                         keertanTracks[keertani].append(track)
     return keertanTracks 
 
+def printTracks(shabads):
+    for keertani in shabads:
+        for track in shabads[keertani]:
+            print(track)
 
 def download(keertanis,thePath):
     if thePath[-1]!='/':
@@ -87,16 +93,20 @@ argv=sys.argv
 whereTodl=argv[1]
 keertanis=argv[2:]
 print(keertanis)
+ans = input("Would you like Print the links or Download? [p/d]: ")
+printing = 'p' in ans.lower()
 # keertanis=["Bibi Sant Kaur","bhai harsimran singh", "bibi harkiran kaur", "bhai gurbir singh","bibi baljinder kaur", "bhai jagjit singh", "bhai amolak singh","bhai harpreet singh toronto","bhai prabhjot singh delhi","bhai gurinder singh california","bhai davinderbir singh","bhai gursharan singh faridabad","bhai pritpal singh regina", "bhai dilveer singh"]
 # keertanis=["Doola","Harpreet Singh Jee (Toronto)","Jagpal Singh"]
 options = webdriver.ChromeOptions()
 options.headless = True
 options.add_argument("--headless")
 br = webdriver.Chrome('/Users/gians/Desktop/chromedriver')#,options=options)
-a=getKeertanis(keertanis) #{'keetaniName':linkToKeetantracksBykeertani}
-shabads=getShabads(a) #,pages) #{'keertaniName': [links to all their tracks]}
+a = getKeertanis(keertanis) #{'keetaniName':linkToKeetantracksBykeertani}
+shabads = getShabads(a,printing) #,pages) #{'keertaniName': [links to all their tracks]}
+
 br.quit()
 
-if not os.path.isdir(whereTodl):
-    os.mkdir(whereTodl)
-download(shabads,whereTodl)
+if not printing:
+    if not os.path.isdir(whereTodl):
+        os.mkdir(whereTodl)
+    download(shabads,whereTodl)
