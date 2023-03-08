@@ -7,7 +7,7 @@ end
 
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
 M.capabilities.textDocument.completion.completionItem.snippetSupport = true
-M.capabilities = cmp_nvim_lsp.update_capabilities(M.capabilities)
+M.capabilities = cmp_nvim_lsp.default_capabilities(M.capabilities)
 
 M.setup = function()
 	local signs = {
@@ -48,15 +48,6 @@ M.setup = function()
 	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
 		border = "rounded",
 	})
-
-	-- vim.lsp.handlers["textDocument/definition"] = function(err, result, method, ...)
-	-- 	if vim.tbl_islist(result) and #result > 1 then
-	-- 		local filtered_result = filter(result, filterReactDTS)
-	--      print(filtered_result)
-	-- 		return vim.lsp.handlers["textDocument/definition"](err, filtered_result, method, ...)
-	-- 	end
-	-- 	vim.lsp.handlers["textDocument/definition"](err, result, method, ...)
-	-- end
 end
 
 local function lsp_keymaps(bufnr)
@@ -70,7 +61,7 @@ local function lsp_keymaps(bufnr)
 	keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 	keymap(bufnr, "n", "<leader>lf", "<cmd>lua vim.lsp.buf.format() {async = true}<cr>", opts)
 	keymap(bufnr, "n", "<leader>li", "<cmd>LspInfo<cr>", opts)
-	keymap(bufnr, "n", "<leader>lI", "<cmd>LspInstallInfo<cr>", opts)
+	keymap(bufnr, "n", "<leader>lI", "<cmd>Mason<cr>", opts)
 	keymap(bufnr, "n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
 	keymap(bufnr, "n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", opts)
 	keymap(bufnr, "n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", opts)
@@ -95,6 +86,7 @@ M.on_attach = function(client, bufnr)
 	lsp_keymaps(bufnr)
 	local status_ok, illuminate = pcall(require, "illuminate")
 	if not status_ok then
+		print("illuminate Not Working")
 		return
 	end
 	illuminate.on_attach(client)
