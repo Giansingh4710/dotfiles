@@ -1,5 +1,5 @@
---[[ local colorscheme = "darkplus" --vscode ]]
-local colorscheme = "one"
+local colorscheme = "darkplus" --vscode
+--[[ local colorscheme = "one" ]]
 --[[ local colorscheme = "onedarker" ]]
 --[[ local colorscheme = "gruvbox" ]]
 

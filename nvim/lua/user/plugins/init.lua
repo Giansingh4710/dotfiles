@@ -1,7 +1,7 @@
-require("user.plugins.packer_plugins")
+require("user.plugins.lazy_plugins")
 
-require("user.plugins.lsp")
 require("user.plugins.impatient") --fast nvim load
+require("user.plugins.lsp")
 
 require("user.plugins.bufferline") --top tab line
 require("user.plugins.marks")
