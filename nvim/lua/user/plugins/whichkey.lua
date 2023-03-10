@@ -102,15 +102,11 @@ local mappings = {
 	d = { ":call DiffWindo()<CR>", "Compare Windows" },
 	H = { ":bprev<CR>", "Prev Buff" },
 	L = { ":bnext<CR>", "Next Buff" },
-	q = { "<cmd>Bdelete!<CR>:q<CR>", "Buff Delete" },
-	c = { "<cmd>Bdelete!<CR>", "Close Buffer" },
 	["<CR>"] = { ":nohlsearch<cr>", "NO Highlight" },
 	S = { ":w<CR>:so %<CR>", "Save and Source" },
 	a = { "<cmd>ToggleAutoPairs<CR>", "Toggle AutoPairs" },
-	-- a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Action" },
 	v = { "<cmd>vsplit<cr>", "vsplit" },
 	["/"] = { api.toggle.linewise.current, "Comment" },
-	-- ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
 	b = {
 		name = "Bookmarks",
 		a = { "<cmd>BookmarkAnnotate<cr>", "Annotate" },
@@ -129,11 +125,10 @@ local mappings = {
 		s = { "<cmd>Telescope grep_string<cr>", "Find String" },
 		h = { "<cmd>Telescope help_tags<cr>", "Help" },
 		H = { "<cmd>Telescope highlights<cr>", "Highlights" },
-		i = { "<cmd>lua require('telescope').extensions.media_files.media_files()<cr>", "Media" },
 		l = { "<cmd>Telescope resume<cr>", "Last Search" },
 		M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-		r = { "<cmd>Telescope oldfiles<cr>", "Recent File" },
-		R = { "<cmd>Telescope registers<cr>", "Registers" },
+		R = { "<cmd>Telescope oldfiles<cr>", "Recent File" },
+		r = { "<cmd>Telescope registers<cr>", "Registers" },
 		k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
 		C = { "<cmd>Telescope commands<cr>", "Commands" },
 	},
@@ -142,14 +137,6 @@ local mappings = {
 		name = "LSP",
 		t = { "<cmd>ToggleDiag<cr>", "Toggle LSP on/off" },
 		a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-		d = {
-			"<cmd>Telescope lsp_document_diagnostics<cr>",
-			"Document Diagnostics",
-		},
-		w = {
-			"<cmd>Telescope lsp_workspace_diagnostics<cr>",
-			"Workspace Diagnostics",
-		},
 		f = { "<cmd>lua vim.lsp.buf.format() {async = true}<cr>", "Format" },
 		i = { "<cmd>LspInfo<cr>", "Info" },
 		I = { "<cmd>Mason<cr>", "Installer Info" },
@@ -191,6 +178,12 @@ local mappings = {
 		h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
 		v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
 	},
+  g = {
+    I = {"<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to Implementation"},
+    r = {"<cmd>lua vim.lsp.buf.references()<CR>", "Go References Quickfix"},
+    R = {"<cmd>Telescope lsp_references<CR>", "Go References Telescope"},
+    l = {"<cmd>lua vim.diagnostic.open_float()<CR>","Go line (see diagnostic)"}
+  }
 }
 
 which_key.setup(setup)
