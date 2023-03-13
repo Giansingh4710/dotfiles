@@ -20,16 +20,15 @@ local plugins = {
 	"chentoast/marks.nvim",
 	"folke/zen-mode.nvim",
 	"preservim/nerdtree",
+  --[[ "nvim-tree/nvim-tree.lua", ]]
 	"christoomey/vim-tmux-navigator", --tmux and vim window switcher BEST
 	"MattesGroeger/vim-bookmarks", -- view marks
 
 	"stevearc/dressing.nvim", --cool looks
-	--"tversteeg/registers.nvim",       --cool displau for registers
 	"tamago324/lir.nvim", --file Explorer
 	"folke/which-key.nvim",
 	"NvChad/nvim-colorizer.lua", --show colors in css files stc
 	"j-hui/fidget.nvim", --nvim progress eye candy
-	"rcarriga/nvim-notify", -- cool eye candy messages
 
 	"nvim-lua/plenary.nvim", -- Useful lua functions used by lots of plugins
 	"windwp/nvim-autopairs", -- Autopairs, integrates with both cmp and treesitter
@@ -43,7 +42,6 @@ local plugins = {
 	},
 	"nvim-lualine/lualine.nvim",
 	"akinsho/toggleterm.nvim",
-	"lewis6991/impatient.nvim", -- faster nvim load
 	"lukas-reineke/indent-blankline.nvim",
 
 	-- Colorschemes
@@ -72,13 +70,34 @@ local plugins = {
 		"jose-elias-alvarez/null-ls.nvim", -- for formatters and linters
 		"RRethy/vim-illuminate", --highlight other words when on word
 		"WhoIsSethDaniel/toggle-lsp-diagnostics.nvim", -- toggle diagnostic
-	  "ray-x/lsp_signature.nvim", --show func def when typing
+		"ray-x/lsp_signature.nvim", --show func def when typing
 	},
 	{
 		"glepnir/lspsaga.nvim", -- ui for lsp
 		dependencies = { { "kyazdani42/nvim-web-devicons" }, { "nvim-treesitter/nvim-treesitter" } },
 	},
+	{
+		"rcarriga/nvim-notify",
+		keys = {
+			{
+				"<leader>c",
+				function()
+					require("notify").dismiss({ silent = true, pending = true })
+				end,
+				desc = "Delete all Notifications",
+			},
+		},
+		opts = {
+			timeout = 3000,
+      background_colour = "#000000",
+			max_height = function()
+				return math.floor(vim.o.lines * 0.75)
+			end,
+			max_width = function()
+				return math.floor(vim.o.columns * 0.75)
+			end,
+		},
+	}
 }
 
-local opts = {}
-require("lazy").setup(plugins, opts)
+require("lazy").setup(plugins)

@@ -10,13 +10,13 @@ local servers = {
   "tsserver",
 }
 
-require("user.plugins.lsp.handler").setup()
+require("plugins.lsp.handler").setup()
 require("mason").setup()
 require("mason-lspconfig").setup({ensure_installed = servers ,automatic_installation = true})
 
 local lspconfig = require("lspconfig")
-local on_attach = require("user.plugins.lsp.handler").on_attach
-local capabilities = require("user.plugins.lsp.handler").capabilities
+local on_attach = require("plugins.lsp.handler").on_attach
+local capabilities = require("plugins.lsp.handler").capabilities
 
 for _, server in pairs(servers) do
   lspconfig[server].setup({capabilities = capabilities,on_attach = on_attach,})
@@ -48,7 +48,7 @@ require("toggle_lsp_diagnostics").init({
   underline = false,
   virtual_text = { prefix = "XXX", spacing = 5 },
 })
-require("user.plugins.lsp.null_ls")
+require("plugins.lsp.null_ls")
 require("lspsaga").setup({
   scroll_preview = { scroll_down = "<C-f>", scroll_up = "<C-b>" },-- keybinds for navigation in lspsaga window
   definition = {edit = "<CR>"}, -- use enter to open file with definition preview

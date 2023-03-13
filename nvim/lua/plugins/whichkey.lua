@@ -1,7 +1,4 @@
-local status_ok, which_key = pcall(require, "which-key")
-if not status_ok then
-	return
-end
+local which_key = require("which-key")
 
 local icons = require("user.icons")
 
@@ -13,10 +10,9 @@ local setup = {
 			enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
 			suggestions = 40, -- how many suggestions should be shown in the list?
 		},
-		-- the presets plugin, adds help for a bunch of default keybindings in Neovim
 		-- No actual key bindings are created
 		presets = {
-			operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
+			operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
 			motions = true, -- adds help for motions
 			text_objects = true, -- help for text objects triggered after entering an operator
 			windows = true, -- default bindings on <c-w>
@@ -25,9 +21,7 @@ local setup = {
 			g = true, -- bindings for prefixed with g
 		},
 	},
-	-- add operators that will trigger motion and text object completion
-	-- to enable all native operators, set the preset / operators plugin above
-	-- operators = { gc = "Comments" },
+	operators = { gc = "Comments" },
 	key_labels = {
 		-- override the label used to display some keys. It doesn't effect WK in any other way.
 		-- For example:
@@ -71,19 +65,38 @@ local setup = {
 	},
 }
 
-local opts = {
-	mode = "n", -- NORMAL mode
-	prefix = "<leader>",
-	buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-	silent = false, -- use `silent` when creating keymaps
-	noremap = true, -- use `noremap` when creating keymaps
-	nowait = true, -- use `nowait` when creating keymaps
-}
+vim.cmd [[
+  function! QuickFixToggle()
+    if empty(filter(getwininfo(), 'v:val.quickfix'))
+      copen
+    else
+      cclose
+    endif
+  endfunction
+]]
+
+vim.cmd [[
+  function! DiffWindo()
+      if &diff
+          :windo diffoff
+      else
+          if len(tabpagebuflist()) > 1
+              ":windo diffthis
+              :10 wincmd l "go to the right most pane
+              :diffthis
+              :wincmd h "go to the pane on left and compare it to that
+              :diffthis 
+          else
+              :vs
+              :Ex
+          endif
+      endif
+  endfunction
+]]
 
 vim.api.nvim_create_user_command("ToggleAutoPairs", function()
 	local a = require("nvim-autopairs")
 	vim.ui.input({ prompt = "Enter 0 to disable or 1 to enable autopairs: " }, function(input)
-		-- vim.o.shiftwidth = tonumber(input)
 		if input == "0" then
 			a.disable()
 			print("autopairs disabled")
@@ -94,19 +107,32 @@ vim.api.nvim_create_user_command("ToggleAutoPairs", function()
 	end)
 end, {})
 
-local api = require('Comment.api')
-local mappings = {
-	N = { ":!Notepad.exe %<CR>", "Open in Notepad" },
-	V = { ":tabnew $MYVIMRC<CR>", "edit Vimrc" },
-	e = { ":lua require'lir.float'.toggle()<CR>", "lir File Explorer" },
+local opts = {
+	mode = "n", -- NORMAL mode
+	prefix = "<leader>",
+	buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+	silent = false, -- use `silent` when creating keymaps
+	noremap = true, -- use `noremap` when creating keymaps
+	nowait = true, -- use `nowait` when creating keymaps
+}
+
+local mappingsNormMode = {
+	a = { "<cmd>ToggleAutoPairs<CR>", "Toggle AutoPairs" },
+  n = {":NERDTreeToggle<CR>","Toggle NERDTree"},
 	d = { ":call DiffWindo()<CR>", "Compare Windows" },
+	e = { ":lua require'lir.float'.toggle()<CR>", "lir File Explorer" },
+	r = { 'yiw:%s/<C-R>"//gc<LEFT><LEFT><LEFT>', "Replace Word Old Fashion" },
+	v = { "<cmd>vsplit<cr>", "vsplit" },
+  q = {":call QuickFixToggle()<CR>","Toggle Quick Fix List"},
+  t = {":tabnew<CR>:Ex<CR>","New Tab"},
 	H = { ":bprev<CR>", "Prev Buff" },
 	L = { ":bnext<CR>", "Next Buff" },
-	["<CR>"] = { ":nohlsearch<cr>", "NO Highlight" },
 	S = { ":w<CR>:so %<CR>", "Save and Source" },
-	a = { "<cmd>ToggleAutoPairs<CR>", "Toggle AutoPairs" },
-	v = { "<cmd>vsplit<cr>", "vsplit" },
-	["/"] = { api.toggle.linewise.current, "Comment" },
+	V = { ":tabnew $MYVIMRC<CR>", "edit Vimrc" },
+	["<CR>"] = { ":nohlsearch<cr>", "NO Highlight" },
+  ["/"] = { "<Plug>(comment_toggle_linewise_current)" , "Comment" },
+
+	l = {name = "LSP"}, --implemented with lsp
 	b = {
 		name = "Bookmarks",
 		a = { "<cmd>BookmarkAnnotate<cr>", "Annotate" },
@@ -132,31 +158,6 @@ local mappings = {
 		k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
 		C = { "<cmd>Telescope commands<cr>", "Commands" },
 	},
-
-	l = {
-		name = "LSP",
-		t = { "<cmd>ToggleDiag<cr>", "Toggle LSP on/off" },
-		a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-		f = { "<cmd>lua vim.lsp.buf.format() {async = true}<cr>", "Format" },
-		i = { "<cmd>LspInfo<cr>", "Info" },
-		I = { "<cmd>Mason<cr>", "Installer Info" },
-		j = {
-			"<cmd>lua vim.lsp.diagnostic.goto_next()<CR>",
-			"Next Diagnostic",
-		},
-		k = {
-			"<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",
-			"Prev Diagnostic",
-		},
-		l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
-		q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },
-		r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-		s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
-		S = {
-			"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
-			"Workspace Symbols",
-		},
-	},
 	s = {
 		name = "Search",
 		b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
@@ -178,14 +179,22 @@ local mappings = {
 		h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
 		v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
 	},
-  g = {
-    I = {"<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to Implementation"},
-    r = {"<cmd>lua vim.lsp.buf.references()<CR>", "Go References Quickfix"},
-    R = {"<cmd>Telescope lsp_references<CR>", "Go References Telescope"},
-    l = {"<cmd>lua vim.diagnostic.open_float()<CR>","Go line (see diagnostic)"}
-  }
+}
+
+local mappingsVisualMode = {
+  r = {'y:%s/<C-r>"//gc<LEFT><LEFT><LEFT>',"Replace Old Fashion"},
+  p = {'"_dP',"Paste Without Yank"},
+  ["/"] = {'<Plug>(comment_toggle_linewise_visual)',"Comment Visual Mode"},
 }
 
 which_key.setup(setup)
-which_key.register(mappings, opts)
+which_key.register(mappingsNormMode, opts)
+which_key.register(mappingsVisualMode, {
+	mode = "v",
+	prefix = "<leader>",
+	buffer = nil,
+	silent = false,
+	voremap = true,
+	nowait = true,
+})
 
