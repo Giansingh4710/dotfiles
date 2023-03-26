@@ -13,6 +13,7 @@ null_ls.setup({
     null_ls.builtins.completion.spell,
     formatting.black.with({ extra_args = { "--fast" } }),
     formatting.stylua,
+    formatting.clang_format,
     formatting.shfmt, --go install mvdan.cc/sh/v3/cmd/shfmt@latest
     formatting.google_java_format,
     diagnostics.shellcheck, --sudo apt install shellcheck

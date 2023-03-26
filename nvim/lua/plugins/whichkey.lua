@@ -65,7 +65,7 @@ local setup = {
 	},
 }
 
-vim.cmd [[
+vim.cmd([[
   function! QuickFixToggle()
     if empty(filter(getwininfo(), 'v:val.quickfix'))
       copen
@@ -73,9 +73,9 @@ vim.cmd [[
       cclose
     endif
   endfunction
-]]
+]])
 
-vim.cmd [[
+vim.cmd([[
   function! DiffWindo()
       if &diff
           :windo diffoff
@@ -85,14 +85,24 @@ vim.cmd [[
               :10 wincmd l "go to the right most pane
               :diffthis
               :wincmd h "go to the pane on left and compare it to that
-              :diffthis 
+              :diffthis
           else
               :vs
               :Ex
           endif
       endif
   endfunction
-]]
+]])
+
+vim.cmd([[
+  function! ToggleNERDTree()
+    if g:NERDTree.IsOpen()
+      :NERDTreeClose
+    else
+      :NERDTreeFind
+    endif
+  endfunction
+]])
 
 vim.api.nvim_create_user_command("ToggleAutoPairs", function()
 	local a = require("nvim-autopairs")
@@ -107,6 +117,15 @@ vim.api.nvim_create_user_command("ToggleAutoPairs", function()
 	end)
 end, {})
 
+vim.api.nvim_create_user_command("GetRandomColor", function()
+	local hex_digits = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" }
+	local hex_num = "#"
+	for _ = 1, 6 do
+		hex_num = hex_num .. hex_digits[math.random(1, 16)]
+	end
+  vim.api.nvim_put({hex_num}, "", false, true)
+end, {})
+
 local opts = {
 	mode = "n", -- NORMAL mode
 	prefix = "<leader>",
@@ -118,21 +137,23 @@ local opts = {
 
 local mappingsNormMode = {
 	a = { "<cmd>ToggleAutoPairs<CR>", "Toggle AutoPairs" },
-  n = {":NERDTreeToggle<CR>","Toggle NERDTree"},
+  c = { ":lua require'notify'.dismiss({ silent = true, pending = true })<CR>" , "Clear all Notifications" },
+  C = { "<cmd>GetRandomColor<CR>", "Generate Random Color" },
+	n = { ":call ToggleNERDTree()<CR>", "Toggle NERDTree" },
 	d = { ":call DiffWindo()<CR>", "Compare Windows" },
+	D = { ":bdelete<CR>", "Buffer Delete" },
 	e = { ":lua require'lir.float'.toggle()<CR>", "lir File Explorer" },
 	r = { 'yiw:%s/<C-R>"//gc<LEFT><LEFT><LEFT>', "Replace Word Old Fashion" },
 	v = { "<cmd>vsplit<cr>", "vsplit" },
-  q = {":call QuickFixToggle()<CR>","Toggle Quick Fix List"},
-  t = {":tabnew<CR>:Ex<CR>","New Tab"},
+	q = { ":call QuickFixToggle()<CR>", "Toggle Quick Fix List" },
+	t = { ":tabnew<CR>:Ex<CR>", "New Tab" },
 	H = { ":bprev<CR>", "Prev Buff" },
 	L = { ":bnext<CR>", "Next Buff" },
 	S = { ":w<CR>:so %<CR>", "Save and Source" },
 	V = { ":tabnew $MYVIMRC<CR>", "edit Vimrc" },
 	["<CR>"] = { ":nohlsearch<cr>", "NO Highlight" },
-  ["/"] = { "<Plug>(comment_toggle_linewise_current)" , "Comment" },
-
-	l = {name = "LSP"}, --implemented with lsp
+	["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment" },
+	l = { name = "LSP" }, --implemented with lsp
 	b = {
 		name = "Bookmarks",
 		a = { "<cmd>BookmarkAnnotate<cr>", "Annotate" },
@@ -182,9 +203,10 @@ local mappingsNormMode = {
 }
 
 local mappingsVisualMode = {
-  r = {'y:%s/<C-r>"//gc<LEFT><LEFT><LEFT>',"Replace Old Fashion"},
-  p = {'"_dP',"Paste Without Yank"},
-  ["/"] = {'<Plug>(comment_toggle_linewise_visual)',"Comment Visual Mode"},
+	r = { 'y:%s/<C-r>"//gc<LEFT><LEFT><LEFT>', "Replace Old Fashion" },
+	p = { '"_dP', "Paste Without Yank" },
+  m = { ':!bc<CR>', "Math"},
+	["/"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment Visual Mode" },
 }
 
 which_key.setup(setup)
@@ -197,4 +219,3 @@ which_key.register(mappingsVisualMode, {
 	voremap = true,
 	nowait = true,
 })
-

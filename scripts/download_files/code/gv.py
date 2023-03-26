@@ -1,149 +1,149 @@
 import requests, os, re, sys
 import urllib.request
-from bs4 import BeautifulSoup as bs 
+from bs4 import BeautifulSoup as bs
 from datetime import datetime as dt
-mb=re.compile(r"([0-9]{1,3}(\.[0-9]*)?\s((MB)|(KB)))")
 
-totalFiles=0
-def getAllLinks(url,folder,printLink):
-    res=requests.get(url)
-    soup=bs(res.text, 'html.parser')
-    khatas=soup.find_all("table",cellpadding=4)
-    khatas=khatas[4:-2]
-    folderWithLinks={folder:[]}
-    count=0 
-    for file in khatas:
-        try:
-            title=file.find("font",size="2",color="0069c6").text
-        except AttributeError:
-            print("No Good. But we caught it!!")#It got the ALL the text from the drop down menu and those don't have a 'color=0069c6' attribute
-            continue
-        newUrl="http://www.gurmatveechar.com/"+file.find("a").get("href")
-        if "mp3" in newUrl.lower():
-            global totalFiles
-            totalFiles+=1
-            count+=1
-            length=file.find_all("td",align="right")
-            for td in length:
-                if "mb" in td.text.lower() or "kb" in td.text.lower():
-                    theMB=td.text
-            title=f"{str(count).zfill(3)} ) {title}"+"???"+theMB #the last part contians the MBs of the file.
-            folderWithLinks[folder].append(title)
-            folderWithLinks[folder].append(newUrl)
-            if printLink: print(newUrl)
+allKbSum = 0
+totalFiles = 0
+
+regExpr = re.compile(r"([0-9]{1,3}(\.[0-9]*)?)\s(KB|MB|GB)")
+def getKbFromText(fileObj):
+    fileSize = fileObj.find_all("td", align="right")[-1].text
+    title = fileObj.find("font", size="2", color="0069c6").text
+
+    multiplier = 1
+    number = 0
+    sizeType = "kb"
+
+    searchObj = regExpr.search(fileSize)
+    if searchObj:
+        number = searchObj.group(1)
+        sizeType = searchObj.group(3).lower()
+    else:
+        print(f"No file size for {title}")
+
+    if "mb" == sizeType:
+        multiplier = 1000
+    elif "gb" == sizeType:
+        multiplier = 1_000_000
+
+    """ print(f"{title}: {float(number) * multiplier}") """
+    ans = float(number) * multiplier
+    global allKbSum
+    allKbSum += ans
+    return ans
+
+
+def getAllLinks(url, folderName, printLink, getAllSubDirs):
+    res = requests.get(url)
+    soup = bs(res.text, "html.parser")
+    kathas = soup.find_all("table", cellpadding="4")[4:-2]
+
+    folderWithLinks = {
+        folderName: {"metadata": {"size_kb": 0, "folderName": folderName}}
+    }
+    count = 0
+    for fileObj in kathas:
+        title = fileObj.find("font", size="2", color="0069c6")
+        if title:
+            title = title.text
         else:
-            newFolder=title
-            newFolderWithLinks=getAllLinks(newUrl,newFolder,printLink)
-            if folder=="main": # the purpose og this statement is so that when we make the folders to download the files, the folders in the folder end up in the folder lol
-                folderWithLinks.update(newFolderWithLinks)
-            else:
-                folderWithLinks[folder].append(newFolderWithLinks) 
-                #ifthere is a folder in a folder, the MAIN folder will be the key 
-                # and its keys are other dictionaies. The keys to ALL dictionaries are titles of folders 
-                # and the base value is a list of links
-                #the program will keep recusing as long as there is folder and will stop when there are
-                #mp3 files
+            continue
+
+        newUrl = "http://www.gurmatveechar.com/" + fileObj.find("a").get("href")
+        if "mp3" in newUrl or "MP3" in newUrl:
+            count += 1
+            kbs = getKbFromText(fileObj)
+            folderWithLinks[folderName]["metadata"]["size_kb"] += int(kbs)
+            title = f"{str(count).zfill(3)} ) {title}"
+            folderWithLinks[folderName][title] = newUrl
+            if printLink:
+                print(newUrl)
+        else:
+            newFolder = title
+            if not getAllSubDirs:
+                dlFolder = input(
+                    f"{newFolder}\n Do you want to download this folder? [y/n]: "
+                )
+                if "n" in dlFolder.lower():
+                    continue
+            newFolderWithLinks = getAllLinks(
+                newUrl, newFolder, printLink, getAllSubDirs
+            )
+            folderWithLinks[folderName]["metadata"]["size_kb"] += newFolderWithLinks[
+                newFolder
+            ]["metadata"]["size_kb"]
+            folderWithLinks[folderName].update(newFolderWithLinks)
+    global totalFiles
+    totalFiles += count
     return folderWithLinks
 
-allMbSum=0
-def download(khatas,thePath):
-    for khata in khatas:
-        folderPath=thePath
-        if khata!="main":
-            folderPath=thePath+khata+"/"
-            os.mkdir(folderPath)
-            if type(khatas[khata][0])==dict: #made this call so that it doesen't have to search through EACH file when the first is not a dict
-                listOfDict=khatas[khata]
-                for dictt in listOfDict:
-                    try:
-                        if type(dictt)==dict:  #somtimes there are folders and files in a folder so this will check for that. If not a dict, the won't recurse
-                            download(dictt,folderPath)
-                    except Exception as e:
-                        print("error: "+e)
-                continue #so the dict of dicts dosen't keep going down
-        titles=[khatas[khata][i] for i in range(len(khatas[khata])) if i%2==0]
-        links=[khatas[khata][i] for i in range(len(khatas[khata])) if i%2!=0]
-        FolderMbs=""
-        MBsum=0
-        for i in titles:
-            FolderMbs+=i
-        for i in mb.findall(FolderMbs):
-            a=i[0]
-            if "kb" in a.lower():
-                val=float(a[:-3])/1000
-            elif "gb" in a.lower():
-                val=float(a[:-3])*1000
-            else:
-                val=float(a[:-3])
-            MBsum+=val
-        global allMbSum
-        allMbSum+=MBsum
-        print("\n"+khata+" : ",MBsum)
-        for i in range(len(links)):
-            title=titles[i].split("???")[0]+".mp3"
-            noNo='\/:*?"<>|' #cant name a file with any of these characters so if the title has any of these characters, the loop will replace them
-            for bad in noNo:
-                if bad in title:
-                    title=title.replace(bad,"#")
-            urllib.request.urlretrieve(links[i],f'{folderPath}{title}')
-            print(f'{title} - {links[i]}')
 
-def EnterUrl(link,path,folderNameToPutAllFiles="main"):
-    if path[-1]!="/":
-        path+="/"
+def download(kathasObj, thePath, justPrinting, recursiveDepth=-1):
+    for title in kathasObj:
+        spaces = "  " * recursiveDepth
+        if title == "metadata":
+            print(
+                f"{spaces}{kathasObj[title]['folderName']}:  {kathasObj[title]['size_kb']/1000} MB"
+            )
+            continue
+        if type(kathasObj[title]) == dict:
+            newPath = thePath + title + "/"
+            if not justPrinting:
+                os.mkdir(newPath)
+            download(kathasObj[title], newPath, justPrinting, recursiveDepth + 1)
+            continue
 
-    ans = input("Would you like Print the links or Download? [p/d]: ")
-    printing = 'p' in ans.lower()
+        if justPrinting:
+            continue
+        link = kathasObj[title]
+        pathToDl = f"{thePath}{title}.mp3"
+        print(f"{spaces}{spaces}{link}")
+        urllib.request.urlretrieve(link, pathToDl)
+        """ try:         """
+        """ except Exception as e: """
+        """ print(f"Error: {e}") """
+    return
 
-    start=str(dt.now())
-    khatas = getAllLinks(link,folderNameToPutAllFiles,printing)
-    if printing:
-        return
 
-    download(khatas,path)
-    end=str(dt.now())
+def EnterUrl(link, path, printing, downloadAllSubDirs, folderNameToPutAllFiles):
+    start = str(dt.now())
+    kathas = getAllLinks(link, folderNameToPutAllFiles, printing, downloadAllSubDirs)
 
-    print(f"\nTotal MBs: {allMbSum}")
-    print(f"Total GBs: {allMbSum/1000}")
-    print("In total: "+str(totalFiles)+" total files\n")
-    
+    print("\n")
+    download(kathas, path, printing)
+    end = str(dt.now())
+
+    print(f"\nTotal MBs: {allKbSum/1000}")
+    print(f"Total GBs: {allKbSum/1000000}")
+    print("In total: " + str(totalFiles) + " total files\n")
+
     print(f"Start: {start}")
-    print(f"End: {end}",end="\n\n")
-    startSeconds=(int(start[11:13])*60*60)+(int(start[14:16])*60)+int(start[17:19])
-    endSeconds=(int(end[11:13])*60*60)+(int(end[14:16])*60)+int(end[17:19])
+    print(f"End: {end}", end="\n\n")
+    startSeconds = (
+        (int(start[11:13]) * 60 * 60) + (int(start[14:16]) * 60) + int(start[17:19])
+    )
+    endSeconds = (int(end[11:13]) * 60 * 60) + (int(end[14:16]) * 60) + int(end[17:19])
     print(f"Seconds: {endSeconds-startSeconds}")
     print(f"Minutes: {(endSeconds-startSeconds)/60}")
     print(f"Hours: {(endSeconds-startSeconds)/(60*60)}")
 
 
-def onlyLinks(url):
-    res=requests.get(url)
-    soup=bs(res.text, 'lxml')
-    khatas=soup.find_all("table",cellpadding=4)
-    khatas=khatas[4:-2]
-    folderWithLinks={}
-    for file in khatas:
-        try:
-            title=file.find("font",size="2",color="0069c6").text
-        except AttributeError:
-            print("No Good. But we caught it!!")#It got the ALL the text from the drop down menu and those don't have a 'color=0069c6' attribute
-            continue
-        newUrl="http://www.gurmatveechar.com/"+file.find("a").get("href")
-        if "mp3" in newUrl.lower():
-            global totalFiles
-            totalFiles+=1
-            folderWithLinks[title]=newUrl
-        else:
-            newFolderWithLinks=onlyLinks(newUrl)
-            folderWithLinks.update(newFolderWithLinks) 
-    return folderWithLinks
+path = sys.argv[1]
+urls = sys.argv[2:]
+
+printing = (
+    "p" in input("Would you like Just print the links or Download? [p/d]: ").lower()
+)
+
+subDirsDl = input("Do you want to download ALL Subdirectories? [y/n]: ").lower()
+downloadAllSubDirs = "y" in subDirsDl or "a" in subDirsDl
 
 
+if path[-1] != "/":
+    path += "/"
 
-path=sys.argv[1]
-urls=sys.argv[2:]
 for url in urls:
-    url=url.strip()
-    title=url.split("%2F")[-1]
-    EnterUrl(url,path,title)
-
+    url = url.strip()
+    title = url.split("%2F")[-1].split("/")[-1]
+    EnterUrl(url, path, printing, downloadAllSubDirs, title)

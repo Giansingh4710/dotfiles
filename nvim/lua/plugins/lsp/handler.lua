@@ -5,8 +5,12 @@ M.capabilities = vim.lsp.protocol.make_client_capabilities()
 M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 M.capabilities = require("cmp_nvim_lsp").default_capabilities(M.capabilities)
 
-local which_key = require("which-key")
+require("toggle_lsp_diagnostics").init({
+  underline = false,
+  virtual_text = { prefix = "XXX", spacing = 5 },
+})
 
+local which_key = require("which-key")
 local function lsp_keymaps(bufnr)
 	local opts = { noremap = true, silent = true, buffer = bufnr }
 	local keymap = vim.keymap -- for conciseness
@@ -20,7 +24,8 @@ local function lsp_keymaps(bufnr)
 	local g_mappingsNormMode = {
 		D = { "<cmd>Lspsaga lsp_finder<CR>", "Show Definition and References (LSP)" }, -- show definition, references
 		R = { "<cmd>lua vim.lsp.buf.references()<CR>", "Quickfix list References (LSP)" },
-		d = { "<cmd>Lspsaga goto_definition<CR>", "Go to Definition (LSP)" }, -- see definition and make edits in window
+		d = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Go to Definition (LSP)" }, -- see definition and make edits in window
+		--[[ d = { "<cmd>Lspsaga goto_definition<CR>", "Go to Definition (LSP)" }, -- see definition and make edits in window ]]
 		i = { "<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to implementation (LSP)" }, -- go to implementation
 		l = { "<cmd>lua vim.diagnostic.open_float()<CR>", "Show Line diagnostics (LSP)"},
 		r = { "<cmd>Telescope lsp_references<CR>", "Telescope References (LSP)" },
@@ -48,6 +53,7 @@ local function lsp_keymaps(bufnr)
 		q = { "<cmd>lua vim.diagnostic.setloclist()<CR>", "Diagnostic Quickfix (LSP)" },
 		s = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature help (LSP)" },
 		S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols" },
+		t = { "<cmd>ToggleDiag<cr>", "Toggle Diagnostics" },
 	}
 	which_key.register(l_mappingsNormMode, {
 		mode = "n",
@@ -100,9 +106,9 @@ M.setup = function()
 	})
 end
 
-local notify = require("notify") -- .setup({background_colour = "#000000"})
+--[[ local notify = require("notify") -- .setup({background_colour = "#000000"}) ]]
 M.on_attach = function(client, bufnr)
-	notify(client.name .. " lsp server is attached")
+	print(client.name .. " lsp server is attached")
 	lsp_keymaps(bufnr)
 	require("illuminate").on_attach(client)
 end

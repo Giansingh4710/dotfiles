@@ -78,15 +78,6 @@ local plugins = {
 	},
 	{
 		"rcarriga/nvim-notify",
-		keys = {
-			{
-				"<leader>c",
-				function()
-					require("notify").dismiss({ silent = true, pending = true })
-				end,
-				desc = "Delete all Notifications",
-			},
-		},
 		opts = {
 			timeout = 3000,
       background_colour = "#000000",

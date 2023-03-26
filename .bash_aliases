@@ -22,6 +22,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 fi
 
 if [[ "$OSTYPE" == "darwin2"* ]]; then
+  alias notify="~/dotfiles/scripts/notify.sh"
   alias sshLogin="~/dotfiles/scripts/sshLogin.sh"
   alias gvim="~/dotfiles/scripts/macVim.sh"
   alias python="python3"

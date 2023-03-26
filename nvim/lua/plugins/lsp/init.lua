@@ -44,10 +44,9 @@ lspconfig["lua_ls"].setup({
   },
 })
 
-require("toggle_lsp_diagnostics").init({
-  underline = false,
-  virtual_text = { prefix = "XXX", spacing = 5 },
-})
+capabilities.offsetEncoding = { "utf-16" } -- for clangd to remove error
+lspconfig["clangd"].setup({ capabilities = capabilities })
+
 require("plugins.lsp.null_ls")
 require("lspsaga").setup({
   scroll_preview = { scroll_down = "<C-f>", scroll_up = "<C-b>" },-- keybinds for navigation in lspsaga window

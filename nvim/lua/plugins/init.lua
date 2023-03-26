@@ -16,8 +16,5 @@ require("plugins.lir") -- ranger like file manager
 require("plugins.fidget") --eye candy for nvim-lsp
 require("plugins.autopairs") --makes pairs for [ ( ect
 require("plugins.zen-mode")
-
 require("plugins.whichkey")
 require("plugins.lsp")
-
-require("plugins.colorscheme")

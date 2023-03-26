@@ -32,8 +32,9 @@ keymap("x", "x", '"_d', opts)
 keymap("n", "<C-w>t", ":tabnew %<CR>",opts)
 
 --snippets
-keymap("n",",cpp", ':r ~/dotfiles/skeletons/cpp<CR>gg"_dd4j',opts)
-keymap("n",",html", ':r ~/dotfiles/skeletons/html<CR>gg"_dd9j',opts)
+keymap("n",",cpp", ':-1r ~/dotfiles/skeletons/cpp<CR>',opts)
+keymap("n",",c", ':-1r ~/dotfiles/skeletons/c<CR>',opts)
+keymap("n",",html", ':-1r ~/dotfiles/skeletons/html<CR>',opts)
 keymap("n", ",java", ':r !bash ~/dotfiles/skeletons/java.sh %<CR>gg"_dd2j',opts)
 
 keymap('n','gF','"hyiW:e <C-r>h<CR>', opts) --go file but make file under cursor (put in h register)

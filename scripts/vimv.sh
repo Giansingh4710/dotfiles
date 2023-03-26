@@ -12,14 +12,15 @@ trap '{ rm -f "${FILENAMES_FILE}" ; }' EXIT
 if [ $# -ne 0 ]; then
     src=( "$@" )
 else
-    IFS=$'\r\n' GLOBIGNORE='*' command eval 'src=($(ls -a))'
+    # IFS=$'\r\n' GLOBIGNORE='*' command eval 'src=($(ls -a))'
+    IFS=$'\r\n' GLOBIGNORE='*' command eval 'src=($(ls))'
 fi
 
 for ((i=0;i<${#src[@]};++i)); do
     echo "${src[i]}" >> "${FILENAMES_FILE}"
 done
 
-${EDITOR:-nvim} "${FILENAMES_FILE}"
+${EDITOR:-vim} "${FILENAMES_FILE}"
 
 IFS=$'\r\n' GLOBIGNORE='*' command eval 'dest=($(cat "${FILENAMES_FILE}"))'
 
