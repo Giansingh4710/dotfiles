@@ -3,7 +3,5 @@
 --[[ /Users/gians/.local/share/nvim ]]
 require("user.options")
 require("user.autocommands")
-require("user.lazy_plugins")
 require("user.keymaps")
-require("plugins.colorscheme")
 require("plugins")

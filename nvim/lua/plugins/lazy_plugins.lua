@@ -14,25 +14,41 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
 	"nvim-telescope/telescope.nvim",
 	"nvim-treesitter/nvim-treesitter",
-	"lewis6991/gitsigns.nvim",
 	"windwp/nvim-ts-autotag", --treesitter autotag
-
 	"chentoast/marks.nvim",
 	"folke/zen-mode.nvim",
 	"preservim/nerdtree",
-  --[[ "nvim-tree/nvim-tree.lua", ]]
 	"christoomey/vim-tmux-navigator", --tmux and vim window switcher BEST
-	"MattesGroeger/vim-bookmarks", -- view marks
 
 	"stevearc/dressing.nvim", --cool looks
 	"tamago324/lir.nvim", --file Explorer
-	"folke/which-key.nvim",
-	"NvChad/nvim-colorizer.lua", --show colors in css files stc
-	"j-hui/fidget.nvim", --nvim progress eye candy
+
+	-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+	{ "j-hui/fidget.nvim", opts = {} }, --eye candy for nvim-lsp
+	{
+		"folke/which-key.nvim",
+		opts = {},
+	},
+	{ "numToStr/Comment.nvim", opts = {} },
+	{ "NvChad/nvim-colorizer.lua", opts = {} }, --show colors in css files stc
+	{
+		"lewis6991/gitsigns.nvim",
+		-- Adds git releated signs to the gutter, as well as utilities for managing changes
+		-- See `:help gitsigns.txt`
+		opts = {
+			signs = {
+				add = { text = "+" },
+				change = { text = "~" },
+				delete = { text = "_" },
+				topdelete = { text = "‾" },
+				changedelete = { text = "~" },
+			},
+		},
+	},
 
 	"nvim-lua/plenary.nvim", -- Useful lua functions used by lots of plugins
 	"windwp/nvim-autopairs", -- Autopairs, integrates with both cmp and treesitter
-	"numToStr/Comment.nvim",
+
 	"JoosepAlviste/nvim-ts-context-commentstring", -- correct comments in html file where there is js,html,css
 	"kyazdani42/nvim-web-devicons",
 	{
@@ -45,9 +61,14 @@ local plugins = {
 	"lukas-reineke/indent-blankline.nvim",
 
 	-- Colorschemes
-	"rafi/awesome-vim-colorschemes",
 	"lunarvim/colorschemes",
-	"lunarvim/darkplus.nvim",
+	{
+		"lunarvim/darkplus.nvim", --[[ "darkplus" --vscode ]]
+		priority = 1000,
+		config = function()
+			vim.cmd.colorscheme("darkplus")
+		end,
+	},
 
 	-- cmp plugins
 	"hrsh7th/nvim-cmp", -- The completion plugin
@@ -80,7 +101,7 @@ local plugins = {
 		"rcarriga/nvim-notify",
 		opts = {
 			timeout = 3000,
-      background_colour = "#000000",
+			background_colour = "#000000",
 			max_height = function()
 				return math.floor(vim.o.lines * 0.75)
 			end,
@@ -88,7 +109,7 @@ local plugins = {
 				return math.floor(vim.o.columns * 0.75)
 			end,
 		},
-	}
+	},
 }
 
 require("lazy").setup(plugins)
