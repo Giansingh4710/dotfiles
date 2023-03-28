@@ -27,12 +27,12 @@ local function lsp_keymaps(bufnr)
 
   nmap("gD","<cmd>Lspsaga lsp_finder<CR>","Show Definition and References" )
   nmap("gR","<cmd>lua vim.lsp.buf.references()<CR>","Quickfix list References" )
-  nmap("gd","<cmd>lua vim.lsp.buf.definition()<CR>","Go to Definition" )
   nmap("gi","<cmd>lua vim.lsp.buf.implementation()<CR>","Go to implementation" )
-  nmap("gl","<cmd>lua vim.diagnostic.open_float()<CR>","Show Line diagnostics" )
   nmap("gr","<cmd>Telescope lsp_references<CR>","Telescope References" )
-  nmap("gd","<cmd>Lspsaga goto_definition<CR>","Go to Definition" )
-  nmap("gl","<cmd>Lspsaga show_line_diagnostics<CR>","Show Line diagnostics" )
+  nmap("gd","<cmd>lua vim.lsp.buf.definition()<CR>","Go to Definition" )
+  nmap("gl","<cmd>lua vim.diagnostic.open_float()<CR>","Show Line diagnostics" )
+  -- nmap("gd","<cmd>Lspsaga goto_definition<CR>","Go to Definition" )
+  -- nmap("gl","<cmd>Lspsaga show_line_diagnostics<CR>","Show Line diagnostics" )
 
   nmap("<leader>lf","<cmd>lua vim.lsp.buf.format()<CR>","Format" )
   nmap("<leader>li","<cmd>LspInfo<cr>","Info" )
@@ -90,9 +90,9 @@ M.setup = function()
 	})
 end
 
---[[ local notify = require("notify") -- .setup({background_colour = "#000000"}) ]]
+local notify = require("notify")
 M.on_attach = function(client, bufnr)
-	print(client.name .. " lsp server is attached")
+	notify(client.name .. " lsp attached")
 	lsp_keymaps(bufnr)
 	require("illuminate").on_attach(client)
 end

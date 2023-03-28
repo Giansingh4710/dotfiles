@@ -4,8 +4,9 @@ if not status_ok then
 end
 
 configs.setup({
-	ensure_installed = "all", -- one of "all" or a list of languages
-	ignore_install = { "phpdoc" }, -- List of parsers to ignore installing
+	-- ensure_installed = "all",
+	ensure_installed = { "c", "cpp", "go", "lua", "python", "rust", "tsx", "typescript", "help", "vim" },
+	indent = { enable = true, disable = { "python" } },
 	highlight = {
 		enable = true, -- false will disable the whole extension
 		disable = { "css" }, -- list of language that will be disabled
@@ -13,6 +14,14 @@ configs.setup({
 	autopairs = {
 		enable = true,
 	},
-	indent = { enable = true },
+	auto_install = false,
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			init_selection = "<c-s>",
+			node_incremental = "<c-s>",
+			-- scope_incremental = '<c-s>',
+			node_decremental = "<c-d>",
+		},
+	},
 })
-
