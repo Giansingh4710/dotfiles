@@ -15,7 +15,15 @@ local plugins = {
 	"tpope/vim-surround",
 	"christoomey/vim-tmux-navigator", --tmux and vim window switcher BEST
 	"preservim/nerdtree",
-	"lunarvim/colorschemes", -- Colorschemes
+  "rafi/awesome-vim-colorschemes",
+	"lunarvim/colorschemes",
+	{
+		"lunarvim/darkplus.nvim", --[[ "darkplus" --vscode ]]
+		priority = 1000,
+		config = function()
+			vim.cmd.colorscheme("ayu")
+		end,
+	},
 
 	"nvim-telescope/telescope.nvim",
 	"nvim-treesitter/nvim-treesitter",
@@ -62,13 +70,6 @@ local plugins = {
 	{
 		"akinsho/bufferline.nvim",
 		dependencies = "kyazdani42/nvim-web-devicons",
-	},
-	{
-		"lunarvim/darkplus.nvim", --[[ "darkplus" --vscode ]]
-		priority = 1000,
-		config = function()
-			vim.cmd.colorscheme("darkplus")
-		end,
 	},
 	{
 		"neovim/nvim-lspconfig",

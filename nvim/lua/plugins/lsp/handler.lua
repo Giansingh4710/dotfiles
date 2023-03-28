@@ -90,9 +90,8 @@ M.setup = function()
 	})
 end
 
-local notify = require("notify")
 M.on_attach = function(client, bufnr)
-	notify(client.name .. " lsp attached")
+	print(client.name .. " lsp attached")
 	lsp_keymaps(bufnr)
 	require("illuminate").on_attach(client)
 end
