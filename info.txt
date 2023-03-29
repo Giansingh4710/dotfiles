@@ -1,0 +1,6 @@
+~/.vimrc : vimrc for both unix and windows
+~\AppData\Local\nvim : ~\.config\nvim: where you put your config
+~\AppData\Local\nvim-data : where nvim will download stuff to like plugin files
+
+C:\Program Files\Neovim : where winget installs ( winget install Neovim.Neovim)
+C:\tools\neovim\nvim-win64 : when you type nvim in commandline, where it looks for.
