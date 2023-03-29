@@ -1,6 +1,21 @@
-~/.vimrc : vimrc for both unix and windows
-~\AppData\Local\nvim : ~\.config\nvim: where you put your config
-~\AppData\Local\nvim-data : where nvim will download stuff to like plugin files
+Nvim Stuff on windows:
+  ~/.vimrc : vimrc for both unix and windows
+  ~\AppData\Local\nvim : ~\.config\nvim : where you put your config
+  ~\AppData\Local\nvim-data : ~/.local/share/nvim : where nvim will download stuff to like plugin files
 
-C:\Program Files\Neovim : where winget installs ( winget install Neovim.Neovim)
-C:\tools\neovim\nvim-win64 : when you type nvim in commandline, where it looks for.
+  C:\Program Files\Neovim : where winget installs ( winget install Neovim.Neovim)
+  C:\tools\neovim\nvim-win64 : when you type nvim in commandline, where it looks for.
+
+Software to install:
+  neovim
+  node
+  shellcheck #lsp for bash (neovim)
+  starship #shows cool stuff in terminal like git and time spent in cli app
+  youtube-dl
+  tmux
+  tree 
+  mac:
+    yabai #window tile manager
+    skhd #key binding for stuff like yabai and anything
+    karabiner-elements #change functions of keys on keyboard
+    rectangle #mac cool move window
