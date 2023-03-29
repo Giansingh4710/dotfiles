@@ -6,14 +6,12 @@ call plug#begin()
   Plug 'itchyny/lightline.vim' "status bar
   Plug 'kshenoy/vim-signature' "view your marks
   Plug 'preservim/nerdtree'
-  Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
   Plug 'preservim/nerdcommenter'
   Plug 'christoomey/vim-tmux-navigator' "tmux and vim window switcher BEST
   Plug 'https://github.com/rafi/awesome-vim-colorschemes'
   Plug 'vim-scripts/AutoComplPop' "auto completion pops up automaticaly instead of <C-p>
-  " Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
+  Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
   " Plug 'Yggdroot/indentLine' "show indent lines
-  " Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
 call plug#end()
 
 "Settings for plugins

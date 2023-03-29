@@ -42,5 +42,6 @@ luac.out
 # annoying mac file for finder
 *.DS_Store
 
-./nvim/plugin/packer_compiled.lua
+nvim/other_configs/
 scripts/sshLogin.sh
+

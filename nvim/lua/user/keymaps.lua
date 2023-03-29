@@ -48,6 +48,8 @@ keymap("n", "<leader>n", ":call ToggleNERDTree()<CR>", { desc = "Toggle NERDTree
 keymap("n", "<leader>d", ":call DiffWindo()<CR>", { desc = "Compare Windows" })
 keymap("n", "<leader>D", ":bdelete<CR>", { desc = "Buffer Delete" })
 keymap("n", "<leader>e", ":lua require'lir.float'.toggle()<CR>", { desc = "lir File Explorer" })
+keymap("n", "<leader>m", "<cmd>Mason<CR>", { desc = "Mason (LSP)" })
+
 
 keymap("n", "<leader>v", "<cmd>vsplit<cr>", { desc = "vsplit" })
 keymap("n", "<leader>q", ":call QuickFixToggle()<CR>", { desc = "Toggle Quick Fix List" })
@@ -59,13 +61,6 @@ keymap("n", "<leader>V", ":tabnew $MYVIMRC<CR>", { desc = "edit Vimrc" })
 
 keymap("n", "<leader><CR>", ":nohlsearch<CR>", { desc = "No Highlight" })
 keymap("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)", { desc = "Comment" })
-
-keymap("n", "<leader>ba", "<cmd>BookmarkAnnotate<cr>", { desc = "Annotate" })
-keymap("n", "<leader>bb", "<cmd>BookmarkToggle<cr>", { desc = "Toggle" })
-keymap("n", "<leader>bc", "<cmd>BookmarkClearAll<cr>", { desc = "Clear All" })
-keymap("n", "<leader>bj", "<cmd>silent BookmarkPrev<cr>", { desc = "Prev" })
-keymap("n", "<leader>bk", "<cmd>BookmarkNext<cr>", { desc = "Next" })
-keymap("n", "<leader>bs", "<cmd>silent BookmarkShowAll<cr>", { desc = "Prev" })
 
 keymap("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find Buffer" })
 keymap("n", "<leader>fc", "<cmd>Telescope colorscheme<cr>", { desc = "Colorscheme" })
@@ -81,14 +76,14 @@ keymap("n", "<leader>fr", "<cmd>Telescope registers<cr>", { desc = "Registers" }
 keymap("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "Keymaps" })
 keymap("n", "<leader>fC", "<cmd>Telescope commands<cr>", { desc = "Commands" })
 
-keymap("n", "<leader>fb", "<cmd>Telescope git_branches<cr>", { desc = "Checkout branch" })
-keymap("n", "<leader>fc", "<cmd>Telescope colorscheme<cr>", { desc = "Colorscheme" })
-keymap("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Find Help" })
-keymap("n", "<leader>fM", "<cmd>Telescope man_pages<cr>", { desc = "Man Pages" })
-keymap("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Open Recent File" })
-keymap("n", "<leader>fR", "<cmd>Telescope registers<cr>", { desc = "Registers" })
-keymap("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "Keymaps" })
-keymap("n", "<leader>fC", "<cmd>Telescope commands<cr>", { desc = "Commands" })
+keymap("n", "<leader>sb", "<cmd>Telescope git_branches<cr>", { desc = "Checkout branch" })
+keymap("n", "<leader>sc", "<cmd>Telescope colorscheme<cr>", { desc = "Colorscheme" })
+keymap("n", "<leader>sh", "<cmd>Telescope help_tags<cr>", { desc = "Find Help" })
+keymap("n", "<leader>sM", "<cmd>Telescope man_pages<cr>", { desc = "Man Pages" })
+keymap("n", "<leader>sr", "<cmd>Telescope oldfiles<cr>", { desc = "Open Recent File" })
+keymap("n", "<leader>sR", "<cmd>Telescope registers<cr>", { desc = "Registers" })
+keymap("n", "<leader>sk", "<cmd>Telescope keymaps<cr>", { desc = "Keymaps" })
+keymap("n", "<leader>sC", "<cmd>Telescope commands<cr>", { desc = "Commands" })
 
 keymap("n", "<leader>Tn", "<cmd>lua _NODE_TOGGLE()<cr>", { desc = "Node" })
 keymap("n", "<leader>Tu", "<cmd>lua _NCDU_TOGGLE()<cr>", { desc = "NCDU" })

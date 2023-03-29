@@ -1,12 +1,12 @@
 local cmp_status_ok, cmp = pcall(require, "cmp")
 if not cmp_status_ok then
-  print("cmp not Working")
+	print("cmp not Working")
 	return
 end
 
 local snip_status_ok, luasnip = pcall(require, "luasnip")
 if not snip_status_ok then
-  print("luasnip not Working")
+	print("luasnip not Working")
 	return
 end
 
@@ -18,8 +18,12 @@ local check_backspace = function()
 end
 
 local icons = require("user.icons")
-
 local kind_icons = icons.kind
+
+vim.api.nvim_set_hl(0, "CmpItemAbbr", { fg = "#33ffB9", italic = true })
+vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = "#FF3333", italic = true })
+vim.api.nvim_set_hl(0, "CmpItemMenu", { fg = "#77EEF5"})
+vim.api.nvim_set_hl(0, "CmpItemKind", { fg = "#FFC300"})
 
 cmp.setup({
 	snippet = {
@@ -27,7 +31,6 @@ cmp.setup({
 			luasnip.lsp_expand(args.body) -- For `luasnip` users.
 		end,
 	},
-
 	mapping = cmp.mapping.preset.insert({
 		["<C-k>"] = cmp.mapping.select_prev_item(),
 		["<C-j>"] = cmp.mapping.select_next_item(),
@@ -71,15 +74,16 @@ cmp.setup({
 		}),
 	}),
 	formatting = {
-		fields = { "kind", "abbr", "menu" },
+		fields = { "abbr","menu", "kind"},
 		format = function(entry, vim_item)
-			vim_item.kind = kind_icons[vim_item.kind]
+			local kind = vim_item.kind --> Class, Var, Method
+			vim_item.kind = kind_icons[kind] .. "(".. kind ..")"
 			vim_item.menu = ({
-				nvim_lsp = "lsp",
-				nvim_lua = "lua",
-				luasnip = "snip",
-				buffer = "buff",
-				path = "path",
+				nvim_lsp = "[LSP]",
+				nvim_lua = "[Lua]",
+				luasnip = "[Snip]",
+				buffer = "[Buff]",
+				path = "[Path]",
 				emoji = "emoji",
 			})[entry.source.name]
 			return vim_item

@@ -59,7 +59,44 @@ local spaces = function()
 	return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
 end
 
-lualine.setup({
+local get_servers = function()
+	local clients = vim.lsp.get_active_clients()
+	if #clients == 0 then
+		return
+	end
+
+	local servers = "["
+	for _, client in ipairs(clients) do
+		if client.name == "null-ls" then
+		else
+			servers = servers .. client.name .. ","
+		end
+	end
+
+	local servers = string.sub(servers, 1, -2) -- extract substring from index 1 to second-last character
+	local servers = servers .. "]"
+
+	return servers
+end
+
+local lsp_server_name = function()
+	local msg = "No Active Lsp"
+	local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+	local clients = vim.lsp.get_active_clients()
+	if next(clients) == nil then
+		return msg
+	end
+
+	for _, client in ipairs(clients) do
+		local filetypes = client.config.filetypes
+		if client.name ~= "null-ls" and filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+			return client.name
+		end
+	end
+	return msg
+end
+
+local config = {
 	options = {
 		globalstatus = true,
 		icons_enabled = true,
@@ -72,7 +109,6 @@ lualine.setup({
 	sections = {
 		lualine_a = { "mode" },
 		lualine_b = { branch, diagnostics },
-	  -- lualine_b = {'branch', 'diff', 'diagnostics'},
 		lualine_c = {
 			{
 				"filename",
@@ -80,9 +116,20 @@ lualine.setup({
 				path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
 			},
 		},
-		lualine_x = { diff, "encoding", "fileformat", filetype },
-		-- lualine_x = { diff, --[[ spaces ,]] "encoding", filetype },
+		lualine_x = {
+			{
+				lsp_server_name,
+				icon = " LSP:",
+				color = { fg = "#C7988B", gui = "bold" },
+			},
+			"encoding",
+			"fileformat",
+			filetype,
+		},
+		-- lualine_x = { diff, spaces , "encoding", filetype },
 		lualine_y = { location },
 		lualine_z = { "progress" },
 	},
-})
+}
+
+lualine.setup(config)

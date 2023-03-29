@@ -13,17 +13,12 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
 	"tpope/vim-surround",
-	"christoomey/vim-tmux-navigator", --tmux and vim window switcher BEST
+	"christoomey/vim-tmux-navigator",
 	"preservim/nerdtree",
+
   "rafi/awesome-vim-colorschemes",
-	"lunarvim/colorschemes",
-	{
-		"lunarvim/darkplus.nvim", --[[ "darkplus" --vscode ]]
-		priority = 1000,
-		config = function()
-			vim.cmd.colorscheme("ayu")
-		end,
-	},
+  "bluz71/vim-nightfly-colors",
+  "lunarvim/darkplus.nvim", -- vscode
 
 	"nvim-telescope/telescope.nvim",
 	"nvim-treesitter/nvim-treesitter",
@@ -50,7 +45,6 @@ local plugins = {
 	"L3MON4D3/LuaSnip", --snippet engine
 	"rafamadriz/friendly-snippets", -- a bunch of snippets to use
 
-
 	-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
 	{ "numToStr/Comment.nvim", opts = {} },
 	{ "NvChad/nvim-colorizer.lua", opts = {} }, --show colors in css files stc
@@ -76,6 +70,7 @@ local plugins = {
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
+			{ "folke/neodev.nvim", opts = {} }, -- Additional lua configuration, makes nvim stuff amazing!
 			{ "j-hui/fidget.nvim", opts = {} }, -- Useful status updates for LSP
 		},
 	},
@@ -107,6 +102,8 @@ local plugins = {
 }
 
 require("lazy").setup(plugins)
+
+vim.cmd.colorscheme("nightfly")
 
 require("plugins.treesitter")
 require("plugins.bufferline") --top tab line
