@@ -59,28 +59,8 @@ local spaces = function()
 	return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
 end
 
-local get_servers = function()
-	local clients = vim.lsp.get_active_clients()
-	if #clients == 0 then
-		return
-	end
-
-	local servers = "["
-	for _, client in ipairs(clients) do
-		if client.name == "null-ls" then
-		else
-			servers = servers .. client.name .. ","
-		end
-	end
-
-	local servers = string.sub(servers, 1, -2) -- extract substring from index 1 to second-last character
-	local servers = servers .. "]"
-
-	return servers
-end
-
 local lsp_server_name = function()
-	local msg = "No Active Lsp"
+	local msg = icons.diagnostics.Error
 	local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
 	local clients = vim.lsp.get_active_clients()
 	if next(clients) == nil then

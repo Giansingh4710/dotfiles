@@ -90,7 +90,7 @@ M.setup = function()
 end
 
 M.on_attach = function(client, bufnr)
-	print(client.name .. " lsp attached")
+	-- print(client.name .. " lsp attached")
 	lsp_keymaps(bufnr)
 	require("illuminate").on_attach(client)
 end

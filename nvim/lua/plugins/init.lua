@@ -16,9 +16,9 @@ local plugins = {
 	"christoomey/vim-tmux-navigator",
 	"preservim/nerdtree",
 
-  "rafi/awesome-vim-colorschemes",
-  "bluz71/vim-nightfly-colors",
-  "lunarvim/darkplus.nvim", -- vscode
+	"rafi/awesome-vim-colorschemes",
+	"bluz71/vim-nightfly-colors",
+	"lunarvim/darkplus.nvim", -- vscode
 
 	"nvim-telescope/telescope.nvim",
 	"nvim-treesitter/nvim-treesitter",
@@ -47,7 +47,7 @@ local plugins = {
 
 	-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
 	{ "numToStr/Comment.nvim", opts = {} },
-	{ "NvChad/nvim-colorizer.lua", opts = {} }, --show colors in css files stc
+	{ "norcalli/nvim-colorizer.lua", opts = {} }, --show colors in css files stc
 	{ "folke/which-key.nvim", opts = {} },
 	{
 		"lewis6991/gitsigns.nvim", -- Adds git releated signs to the gutter, as well as utilities for managing changes
