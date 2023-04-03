@@ -5,7 +5,6 @@ if not status_ok then
 end
 
 local actions = require("lir.actions")
-local mark_actions = require("lir.mark.actions")
 local clipboard_actions = require("lir.clipboard.actions")
 
 local mappings = {
@@ -25,17 +24,13 @@ local mappings = {
   ["r"] = actions.rename,
   ["v"] = actions.vsplit,
   ["x"] = clipboard_actions.cut,
-  ["J"] = function()
-    mark_actions.toggle_mark()
-    vim.cmd("normal! j")
-  end,
   ["?"] = function()
     ShowMappingsWindow()
   end,
 }
 
 lir.setup({
-  show_hidden_files = false,
+  show_hidden_files = true,
   devicons = {
     enable = true,
   },
@@ -43,22 +38,9 @@ lir.setup({
   float = {
     winblend = 0,
     curdir_window = {
-      enable = false,
+      enable = true,
       highlight_dirname = true,
     },
-    -- -- You can define a function that returns a table to be passed as the third
-    -- -- argument of nvim_open_win().
-    win_opts = function()
-      local width = math.floor(vim.o.columns * 0.5)
-      local height = math.floor(vim.o.lines * 0.5)
-      return {
-        border = "rounded",
-        width = width,
-        height = height,
-        row = 10,
-        col = math.floor((vim.o.columns - width) / 4),
-      }
-    end,
   },
   hide_cursor = false,
   on_init = function()

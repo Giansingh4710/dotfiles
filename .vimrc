@@ -117,6 +117,8 @@ call plug#end()
   "If PUM (complete menu) is visible, then execute <C-y> (which selects an "item), otherwise regular tab
   inoremap <expr> <TAB> pumvisible() ? "<C-y>" : "<TAB>"
 
+  nnoremap <leader>x :!chmod +x %<CR>
+
   "starter templetes for files
   nnoremap ,cpp :r ~/.dotfiles/skeletons/cpp<CR>gg"_dd4j
   nnoremap ,html :r ~/.dotfiles/skeletons/html<CR>gg"_dd9j

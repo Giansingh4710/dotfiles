@@ -93,6 +93,8 @@ keymap("n", "<leader>Tf", "<cmd>ToggleTerm direction=float<cr>", { desc = "Float
 keymap("n", "<leader>Th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", { desc = "Horizontal" })
 keymap("n", "<leader>Tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", { desc = "Vertical" })
 
+keymap("n", "<leader>x", "<cmd>!chmod +x %<CR>", { desc = "Make file Executable (chmod +x)" })
+
 keymap("v", "<leader>r", 'y:%s/<C-r>"//gc<LEFT><LEFT><LEFT>', { desc = "Replace Old Fashion" })
 keymap("v", "<leader>p", '"_dP', { desc = "Paste Without Yank" })
 keymap("v", "<leader>/", "<Plug>(comment_toggle_linewise_visual)", { desc = "Comment Visual Mode" })
