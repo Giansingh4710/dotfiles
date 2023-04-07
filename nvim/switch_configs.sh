@@ -25,12 +25,21 @@ function move_nvim_conf() {
 	if [[ -d "$nvim_dir/lua" ]]; then
 		mv "$nvim_dir/lua" "$other_configs_dir/$1/lua"
 	fi
+
+	if [[ -f "$nvim_dir/lazy-lock.json" ]]; then
+		mv "$nvim_dir/lazy-lock.json" "$other_configs_dir/$1/lazy-lock.json"
+	fi
 }
 
 function use_nvim_conf() {
 	mv "$other_configs_dir/$1/init.lua" "$nvim_dir/init.lua"
+  
 	if [[ -d "$other_configs_dir/$1/lua" ]]; then
 		mv "$other_configs_dir/$1/lua" "$nvim_dir/lua"
+	fi
+
+	if [[ -f "$other_configs_dir/$1/lazy-lock.json" ]]; then
+		mv "$other_configs_dir/$1/lazy-lock.json" "$nvim_dir/lazy-lock.json"
 	fi
 }
 

@@ -18,8 +18,8 @@ keymap({ "n", "v", "x" }, "L", "$", opts)
 keymap("v", "<", "<gv", opts) -- Stay in indent mode
 keymap("v", ">", ">gv", opts)
 
-keymap("v", "J", ":m '>+1<CR>gv=gv", opts) -- move lines in v mode
-keymap("v", "K", ":m '<-2<CR>gv=gv", opts)
+-- keymap("v", "J", ":m '>+1<CR>gv=gv", opts) -- move lines in v mode
+-- keymap("v", "K", ":m '<-2<CR>gv=gv", opts)
 
 keymap("v", "x", '"_d', opts) --no save to register
 keymap("x", "x", '"_d', opts)

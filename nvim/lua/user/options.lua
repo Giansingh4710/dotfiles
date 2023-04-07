@@ -1,5 +1,5 @@
 vim.opt.incsearch = true
-vim.o.timeout = true
+vim.opt.timeout = true
 vim.opt.timeoutlen = 300 -- time to wait for a mapped sequence to complete (in milliseconds)
 vim.opt.backup = false -- creates a backup file
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
@@ -13,7 +13,6 @@ vim.opt.mouse = "a" -- allow the mouse to be used in neovim
 vim.opt.pumheight = 10 -- pop up menu height
 vim.opt.showmode = false -- we don't need to see things like -- INSERT -- anymore
 vim.opt.smartcase = true -- smart case
-vim.opt.smartindent = true -- make indenting smarter again
 vim.opt.splitbelow = true -- force all horizontal splits to go below current window
 vim.opt.splitright = true -- force all vertical splits to go to the right of current window
 vim.opt.swapfile = false -- creates a swapfile
@@ -34,21 +33,23 @@ vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would sh
 vim.opt.wrap = false -- display lines as one long line
 vim.opt.scrolloff = 8 -- is one of my fav
 vim.opt.sidescrolloff = 8
-vim.opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
 vim.opt.fillchars.eob = " "
 vim.opt.shortmess:append("c")
 vim.opt.whichwrap:append("<,>,[,],h,l")
--- vim.opt.iskeyword:append("-")
+vim.opt.guifont = "Hack Nerd Font" --(neovide)the font used in graphical neovim applications
 vim.opt.colorcolumn = "80"
+-- vim.opt.iskeyword:append("-")
 vim.cmd("set whichwrap+=<,>,[,],h,l") --got to next line if end of line
 vim.cmd("set relativenumber")
 vim.cmd("set autochdir")
 vim.cmd("set formatoptions-=cro") -- dont add comment when i go to new line from a comment line
 
 -- makes background transparent
---[[ vim.cmd("highlight Normal guibg=none") ]]
---[[ vim.cmd("highlight NonText guibg=none") ]]
+-- vim.cmd("highlight Normal guibg=none")
+-- vim.cmd("highlight NonText guibg=none")
 
+vim.opt.foldlevel=20 -- folds opened when file opens
+-- vim.opt.foldmethod = "indent"
 vim.cmd([[
   " so you can fold comments
   " set foldmethod=indent "old
@@ -71,7 +72,7 @@ vim.cmd([[
       endif
 
       "Otherwise return foldlevel equal to indent /shiftwidth (like if "foldmethod=indent)
-      else 
+      else
         return indent(a:lnum)/&shiftwidth "return indent base fold
   endfunction
 ]])

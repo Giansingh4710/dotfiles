@@ -1,5 +1,11 @@
 #!/bin/bash
 
+-vim
+  save vim commands
+    :redir > a.txt
+    :version
+    :redir END
+
 -anaconda
   conda activate base
   conda deactivate
@@ -9,6 +15,10 @@
 
 -stuff
   find $(pwd) -type f -not -path '*/\.*' ; finds all files
+    find / -type f | xargs grep -i LoadModule : find all files that have 'LoadModule' in it
+    find / -type f -name "*.html" : file all html files
+    find . -size +20M | cat >> .gitignore : add bigger than 20mb to gitignore
+
   df -h ; see space on harddrive
   afplay ; plays audio in terminal
   ps
@@ -17,6 +27,9 @@
   which $SHELL
   uptime
   curl ; to Download stuff
+
+  php -S localhost:8080
+  jp2a pic.png :convert pic to text
 
 -mac
   - from https;//www.youtube.com/watch?v=qOrlYzqXPa8
@@ -38,12 +51,8 @@
   - make chromedriver usable; from https;//timonweb.com/misc/fixing-error-chromedriver-cannot-be-opened-because-the-developer-cannot-be-verified-unable-to-launch-the-chrome-browser-on-mac-os/
     xattr -d com.apple.quarantine /Users/gians/Downloads/chromedriver 
 
-git commit --amend --no-edit  : add to last commit
-git reset --hard HEAD 
-php -S localhost:8080
-jp2a pic.png :convert pic to text
+-git
+  git commit --amend --no-edit  : add to last commit
+  git reset --hard HEAD 
 
-find / -type f | xargs grep -i LoadModule : find all files that have 'LoadModule' in it
-find / -type f -name "*.html" : file all html files
-find . -size +20M | cat >> .gitignore : add bigger than 20mb to gitignore
 
