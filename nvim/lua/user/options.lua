@@ -49,30 +49,30 @@ vim.cmd("set formatoptions-=cro") -- dont add comment when i go to new line from
 -- vim.cmd("highlight NonText guibg=none")
 
 vim.opt.foldlevel=20 -- folds opened when file opens
--- vim.opt.foldmethod = "indent"
-vim.cmd([[
-  " so you can fold comments
-  " set foldmethod=indent "old
-  set foldmethod=expr
-  set foldexpr=FoldMethod(v:lnum)
-
-  function! FoldMethod(lnum)
-      "get string of current line
-      let crLine=getline(a:lnum)
-
-      " check if empty line
-      if empty(crLine) "Empty line or end comment
-        return -1 " so same indent level as line before
-      endif
-
-      " check if comment
-      let a:data=join( map(synstack(a:lnum, 1), 'synIDattr(v:val, "name")') )
-      if a:data =~ ".*omment.*"
-        return '='
-      endif
-
-      "Otherwise return foldlevel equal to indent /shiftwidth (like if "foldmethod=indent)
-      else
-        return indent(a:lnum)/&shiftwidth "return indent base fold
-  endfunction
-]])
+vim.opt.foldmethod = "indent"
+-- vim.cmd([[
+--   " so you can fold comments
+--   " set foldmethod=indent "old
+--   set foldmethod=expr
+--   set foldexpr=FoldMethod(v:lnum)
+--
+--   function! FoldMethod(lnum)
+--       "get string of current line
+--       let crLine=getline(a:lnum)
+--
+--       " check if empty line
+--       if empty(crLine) "Empty line or end comment
+--         return -1 " so same indent level as line before
+--       endif
+--
+--       " check if comment
+--       let a:data=join( map(synstack(a:lnum, 1), 'synIDattr(v:val, "name")') )
+--       if a:data =~ ".*omment.*"
+--         return '='
+--       endif
+--
+--       "Otherwise return foldlevel equal to indent /shiftwidth (like if "foldmethod=indent)
+--       else
+--         return indent(a:lnum)/&shiftwidth "return indent base fold
+--   endfunction
+-- ]])

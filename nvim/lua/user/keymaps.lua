@@ -36,7 +36,6 @@ keymap("n", ",java", ':r !bash ~/dotfiles/skeletons/java.sh %<CR>gg"_dd2j', { de
 keymap("n", "gF", '"hyiW:e <C-r>h<CR>', { desc = "Go make file" }) --go file but make file under cursor (put in h register)
 keymap("n", "<leader>r", 'yiw:%s/<C-R>"//gc<LEFT><LEFT><LEFT>', { desc = "Replace Word Old Fashion" })
 
-keymap("n", "<leader>a", "<cmd>ToggleAutoPairs<CR>", { desc = "Toggle AutoPairs" })
 keymap(
 	"n",
 	"<leader>cc",

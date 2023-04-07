@@ -18,29 +18,25 @@ function get_current_config() {
 	exit
 }
 
-nvim_dir="$HOME/dotfiles/nvim"
-function move_nvim_conf() {
-	mv "$nvim_dir/init.lua" "$other_configs_dir/$1/init.lua"
-
-	if [[ -d "$nvim_dir/lua" ]]; then
-		mv "$nvim_dir/lua" "$other_configs_dir/$1/lua"
-	fi
-
-	if [[ -f "$nvim_dir/lazy-lock.json" ]]; then
-		mv "$nvim_dir/lazy-lock.json" "$other_configs_dir/$1/lazy-lock.json"
+function safe_mv (){ 
+	if [[ -e "$1" ]]; then
+		mv "$1" "$2"
 	fi
 }
 
-function use_nvim_conf() {
-	mv "$other_configs_dir/$1/init.lua" "$nvim_dir/init.lua"
-  
-	if [[ -d "$other_configs_dir/$1/lua" ]]; then
-		mv "$other_configs_dir/$1/lua" "$nvim_dir/lua"
-	fi
+nvim_dir="$HOME/dotfiles/nvim"
+function move_nvim_conf() {
+	safe_mv "$nvim_dir/init.lua" "$other_configs_dir/$1/init.lua"
+	safe_mv "$nvim_dir/lua" "$other_configs_dir/$1/lua"
+	safe_mv "/Users/gians/.local/share/nvim" "/Users/gians/.local/share/${1}_nvim"
+	safe_mv "$nvim_dir/lazy-lock.json" "$other_configs_dir/$1/lazy-lock.json"
+}
 
-	if [[ -f "$other_configs_dir/$1/lazy-lock.json" ]]; then
-		mv "$other_configs_dir/$1/lazy-lock.json" "$nvim_dir/lazy-lock.json"
-	fi
+function use_nvim_conf() {
+	safe_mv "$other_configs_dir/$1/init.lua" "$nvim_dir/init.lua"
+	safe_mv "$other_configs_dir/$1/lua" "$nvim_dir/lua"
+	safe_mv "/Users/gians/.local/share/${1}_nvim" "/Users/gians/.local/share/nvim"
+	safe_mv "$other_configs_dir/$1/lazy-lock.json" "$nvim_dir/lazy-lock.json"
 }
 
 get_current_config

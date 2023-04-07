@@ -21,7 +21,6 @@ local plugins = {
 	"lunarvim/darkplus.nvim", -- vscode
 
 	"nvim-telescope/telescope.nvim",
-	"nvim-treesitter/nvim-treesitter",
 	"windwp/nvim-ts-autotag", --treesitter autotag
 	"chentoast/marks.nvim",
 	"folke/zen-mode.nvim",
@@ -47,23 +46,38 @@ local plugins = {
 
 	-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
 	{ "numToStr/Comment.nvim", opts = {} },
-	{ "norcalli/nvim-colorizer.lua", opts = {} }, --show colors in css files stc
 	{ "folke/which-key.nvim", opts = {} },
+	{
+		"norcalli/nvim-colorizer.lua",
+		config = function()
+			require("colorizer").setup()
+		end,
+	}, --show colors in css files stc
 	{
 		"lewis6991/gitsigns.nvim", -- Adds git releated signs to the gutter, as well as utilities for managing changes
 		opts = {
 			signs = {
-				add = { text = "+" },
-				change = { text = "~" },
-				delete = { text = "_" },
-				topdelete = { text = "‾" },
-				changedelete = { text = "~" },
+				add = { hl = "DiffAdd", text = "│", numhl = "GitSignsAddNr" },
+				change = { hl = "DiffChange", text = "│", numhl = "GitSignsChangeNr" },
+				delete = { hl = "DiffDelete", text = "", numhl = "GitSignsDeleteNr" },
+				topdelete = { hl = "DiffDelete", text = "‾", numhl = "GitSignsDeleteNr" },
+				changedelete = { hl = "DiffChangeDelete", text = "~", numhl = "GitSignsChangeNr" },
+				untracked = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
 			},
 		},
 	},
 	{
 		"akinsho/bufferline.nvim",
 		dependencies = "kyazdani42/nvim-web-devicons",
+	},
+	{
+		"nvim-treesitter/nvim-treesitter",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter-textobjects",
+		},
+		config = function()
+			pcall(require("nvim-treesitter.install").update({ with_sync = true }))
+		end,
 	},
 	{
 		"neovim/nvim-lspconfig",

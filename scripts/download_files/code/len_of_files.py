@@ -1,6 +1,5 @@
 import os, sys
-from mutagen.mp3 import MP3
-
+import mutagen
 
 len_of_files_in_seconds = 0
 total_files = 0
@@ -10,7 +9,6 @@ def goThroughFiles(dir):
     global total_files
     global failed_files
     for thing in os.listdir(dir):
-        if thing=="System Volume Information": continue
         path=dir+"/"+thing
         if os.path.isdir(path):
             try:
@@ -21,7 +19,7 @@ def goThroughFiles(dir):
         elif os.path.isfile(path):
             total_files+=1
             try:
-                audio=MP3(path)
+                audio=mutagen.File(path)
                 len_of_files_in_seconds+=audio.info.length
             except Exception as e:
                 print(f'{thing} failed : {e}')

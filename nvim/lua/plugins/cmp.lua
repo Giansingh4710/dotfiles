@@ -1,8 +1,4 @@
-local cmp_status_ok, cmp = pcall(require, "cmp")
-if not cmp_status_ok then
-	print("cmp not Working")
-	return
-end
+local cmp = require("cmp")
 
 local snip_status_ok, luasnip = pcall(require, "luasnip")
 if not snip_status_ok then
@@ -17,18 +13,39 @@ local check_backspace = function()
 	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
 end
 
-local icons = require("user.icons")
-local kind_icons = icons.kind
-
 vim.api.nvim_set_hl(0, "CmpItemAbbr", { fg = "#33ffB9", italic = true })
 vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = "#FF3333", italic = true })
 vim.api.nvim_set_hl(0, "CmpItemMenu", { fg = "#77EEF5"})
 vim.api.nvim_set_hl(0, "CmpItemKind", { fg = "#FFC300"})
 
 cmp.setup({
+  completion = {
+    completeopt = "menu,menuone",
+  },
+	window = {
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
+	},
 	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body) -- For `luasnip` users.
+		end,
+	},
+	formatting = {
+		fields = { "menu","abbr", "kind"},
+		format = function(entry, vim_item)
+      local icons = require("user.icons").kind
+			local kind = vim_item.kind --> Class, Var, Method
+			vim_item.kind = icons[kind] .. "  ".. kind
+			vim_item.menu = ({
+				nvim_lsp = "[LSP]",
+				nvim_lua = "[Lua]",
+				luasnip = "[Snip]",
+				buffer = "[Buff]",
+				path = "[Path]",
+				emoji = "emoji",
+			})[entry.source.name]
+			return vim_item
 		end,
 	},
 	mapping = cmp.mapping.preset.insert({
@@ -41,8 +58,6 @@ cmp.setup({
 			i = cmp.mapping.abort(),
 			c = cmp.mapping.close(),
 		}),
-		-- Accept currently selected item. If none selected, `select` first item.
-		-- Set `select` to `false` to only confirm explicitly selected items.
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
@@ -73,22 +88,6 @@ cmp.setup({
 			"s",
 		}),
 	}),
-	formatting = {
-		fields = { "abbr","menu", "kind"},
-		format = function(entry, vim_item)
-			local kind = vim_item.kind --> Class, Var, Method
-			vim_item.kind = kind_icons[kind] .. "(".. kind ..")"
-			vim_item.menu = ({
-				nvim_lsp = "[LSP]",
-				nvim_lua = "[Lua]",
-				luasnip = "[Snip]",
-				buffer = "[Buff]",
-				path = "[Path]",
-				emoji = "emoji",
-			})[entry.source.name]
-			return vim_item
-		end,
-	},
 	sources = {
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
@@ -99,12 +98,5 @@ cmp.setup({
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
 		select = false,
-	},
-	window = {
-		completion = cmp.config.window.bordered(),
-		documentation = cmp.config.window.bordered(),
-	},
-	experimental = {
-		ghost_text = true,
 	},
 })
