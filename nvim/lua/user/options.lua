@@ -26,7 +26,7 @@ vim.opt.tabstop = 2 -- insert 2 spaces for a tab
 vim.opt.cursorline = true -- highlight the current line
 vim.opt.number = true -- set numbered lines
 vim.opt.laststatus = 3
-vim.opt.showcmd = false
+vim.opt.showcmd = true -- show incomplete commands
 vim.opt.ruler = false
 vim.opt.numberwidth = 4 -- set number column width to 2 {default 4}
 vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
@@ -44,35 +44,9 @@ vim.cmd("set relativenumber")
 vim.cmd("set autochdir")
 vim.cmd("set formatoptions-=cro") -- dont add comment when i go to new line from a comment line
 
--- makes background transparent
--- vim.cmd("highlight Normal guibg=none")
--- vim.cmd("highlight NonText guibg=none")
+vim.opt.list = true
+vim.opt.listchars = { tab = "→ ", eol = "¬", trail = "⋅", extends = "❯", precedes = "❮" }
 
-vim.opt.foldlevel=20 -- folds opened when file opens
-vim.opt.foldmethod = "indent"
--- vim.cmd([[
---   " so you can fold comments
---   " set foldmethod=indent "old
---   set foldmethod=expr
---   set foldexpr=FoldMethod(v:lnum)
---
---   function! FoldMethod(lnum)
---       "get string of current line
---       let crLine=getline(a:lnum)
---
---       " check if empty line
---       if empty(crLine) "Empty line or end comment
---         return -1 " so same indent level as line before
---       endif
---
---       " check if comment
---       let a:data=join( map(synstack(a:lnum, 1), 'synIDattr(v:val, "name")') )
---       if a:data =~ ".*omment.*"
---         return '='
---       endif
---
---       "Otherwise return foldlevel equal to indent /shiftwidth (like if "foldmethod=indent)
---       else
---         return indent(a:lnum)/&shiftwidth "return indent base fold
---   endfunction
--- ]])
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 2 -- foldlevels opened on file open

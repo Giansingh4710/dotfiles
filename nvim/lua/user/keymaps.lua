@@ -4,6 +4,8 @@ vim.g.maplocalleader = " "
 local opts = { silent = false }
 local keymap = vim.keymap.set
 
+require("user.helper_funcs")
+
 --[[
   normal_mode = "n",
   insert_mode = "i",
@@ -20,6 +22,10 @@ keymap("v", ">", ">gv", opts)
 
 -- keymap("v", "J", ":m '>+1<CR>gv=gv", opts) -- move lines in v mode
 -- keymap("v", "K", ":m '<-2<CR>gv=gv", opts)
+
+-- scroll the viewport faster
+keymap("n", "<C-e>", "3<c-e>", opts)
+keymap("n", "<C-y>", "3<c-y>", opts)
 
 keymap("v", "x", '"_d', opts) --no save to register
 keymap("x", "x", '"_d', opts)
@@ -48,7 +54,6 @@ keymap("n", "<leader>d", ":call DiffWindo()<CR>", { desc = "Compare Windows" })
 keymap("n", "<leader>D", ":bdelete<CR>", { desc = "Buffer Delete" })
 keymap("n", "<leader>e", ":lua require'lir.float'.toggle()<CR>", { desc = "lir File Explorer" })
 keymap("n", "<leader>m", "<cmd>Mason<CR>", { desc = "Mason (LSP)" })
-
 
 keymap("n", "<leader>v", "<cmd>vsplit<cr>", { desc = "vsplit" })
 keymap("n", "<leader>q", ":call QuickFixToggle()<CR>", { desc = "Toggle Quick Fix List" })
@@ -97,64 +102,7 @@ keymap("n", "<leader>x", "<cmd>!chmod +x %<CR>", { desc = "Make file Executable 
 keymap("v", "<leader>r", 'y:%s/<C-r>"//gc<LEFT><LEFT><LEFT>', { desc = "Replace Old Fashion" })
 keymap("v", "<leader>p", '"_dP', { desc = "Paste Without Yank" })
 keymap("v", "<leader>/", "<Plug>(comment_toggle_linewise_visual)", { desc = "Comment Visual Mode" })
+keymap("v", "<leader>/", "<Plug>(comment_toggle_linewise_visual)", { desc = "Comment Visual Mode" })
 
-vim.api.nvim_create_user_command("ToggleAutoPairs", function()
-	local a = require("nvim-autopairs")
-	vim.ui.input({ prompt = "Enter 0 to disable or 1 to enable autopairs: " }, function(input)
-		if input == "0" then
-			a.disable()
-			print("autopairs disabled")
-		else
-			a.enable()
-			print("autopairs enabled")
-		end
-	end)
-end, {})
+keymap("n", "<leader>F", "<cmd>ToggleFoldMethod<CR>", { desc = "Vertical" })
 
-vim.api.nvim_create_user_command("GetRandomColor", function()
-	local hex_digits = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" }
-	local hex_num = "#"
-	for _ = 1, 6 do
-		hex_num = hex_num .. hex_digits[math.random(1, 16)]
-	end
-	vim.api.nvim_put({ hex_num }, "", false, true)
-end, {})
-
-vim.cmd([[
-  function! QuickFixToggle()
-    if empty(filter(getwininfo(), 'v:val.quickfix'))
-      copen
-    else
-      cclose
-    endif
-  endfunction
-]])
-
-vim.cmd([[
-  function! DiffWindo()
-    if &diff
-      :windo diffoff
-    else
-      if len(tabpagebuflist()) > 1
-        echo "vahe"
-        :10 wincmd l "go to the right most pane
-        :diffthis
-        :wincmd h "go to the pane on left and compare it to that
-        :diffthis
-      else
-        :vs
-      :Ex
-      endif
-    endif
-  endfunction
-]])
-
-vim.cmd([[
-  function! ToggleNERDTree()
-    if g:NERDTree.IsOpen()
-      :NERDTreeClose
-    else
-      :NERDTreeFind
-    endif
-  endfunction
-]])

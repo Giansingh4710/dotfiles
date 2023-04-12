@@ -21,7 +21,7 @@ local diagnostics = {
 
 local diff = {
 	"diff",
-	colored = false,
+	colored = true,
 	symbols = {
 		added = icons.diagnostics.Added,
 		modified = icons.diagnostics.Modified,
@@ -55,9 +55,11 @@ local location = {
 	padding = 0,
 }
 
-local spaces = function()
-	return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
-end
+local filename = {
+	"filename",
+	file_status = true, -- displays file status (readonly status, modified status)
+	path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
+}
 
 local lsp_server_name = function()
 	local msg = icons.diagnostics.Error
@@ -76,40 +78,37 @@ local lsp_server_name = function()
 	return msg
 end
 
+local lsp_server_info = {
+	lsp_server_name,
+	icon = " LSP:",
+	color = { fg = "#EC7E22", gui = "bold" },
+}
+
 local config = {
 	options = {
 		globalstatus = true,
 		icons_enabled = true,
 		theme = "auto",
-		component_separators = { left = "", right = "" },
-		section_separators = { left = "", right = "" },
+		-- component_separators = { left = "", right = "" },
+		-- section_separators = { left = "", right = "" },
+		component_separators = "|",
+		section_separators = { left = "", right = "" },
 		disabled_filetypes = { "alpha", "dashboard", "toggleterm" },
 		always_divide_middle = true,
 	},
 	sections = {
-		lualine_a = { "mode" },
-		lualine_b = { branch, diagnostics },
-		lualine_c = {
-			{
-				"filename",
-				file_status = true, -- displays file status (readonly status, modified status)
-				path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
-			},
-		},
+		lualine_a = { branch, filename },
+		lualine_b = { diagnostics },
+		lualine_c = { filetype, diff },
 		lualine_x = {
-			{
-				lsp_server_name,
-				icon = " LSP:",
-				color = { fg = "#C7988B", gui = "bold" },
-			},
-			filetype,
+			lsp_server_info,
 			"filesize",
 			"encoding",
 			"fileformat",
 		},
-		-- lualine_x = { diff, spaces , "encoding", filetype },
+		-- lualine_x = { "progress", spaces , "encoding", filetype },
 		lualine_y = { location },
-		lualine_z = { "progress" },
+		lualine_z = { "mode" },
 	},
 }
 

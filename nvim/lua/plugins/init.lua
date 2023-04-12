@@ -52,7 +52,9 @@ local plugins = {
 		config = function()
 			require("colorizer").setup()
 		end,
+    opts = {}
 	}, --show colors in css files stc
+
 	{
 		"lewis6991/gitsigns.nvim", -- Adds git releated signs to the gutter, as well as utilities for managing changes
 		opts = {
@@ -115,9 +117,11 @@ local plugins = {
 	},
 }
 
+
 require("lazy").setup(plugins)
 
-vim.cmd.colorscheme("nightfly")
+-- vim.cmd.colorscheme("nightfly")
+RandomColorScheme()
 
 require("plugins.treesitter")
 require("plugins.bufferline") --top tab line
