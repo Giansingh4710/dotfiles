@@ -39,6 +39,15 @@ function RandomColorScheme()
   vim.cmd.colorscheme(table[index])
 end
 
+function ToggleCharAtEndOfLine()
+  if vim.opt.list:get() == true then
+    vim.opt.list = false
+  else
+    vim.opt.list = true
+  end
+end
+
+
 
 vim.cmd([[
   function! QuickFixToggle()

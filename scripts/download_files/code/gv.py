@@ -100,10 +100,6 @@ def download(kathasObj, thePath, justPrinting, recursiveDepth=-1):
         pathToDl = f"{thePath}{title}.mp3"
         print(f"{spaces}{spaces}{link}")
         urllib.request.urlretrieve(link, pathToDl)
-        """ try:         """
-        """ except Exception as e: """
-        """ print(f"Error: {e}") """
-    return
 
 
 def EnterUrl(link, path, printing, downloadAllSubDirs, folderNameToPutAllFiles):

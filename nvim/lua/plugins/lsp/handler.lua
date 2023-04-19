@@ -34,7 +34,6 @@ local function lsp_keymaps(bufnr)
 	-- nmap("gd","<cmd>Lspsaga goto_definition<CR>","Go to Definition" )
 	-- nmap("gl","<cmd>Lspsaga show_line_diagnostics<CR>","Show Line diagnostics" )
 
-	nmap("<leader>lf", "<cmd>lua vim.lsp.buf.format()<CR>", "Format")
 	nmap("<leader>li", "<cmd>LspInfo<cr>", "Info")
 	nmap("<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action")
 	nmap("<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", "Next diagnostic")

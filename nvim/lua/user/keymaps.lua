@@ -104,5 +104,8 @@ keymap("v", "<leader>p", '"_dP', { desc = "Paste Without Yank" })
 keymap("v", "<leader>/", "<Plug>(comment_toggle_linewise_visual)", { desc = "Comment Visual Mode" })
 keymap("v", "<leader>/", "<Plug>(comment_toggle_linewise_visual)", { desc = "Comment Visual Mode" })
 
-keymap("n", "<leader>F", "<cmd>ToggleFoldMethod<CR>", { desc = "Vertical" })
+keymap("n", "<leader>F", "<cmd>ToggleFoldMethod<CR>", { desc = "Change Fold Method" })
+keymap("n", "<leader>E", ":lua ToggleCharAtEndOfLine()<CR>", { desc = "Remove EOL Char" })
+
+keymap("n", "<leader>lf", ":lua vim.lsp.buf.format()<CR>", { noremap = true, silent = false, desc = "Format" })
 

@@ -52,7 +52,7 @@ local plugins = {
 		config = function()
 			require("colorizer").setup()
 		end,
-    opts = {}
+		opts = {},
 	}, --show colors in css files stc
 
 	{
@@ -116,7 +116,6 @@ local plugins = {
 		},
 	},
 }
-
 
 require("lazy").setup(plugins)
 

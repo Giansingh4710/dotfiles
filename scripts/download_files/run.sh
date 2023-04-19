@@ -9,43 +9,37 @@ path=$1
 if [ ! -d "$path" ];then
   path=$(pwd)
 fi
-
 printf "\nThe Diretory: %s\n\n" "$path"
 
-IFS=',' # Set comma as delimiter
 MainDir=~/dotfiles/scripts/download_files
-
 select opt in "GurmatVeechar" "AKJ.org" "GoldenKhajana" "YouTube/SoundCloud etc" "Get Length Of Audio Files" "Number Files";do 
+  the_command=()
   if [[ $opt == "GurmatVeechar" ]];then
-    echo "Enter links from GurmatVeechar.com separated by a comma(,): "
-    read -r -a links #Read the split words into an array based on comma delimiter
-    echo python3 $MainDir/code/gv.py "$path"  "${links[@]}"
-    python3 $MainDir/code/gv.py "$path"  "${links[@]}"
+    echo "Enter links from GurmatVeechar.com separated by space: "
+    read -r -a links
+    the_command=(python3 "$MainDir/code/gv.py" "$path" "${links[*]}")
   elif [[ $opt == "AKJ.org" ]];then
-    echo "Enter names of Keertani separated by a comma(,): "
-    read -r -a names
-    echo python3 $MainDir/code/akjorg.py "$path"  "${names[@]}"
-    python3 $MainDir/code/akjorg.py "$path"  "${names[@]}"
+    echo "Enter name of a Keertani: "
+    read -r name
+    the_command=(python3 "$MainDir/code/akjorg.py" "$path" "$name")
   elif [[ $opt == "GoldenKhajana" ]];then
     echo "Enter a link from Golden Khajan: "
     read -r link
-    echo python3 $MainDir/code/goldenKhajan.py "$path" "$link"
-    python3 $MainDir/code/goldenKhajan.py "$path" "$link"
+    the_command=(python3 "$MainDir/code/goldenKhajan.py" "$path" "$link")
   elif [[ $opt == "YouTube/SoundCloud etc" ]];then
     echo "Enter a link for youtube-dl: "
     read -r link
-    echo yt-dlp --extract-audio "$link"
     # youtube-dl --extract-audio --audio-format mp3 "$link"
-    yt-dlp --extract-audio "$link"
+    the_command=(yt-dlp --extract-audio -f 139 "$link")
   elif [[ $opt == "Get Length Of Audio Files" ]];then
-    echo "Executed: '" python3 $MainDir/code/len_of_files.py "$path '"
-    echo
-    python3 $MainDir/code/len_of_files.py "$path"
+    the_command=(python3 "$MainDir/code/len_of_files.py" "$path")
   elif [[ $opt == "Number Files" ]];then
-    echo "Executed: '" python3 $MainDir/code/len_of_files.py "$path '"
-    echo
-    python3 $MainDir/code/number_files.py "$path"
+    the_command=(python3 "$MainDir/code/number_files.py" "$path")
   fi
+  echo "Executing:"
+  echo "    ${the_command[*]}"
+  "${the_command[@]}"
+
   exit
 done
 

@@ -1,11 +1,11 @@
+# brew install koekeishiya/formulae/yabai
+# brew install koekeishiya/formulae/skhd
 # brew services start skhd
 # brew services start yabai
 
-# if you're having troubles finding key codes for a key just type skhd --observe in a terminal and type a key. Pretty cool! Or just check the wiki.
+# find keycode: 'skhd --observe' in a terminal and type a key
 
-## HYPER == SHIFT + CMD + ALT + OPTION
-
-# open terminal
+# HYPER == SHIFT + CMD + ALT + OPTION
 # hyper - return : /Applications/iTerm.app/Contents/MacOS/iTerm2
 hyper - return : /Applications/Warp.app/Contents/MacOS/stable
 
@@ -21,28 +21,20 @@ hyper - j : yabai -m window --focus south
 hyper - k : yabai -m window --focus north
 hyper - l : yabai -m window --focus east # 0x21 is the "[" key
 
-#Move active window to next space on current display
-hyper + ralt - 1 : yabai -m query --spaces --space | jq -re ".index" | xargs -I {} bash -c "if [[ '{}' = '1' ]]; then yabai -m window --space 2; elif [[ '{}' = '2' ]]; then yabai -m window --space 1; fi"
-hyper + ralt - 2 : yabai -m query --spaces --space | jq -re ".index" | xargs -I {} bash -c "if [[ '{}' = '3' ]]; then yabai -m window --space 4; elif [[ '{}' = '4' ]]; then yabai -m window --space 3; fi"
-hyper + ralt - 3 : yabai -m query --spaces --space | jq -re ".index" | xargs -I {} bash -c "if [[ '{}' = '5' ]]; then yabai -m window --space 6; elif [[ '{}' = '6' ]]; then yabai -m window --space 5; fi"
-
-# toggle resize mode
 hyper - left : yabai -m window --resize left:-20:0 ; yabai -m window --resize right:-20:0
 hyper - down : yabai -m window --resize bottom:0:20 ; yabai -m window --resize top:0:20
 hyper - up : yabai -m window --resize top:0:-20 ; yabai -m window --resize bottom:0:-20
 hyper - right : yabai -m window --resize right:20:0 ; yabai -m window --resize left:20:0
 
-hyper - e : yabai -m space --balance # 0x21 is the "[" key
- 
+hyper - 0x18 : yabai -m space --balance #0x18 -> =
 hyper - f : yabai -m window --toggle zoom-fullscreen
 hyper - 4 : yabai -m space --mirror y-axis
-# hyper - r : yabai -m space --rotate 90
-hyper - r : ~/dotfiles/scripts/notify.sh "Restarting";brew services restart skhd; brew services restart yabai
-hyper - t : ~/dotfiles/skhd/toggleyabai.sh
-
 hyper - p : yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 4:4:1:1:2:2
 hyper - g : yabai -m space --toggle padding; yabai -m space --toggle gap
-
 hyper - s : yabai -m window --toggle split
+
+hyper - t : ~/dotfiles/skhd/toggleyabai.sh
+hyper - r : ~/dotfiles/scripts/notify.sh "Restarting";brew services restart skhd; brew services restart yabai
+
 hyper - m : ~/dotfiles/scripts/notify.sh \
-  "e - equal \n f - fullscreen \n 4 - mirror y-axis \n r - restart \n t - toggle Yabai \n p - Pop Window \n g - toggle gap \n s - toggle split type" "Hyper"
+        "= - equal \n f - fullscreen \n 4 - mirror y-axis \n r - restart \n t - toggle Yabai \n p - Pop Window \n g - toggle gap \n s - toggle split type" "Hyper"

@@ -43,7 +43,6 @@ cmp.setup({
 				luasnip = "[Snip]",
 				buffer = "[Buff]",
 				path = "[Path]",
-				emoji = "emoji",
 			})[entry.source.name]
 			return vim_item
 		end,

@@ -49,4 +49,4 @@ vim.opt.listchars = { tab = "→ ", eol = "¬", trail = "⋅", extends = "❯", 
 
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldlevel = 2 -- foldlevels opened on file open
+vim.opt.foldlevel = 1 -- foldlevels opened on file open
