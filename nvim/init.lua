@@ -1,4 +1,3 @@
-
 --[[ /Users/gians/.local/share/nvim ]]
 require("user.options")
 require("user.autocommands")

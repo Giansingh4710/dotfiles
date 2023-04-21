@@ -47,10 +47,7 @@ for i in "${!filesForSymLink[@]}"; do
 		fi
 	fi
 
-  if [ -f "$whereToPutItem" ];then
-	  mv "$whereToPutItem" ~/OLD_FILES/
-  fi
-  if [ -d "$whereToPutItem" ];then
+  if [ -e "$whereToPutItem" ];then
 	  mv "$whereToPutItem" ~/OLD_FILES/
   fi
 
@@ -62,7 +59,21 @@ for i in "${!filesForSymLink[@]}"; do
 	fi
 done
 
-downloadStuff(){
+if [[ "$OSTYPE" == "darwin2"* ]]; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" #install brew
+
+  brew install koekeishiya/formulae/yabai #window tile manager
+  brew install koekeishiya/formulae/skhd #key binding for stuff like yabai and anything
+
+  brew services start yabai
+  brew services start skhd
+  #brew services start/stop (name of service)
+  #brew services restart --all ; brew service list
+
+  #brew install --cask rectangle
+fi
+
+download(){
   if [[ "$OSTYPE" == "darwin2"* ]]; then
     brew install "$1"
   else
@@ -70,26 +81,11 @@ downloadStuff(){
   fi
 }
 
-if [[ "$OSTYPE" == "darwin2"* ]]; then
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" #install brew
 
-  brew install karabiner-elements #change functions of keys on keyboard
-  brew install yabai #window tile manager
-  brew install skhd #key binding for stuff like yabai and anything
-
-
-  brew services start yabai
-  brew services start skhd
-  #brew services start/stop (name of service)
-  #brew services restart --all ; brew service list
-
-  downloadStuff rectangle #mac cool move window
-fi
-
-#downloadStuff neovim
-#downloadStuff node #for lsp and other stuff. Node is node lol
-#downloadStuff shellcheck #lsp for bash (neovim)
-#downloadStuff starship #shows cool stuff in terminal like git and time spent in cli app
-#downloadStuff youtube-dl
-#downloadStuff tmux
-#downloadStuff tree 
+#download neovim
+#download node #for lsp and other stuff. Node is node lol
+#download shellcheck #lsp for bash (neovim)
+#download starship #shows cool stuff in terminal like git and time spent in cli app
+#download youtube-dl
+#download tmux
+#download tree 

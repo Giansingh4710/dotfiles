@@ -47,4 +47,5 @@ if [[ "$OSTYPE" == "darwin2"* ]]; then
 	alias sdo="open /Applications/Safari.app https://sdoji.xyz/other_pages/all.html"
 	alias sdoji="cd /Users/gians/Desktop/dev/webdev/sdo-ji/ ; vim index.html"
 	alias delDsStore="~/dotfiles/scripts/delDsStore.sh"
+  alias icloud="cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/"
 fi
