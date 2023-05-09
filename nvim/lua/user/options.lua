@@ -47,6 +47,5 @@ vim.cmd("set formatoptions-=cro") -- dont add comment when i go to new line from
 vim.opt.list = true
 vim.opt.listchars = { tab = "→ ", eol = "¬", trail = "⋅", extends = "❯", precedes = "❮" }
 
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldmethod = "indent"
 vim.opt.foldlevel = 1 -- foldlevels opened on file open

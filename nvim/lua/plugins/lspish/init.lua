@@ -10,13 +10,13 @@ local servers = {
   "tsserver",
 }
 
-require("plugins.lsp.handler").setup()
+require("plugins.lspish.handler").setup()
 require("mason").setup()
 require("mason-lspconfig").setup({ ensure_installed = servers, automatic_installation = true })
 
 local lspconfig = require("lspconfig")
-local on_attach = require("plugins.lsp.handler").on_attach
-local capabilities = require("plugins.lsp.handler").capabilities
+local on_attach = require("plugins.lspish.handler").on_attach
+local capabilities = require("plugins.lspish.handler").capabilities
 
 for _, server in pairs(servers) do
   lspconfig[server].setup({ capabilities = capabilities, on_attach = on_attach })
@@ -59,7 +59,8 @@ lspconfig["lua_ls"].setup({
 capabilities.offsetEncoding = { "utf-16" } -- for clangd to remove error
 lspconfig["clangd"].setup({ capabilities = capabilities })
 
-require("plugins.lsp.null_ls")
+require("plugins.lspish.null_ls")
+require("plugins.lspish.dap")
 
 require("lspsaga").setup({
   scroll_preview = { scroll_down = "<C-f>", scroll_up = "<C-b>" }, -- keybinds for navigation in lspsaga window

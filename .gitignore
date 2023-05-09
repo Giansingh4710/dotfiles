@@ -43,5 +43,5 @@ luac.out
 *.DS_Store
 
 *.luarc.json
-nvim/other_configs/
 scripts/sshLogin.sh
+geckodriver.log

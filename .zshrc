@@ -1,4 +1,4 @@
- # run "ZDOTDIR="$(mktemp -d)" p9k_configure" to get the wizard again
+# run "ZDOTDIR="$(mktemp -d)" p9k_configure" to get the wizard again
  if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
  fi

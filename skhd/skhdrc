@@ -7,7 +7,7 @@
 
 # HYPER == SHIFT + CMD + ALT + OPTION
 # hyper - return : /Applications/iTerm.app/Contents/MacOS/iTerm2
-hyper - return : /Applications/Warp.app/Contents/MacOS/stable
+alt - return : /Applications/Warp.app/Contents/MacOS/stable
 
 ## swap window
 shift + alt - h : yabai -m window --swap west
@@ -16,25 +16,26 @@ shift + alt - k : yabai -m window --swap north
 shift + alt - l : yabai -m window --swap east
 
 ## got to windows
-hyper - h : yabai -m window --focus west
-hyper - j : yabai -m window --focus south
-hyper - k : yabai -m window --focus north
-hyper - l : yabai -m window --focus east # 0x21 is the "[" key
+alt - h : yabai -m window --focus west
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east # 0x21 is the "[" key
 
-hyper - left : yabai -m window --resize left:-20:0 ; yabai -m window --resize right:-20:0
-hyper - down : yabai -m window --resize bottom:0:20 ; yabai -m window --resize top:0:20
-hyper - up : yabai -m window --resize top:0:-20 ; yabai -m window --resize bottom:0:-20
-hyper - right : yabai -m window --resize right:20:0 ; yabai -m window --resize left:20:0
+alt - left : yabai -m window --resize left:-20:0 ; yabai -m window --resize right:-20:0
+alt - down : yabai -m window --resize bottom:0:20 ; yabai -m window --resize top:0:20
+alt - up : yabai -m window --resize top:0:-20 ; yabai -m window --resize bottom:0:-20
+alt - right : yabai -m window --resize right:20:0 ; yabai -m window --resize left:20:0
 
-hyper - 0x18 : yabai -m space --balance #0x18 -> =
-hyper - f : yabai -m window --toggle zoom-fullscreen
-hyper - 4 : yabai -m space --mirror y-axis
-hyper - p : yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 4:4:1:1:2:2
-hyper - g : yabai -m space --toggle padding; yabai -m space --toggle gap
-hyper - s : yabai -m window --toggle split
+alt - 0x18 : yabai -m space --balance #0x18 -> =
+alt - f : yabai -m window --toggle zoom-fullscreen
+alt - 4 : yabai -m space --mirror y-axis
+alt - p : yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 4:4:1:1:2:2
+alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
+alt - s : yabai -m window --toggle split
 
-hyper - t : ~/dotfiles/skhd/toggleyabai.sh
-hyper - r : ~/dotfiles/scripts/notify.sh "Restarting";brew services restart skhd; brew services restart yabai
+alt - t : ~/dotfiles/skhd/toggleyabai.sh
+alt - r : ~/dotfiles/scripts/notify.sh "Restarting";brew services restart skhd; brew services restart yabai
 
-hyper - m : ~/dotfiles/scripts/notify.sh \
-        "= - equal \n f - fullscreen \n 4 - mirror y-axis \n r - restart \n t - toggle Yabai \n p - Pop Window \n g - toggle gap \n s - toggle split type" "Hyper"
+#   ? = 0x2C
+alt - 0x2C : ~/dotfiles/scripts/notify.sh \
+        "= - equal \n f - fullscreen \n 4 - mirror y-axis \n r - restart \n t - toggle Yabai \n p - Pop Window \n g - toggle gap \n s - toggle split type" "alt/option key"

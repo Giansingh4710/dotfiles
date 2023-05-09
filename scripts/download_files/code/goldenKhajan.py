@@ -45,13 +45,12 @@ def download(links,path):
     links=sorted(set(links))
     for i in links:
         count+=1
-        title=i.split("/")
-        title=title[-1]
-        title=title.replace("%20"," ",-1)
+        title=i.split("/").replace("%20"," ",-1)
         title=f'{count}) {title}'
+        whereToPut = f'{path}/{title}'
         try:
-            urllib.request.urlretrieve(i,path+title)
-            print(f"Downloaded: {title}")
+            urllib.request.urlretrieve(i,whereToPut)
+            print(f"Downloaded: {whereToPut}")
         except Exception as e:
             print(f"No download :{e}")
 
