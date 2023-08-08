@@ -61,27 +61,28 @@ done
 
 if [[ "$OSTYPE" == "darwin2"* ]]; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" #install brew
+  # Needed for stuff to run in script folder
+  brew install python
+  brew install yt-dlp
+  pip3 install selenium
+  pip3 install requests
+  pip3 install BeautifulSoup4
+  pip3 install mutagen
 
-  brew install koekeishiya/formulae/yabai #window tile manager
-  brew install koekeishiya/formulae/skhd #key binding for stuff like yabai and anything
+  # brew install koekeishiya/formulae/yabai #window tile manager
+  # brew install koekeishiya/formulae/skhd #key binding for stuff like yabai and anything
 
-  brew services start yabai
-  brew services start skhd
+  # brew services start yabai
+  # brew services start skhd
   #brew services start/stop (name of service)
   #brew services restart --all ; brew service list
 
   #brew install --cask rectangle
+
 fi
 
-download(){
-  if [[ "$OSTYPE" == "darwin2"* ]]; then
-    brew install "$1"
-  else
-    sudo apt install "$1"
-  fi
-}
-
-
+# brew install "$1"
+# sudo apt install "$1"
 #download neovim
 #download node #for lsp and other stuff. Node is node lol
 #download shellcheck #lsp for bash (neovim)

@@ -48,4 +48,5 @@ if [[ "$OSTYPE" == "darwin2"* ]]; then
 	alias sdoji="cd /Users/gians/Desktop/dev/webdev/sdo-ji/ ; vim index.html"
 	alias delDsStore="~/dotfiles/scripts/delDsStore.sh"
   alias icloud="cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/"
+  alias ssa="vim /Users/gians/Desktop/dev/rand/NJIT/SSA/SSA23-24.txt"
 fi

@@ -20,7 +20,7 @@ fi
 printf "\nThe Directory: %s\n\n" "$path"
 
 MainDir=~/dotfiles/scripts/download_files
-select opt in "GurmatVeechar" "AKJ.org" "GoldenKhajana" "YouTube/SoundCloud etc" "Get Length Of Audio Files" "Number Files"; do
+select opt in "GurmatVeechar" "AKJ.org" "GoldenKhajana" "yt-dlp" "Soundcloud" "Get Length Of Audio Files" "Number Files"; do
 	the_command=()
 	if [[ $opt == "Get Length Of Audio Files" ]]; then
 		the_command=(python3 "$MainDir/code/len_of_files.py" "$path")
@@ -38,7 +38,11 @@ select opt in "GurmatVeechar" "AKJ.org" "GoldenKhajana" "YouTube/SoundCloud etc"
 		echo "Enter a link from Golden Khajan: "
 		read -r link
 		the_command=(python3 "$MainDir/code/goldenKhajan.py" "$path" "$link")
-	elif [[ $opt == "YouTube/SoundCloud etc" ]]; then
+	elif [[ $opt == "Soundcloud" ]]; then
+		echo "Enter a link from Soundcloud: "
+		read -r link
+		the_command=(python3 "$MainDir/code/soundcloud.py" "$path" "$link")
+	elif [[ $opt == "yt-dlp" ]]; then
 		echo "Enter a link for youtube-dl: "
 		read -r link
 		the_command=(yt-dlp -F "$link")

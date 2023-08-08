@@ -92,6 +92,24 @@ function ToggleCharAtEndOfLine()
   end
 end
 
+function SaveToAppleNotes()
+  vim.api.nvim_command("w")
+  local currentBuffer = vim.api.nvim_get_current_buf()
+  local currentBufferPath = vim.api.nvim_buf_get_name(currentBuffer)
+  local cmd = "osascript /Users/gians/dotfiles/scripts/AppleNotes/save_to_notes.applescript " .. currentBufferPath
+  os.execute(cmd)
+end
+
+function Search_Exact_Phrase()
+  local search = vim.fn.input("Search: ")
+	local magic_chars = { ".", "^", "$", "/" }
+	for _, char in ipairs(magic_chars) do
+		search = search:gsub("%" .. char, "\\" .. char)
+	end
+	-- print(search)
+	vim.cmd("/" .. search)
+end
+
 vim.cmd([[
   function! QuickFixToggle()
     if empty(filter(getwininfo(), 'v:val.quickfix'))
@@ -105,10 +123,9 @@ vim.cmd([[
 vim.cmd([[
   function! DiffWindo()
     if &diff
-      :window diffoff
+      :windo diffoff
     else
       if len(tabpagebuflist()) > 1
-        echo "vahe"
         :10 wincmd l "go to the right most pane
         :diffthis
         :wincmd h "go to the pane on left and compare it to that
@@ -129,4 +146,9 @@ vim.cmd([[
       :NERDTreeFind
     endif
   endfunction
+]])
+
+vim.cmd([[
+  "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())
+  com! FormatXML :%!python3 -c "import xml.dom.minidom, sys; print('\n'.join([line for line in xml.dom.minidom.parse(sys.stdin).toprettyxml(indent=' '*2).split('\n') if line.strip()]))"
 ]])

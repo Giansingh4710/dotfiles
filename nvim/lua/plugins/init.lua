@@ -104,6 +104,7 @@ local plugins = {
   "RRethy/vim-illuminate",                      --highlight other words when on word
   "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim", -- toggle diagnostic
   "ray-x/lsp_signature.nvim",                   --show func def when typing
+  "mfussenegger/nvim-jdtls",                    --java lsp
 
   {
     "rcarriga/nvim-dap-ui",

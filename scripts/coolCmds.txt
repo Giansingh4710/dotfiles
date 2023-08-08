@@ -12,6 +12,14 @@
 
     NVIM_APPNAME=nick_nvim nvim
 
+  vim with different conf
+    vim -u ~/.vimrc
+    vim -u NONE
+
+  highlight non-ASCII chars
+    /[^\x00-\x7F]
+
+
 
 -anaconda
   conda activate base
@@ -81,7 +89,34 @@
     ranger 
     starship
 
+-stuff2
+  format json:
+    json_pp < input.json > formatted.json
 
+  fat sorter:
+    brew install fatsort
+    sudo fatsort -D /GAMES/ -a -c -o a /dev/disk2
+      sort /GAMES and all the sub directories (-D), and ascii sort (-a),
+      ignore casing (-c), files and directories are not differentiated (-o a
 
-Woven token
-514a325c-3f93-44aa-ac5c-11b8adca2018
+    https://remysharp.com/til/cli/sorting-fat32-sdcard
+
+-react-native
+  npx react-native doctor
+  /Users/gians/Library/Android/sdk/cmdline-tools/latest/bin/sdkmanager "platforms;android-31"
+
+  android
+    make keystore for android
+      sudo keytool -genkey -v -keystore my-upload-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
+    get jdk bin folder
+      /usr/libexec/java_home
+
+  npx react-native-rename "Santhiya Pothi" -b com.larrivarpothi
+  react-native-version --never-amend
+
+- yt-dlp
+    yt-dlp --extract-audio --audio-format mp3 "$link" 
+    the_command=(yt-dlp -F "$link" -o "%(playlist_index)s) %(title)s.%(ext)s")
+
+- Java
+  javac *.java -d .

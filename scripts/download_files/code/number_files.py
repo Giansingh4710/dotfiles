@@ -1,11 +1,20 @@
 import os, sys
 
 def printDirs(theDir,theTrackNumber=0,depth=0):
-    for item_in_dir in os.listdir(theDir):
+    if os.path.split(theDir)[-1][0] == ".":
+        return theTrackNumber
+
+    try:
+        list_dirs = os.listdir(theDir)
+    except Exception as e:
+        print("Error: ",e)
+        return theTrackNumber
+
+    for item_in_dir in list_dirs:
         fullName = theDir+"/"+ item_in_dir
         if os.path.isdir(fullName):
             print(depth*"  ",end="")
-            print(theTrackNumber,item_in_dir,sep=": ")
+            print(theTrackNumber +1,item_in_dir,sep=": ")
             depth+=1
             theTrackNumber = printDirs(fullName,theTrackNumber,depth)
             depth-=1
@@ -13,9 +22,7 @@ def printDirs(theDir,theTrackNumber=0,depth=0):
             theTrackNumber+=1;
             print(depth*"  ",end="")
             print(theTrackNumber,item_in_dir,sep=": ")
-        
-
     return theTrackNumber
-# dir = len(sys.argv)>1 ? sys.argv[1] : "."
-dir = sys.argv[1] if len(sys.argv)>1 else "."
+
+dir = sys.argv[1]
 printDirs(dir)

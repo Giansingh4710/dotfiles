@@ -45,7 +45,7 @@ keymap("n", "<C-w>L", ":wincmd ><CR>", { desc = "Change window size" })
 keymap("n", ",cpp", ":-1r ~/dotfiles/skeletons/cpp<CR>", { desc = "C++ snippet" })
 keymap("n", ",c", ":-1r ~/dotfiles/skeletons/c<CR>", { desc = "C snippet" })
 keymap("n", ",html", ":-1r ~/dotfiles/skeletons/html<CR>", { desc = "html snippet" })
-keymap("n", ",java", ':r !bash ~/dotfiles/skeletons/java.sh %<CR>gg"_dd2j', { desc = "Java snippet" })
+keymap("n", ",java", ':r !bash ~/dotfiles/skeletons/java.sh %<CR>gg"_ddf.dt ', { desc = "Java snippet" })
 
 keymap("n", "gF", '"hyiW:e <C-r>h<CR>', { desc = "Go make file" }) --go file but make file under cursor (put in h register)
 
@@ -59,10 +59,10 @@ keymap("n", "<leader>C", "<cmd>GetRandomColor<CR>", { desc = "Generate Random Co
 keymap("n", "<leader>n", ":call ToggleNERDTree()<CR>", { desc = "Toggle NERDTree" })
 keymap("n", "<leader>D", ":bdelete<CR>", { desc = "Buffer Delete" })
 keymap("n", "<leader>e", ":lua require'lir.float'.toggle()<CR>", { desc = "lir File Explorer" })
-keymap("n", "<leader>m", "<cmd>Mason<CR>", { desc = "Mason (LSP)" })
 keymap("n", "<leader>v", "<cmd>vsplit<cr>", { desc = "vsplit" })
 keymap("n", "<leader>q", ":call QuickFixToggle()<CR>", { desc = "Toggle Quick Fix List" })
 keymap("n", "<leader>t", ":tabnew<CR>:Ex<CR>", { desc = "New Tab" })
+keymap("n", "<leader>m", "<cmd>Mason<CR>", { desc = "Mason (LSP)" })
 keymap("n", "<leader><leader>", ":w<CR>:so %<CR>", { desc = "Save and Source" })
 keymap("n", "<leader>V", ":tabnew $MYVIMRC<CR>", { desc = "edit Vimrc" })
 keymap("n", "<leader><CR>", ":nohlsearch<CR>", { desc = "No Highlight" })
@@ -71,8 +71,10 @@ keymap("n", "<leader>E", ":lua ToggleCharAtEndOfLine()<CR>", { desc = "Toggle EO
 keymap("n", "<leader>F", "<cmd>ToggleFoldMethod<CR>", { desc = "Toggle Fold Method" })
 keymap("n", "<leader>s", ":lua Split_long_line()<CR>", { noremap = true, silent = true, desc = "Split line" })
 keymap("n", "<leader>x", "<cmd>!chmod +x %<CR>", { desc = "Make file Executable (chmod +x)" })
+keymap("n", "<leader>N", ":lua SaveToAppleNotes()<CR>", { desc = "Save to Apple Notes" })
+keymap("n", "<leader>S", ":lua Search_Exact_Phrase()<CR>", { desc = "Search" })
 
-Sections_For_Whichkey["f"] = { name = "󰍉 Find" }
+Sections_For_Whichkey["f"] = { name = " Find" }
 keymap("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find Buffer" })
 keymap("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find Buffer" })
 keymap("n", "<leader>fc", "<cmd>Telescope colorscheme<cr>", { desc = "Colorscheme" })
@@ -98,11 +100,12 @@ keymap("n", "<leader>Th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", { 
 keymap("n", "<leader>Tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", { desc = "Vertical" })
 
 Sections_For_Whichkey["d"] = { name = " Debugger or Diff" }
+Sections_For_Whichkey["d"]["g"] = { name = " Git" }
 keymap("n", "<leader>dw", ":call DiffWindo()<CR>", { desc = "Diff Windows(files)" })
 keymap("n", "<leader>dgF", ":DiffviewFileHistory<CR>", { desc = "Diff of All FILES (Git)" })
 keymap("n", "<leader>dgf", ":DiffviewFileHistory %<CR>", { desc = "Diff File (Git)" })
 keymap("n", "<leader>dgt", ":DiffviewToggleFiles<CR>", { desc = "Diff toggle File Panel (Git)" })
--- keymap("n", "<leader>dc", ":DiffviewClose<CR>", { desc = "Diff Close (Git)" })
+keymap("n", "<leader>dgc", ":DiffviewClose<CR>", { desc = "Diff Close (Git)" })
 
 keymap("n", "<F5>", ":lua require('dap').continue()<CR>", { desc = "Debugger: Start" })
 keymap("n", "<F17>", ":lua require('dap').terminate()<CR>", { desc = "Debugger: Stop" }) -- Shift+F5

@@ -5,6 +5,7 @@ null_ls.setup({
   sources = {
     -- null_ls.builtins.diagnostics.eslint,
     null_ls.builtins.diagnostics.shellcheck, --sudo apt install shellcheck
+    null_ls.builtins.diagnostics.tidy, -- Tidy corrects and cleans up HTML and XML file 
 
     null_ls.builtins.completion.spell,
 

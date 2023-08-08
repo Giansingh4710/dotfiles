@@ -8,6 +8,7 @@ local servers = {
   "html",
   "phpactor",
   "tsserver",
+  "jdtls"
 }
 
 require("plugins.lspish.handler").setup()
@@ -71,3 +72,5 @@ require("lspsaga").setup({
     },
   },
 })
+
+-- require("plugins.lspish.java")

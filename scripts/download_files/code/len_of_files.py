@@ -22,7 +22,7 @@ def goThroughFiles(dir):
                 audio=mutagen.File(path)
                 len_of_files_in_seconds+=audio.info.length
             except Exception as e:
-                print(f'{thing} failed : {e}')
+                print(f'{path} failed : {e}')
                 failed_files+=1
 
 def nicePrintTime(seconds):
