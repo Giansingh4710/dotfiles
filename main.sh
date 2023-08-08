@@ -22,34 +22,38 @@ pathToSymLink[8]=~/.config/yabai
 
 # chsh -s $(which zsh) #change shell to zsh
 
-if [ ! -d ~/.config/ ];then
-  mkdir ~/.config
-  echo Made .config dir
+if [ ! -d ~/.config/ ]; then
+	mkdir ~/.config
+	echo Made .config dir
 fi
 
-if [ ! -d ~/OLD_FILES ];then
-  mkdir ~/OLD_FILES
-  echo Made OLD_FILES dir
+if [ ! -d ~/OLD_FILES ]; then
+	mkdir ~/OLD_FILES
+	echo Made OLD_FILES dir
 fi
 
 for i in "${!filesForSymLink[@]}"; do
 	theItem=${filesForSymLink[$i]}
 	pathToItem=~/dotfiles/$theItem
 	whereToPutItem=${pathToSymLink[$i]}
-	if [[ "$OSTYPE" != "darwin2"* ]]; then # if not a mac
-		if {
-			  [ "$theItem" == "karabiner" ] ||
+	if {
+			# [ "$theItem" == ".bashrc" ] ||
+				[ "$theItem" == ".tmux.conf" ] ||
+				# [ "$theItem" == ".bash_aliases" ] ||
+				# [ "$theItem" == ".zshrc" ] ||
+				# [ "$theItem" == ".vimrc" ] ||
+				# [ "$theItem" == "nvim" ] ||
+				[ "$theItem" == "karabiner" ] ||
 				[ "$theItem" == "skhd" ] ||
 				[ "$theItem" == "yabai" ]
 		}; then
-			# echo "No symlink created because '$theItem' is for MAC ONLY"
+			echo "'$theItem' Skipped"
 			continue
-		fi
 	fi
 
-  if [ -e "$whereToPutItem" ];then
-	  mv "$whereToPutItem" ~/OLD_FILES/
-  fi
+	if [ -e "$whereToPutItem" ]; then
+		mv "$whereToPutItem" ~/OLD_FILES/
+	fi
 
 	ln -sf "$pathToItem" "$whereToPutItem"
 	if [ $? -eq 0 ]; then
@@ -60,24 +64,24 @@ for i in "${!filesForSymLink[@]}"; do
 done
 
 if [[ "$OSTYPE" == "darwin2"* ]]; then
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" #install brew
-  # Needed for stuff to run in script folder
-  brew install python
-  brew install yt-dlp
-  pip3 install selenium
-  pip3 install requests
-  pip3 install BeautifulSoup4
-  pip3 install mutagen
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" #install brew
+	# Needed for stuff to run in script folder
+	brew install python
+	brew install yt-dlp
+	pip3 install selenium
+	pip3 install requests
+	pip3 install BeautifulSoup4
+	pip3 install mutagen
 
-  # brew install koekeishiya/formulae/yabai #window tile manager
-  # brew install koekeishiya/formulae/skhd #key binding for stuff like yabai and anything
+	# brew install koekeishiya/formulae/yabai #window tile manager
+	# brew install koekeishiya/formulae/skhd #key binding for stuff like yabai and anything
 
-  # brew services start yabai
-  # brew services start skhd
-  #brew services start/stop (name of service)
-  #brew services restart --all ; brew service list
+	# brew services start yabai
+	# brew services start skhd
+	#brew services start/stop (name of service)
+	#brew services restart --all ; brew service list
 
-  #brew install --cask rectangle
+	#brew install --cask rectangle
 
 fi
 
@@ -89,4 +93,4 @@ fi
 #download starship #shows cool stuff in terminal like git and time spent in cli app
 #download youtube-dl
 #download tmux
-#download tree 
+#download tree

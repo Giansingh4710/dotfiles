@@ -1,14 +1,10 @@
 #!/bin/bash
 
-alias vim="nvim"
 alias vimrc="vim ~/dotfiles/nvim/init.lua"
 alias vimv="~/dotfiles/scripts/vimv.sh"
 alias addX="~/dotfiles/scripts/addX.sh"
 alias dl="~/dotfiles/scripts/download_files/run.sh"
 alias delFiles="~/dotfiles/scripts/delFiles.sh"
-alias playSDO="~/dotfiles/scripts/playSDO.sh"
-alias coolCmds="vim ~/dotfiles/scripts/coolCmds.txt"
-alias nvims="~/dotfiles/nvim/switch_configs.sh"
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -34,19 +30,24 @@ fi
 
 if [[ "$OSTYPE" == "darwin2"* ]]; then
 	alias notify="~/dotfiles/scripts/notify.sh"
-	alias sshLogin="~/dotfiles/scripts/sshLogin.sh"
-	alias gvim="~/dotfiles/scripts/macVim.sh"
 	alias python="python3"
 	alias py="python3"
 	alias pip="pip3"
+	alias toggleyabai="~/dotfiles/skhd/toggleyabai.sh"
+	alias delDsStore="~/dotfiles/scripts/delDsStore.sh"
+  alias sdo="~/dotfiles/scripts/playSDO.sh"
+	alias gvim="~/dotfiles/scripts/macVim.sh"
+  alias nvims="~/dotfiles/nvim/switch_configs.sh"
+  alias coolCmds="vim ~/dotfiles/scripts/coolCmds.txt"
+  alias icloud="cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/"
+fi
+
+if [[ ~ == "/Users/gians" ]];then
+  alias vim="nvim"
+	alias sshLogin="~/dotfiles/scripts/sshLogin.sh"
+
 	alias dev="cd /Users/gians/Desktop/dev"
 	alias webdev="cd /Users/gians/Desktop/dev/webdev"
 	alias mobile="cd /Users/gians/Desktop/dev/mobile"
-	alias cs288="cd /Users/gians/Desktop/dev/SchoolStuff/CS288"
-	alias toggleyabai="~/.config/skhd/toggleyabai.sh"
-	alias sdo="open /Applications/Safari.app https://sdoji.xyz/other_pages/all.html"
-	alias sdoji="cd /Users/gians/Desktop/dev/webdev/sdo-ji/ ; vim index.html"
-	alias delDsStore="~/dotfiles/scripts/delDsStore.sh"
-  alias icloud="cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/"
   alias ssa="vim /Users/gians/Desktop/dev/rand/NJIT/SSA/SSA23-24.txt"
 fi
