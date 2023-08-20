@@ -13,9 +13,6 @@ alias .....="cd ../../../.."
 alias df='df -h' # disk free, in Gigabytes, not bytes
 alias lpath='echo $PATH | tr ":" "\n"' # list the PATH separated by new lines
 
-# Applications
-alias ios='open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'
-
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	alias cs288="cd /mnt/c/Users/gians/Desktop/CS/SchoolStuff/CS288"
 	alias cs="cd /mnt/c/Users/gians/Desktop/CS/"
@@ -29,6 +26,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 fi
 
 if [[ "$OSTYPE" == "darwin2"* ]]; then
+  alias ios='open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'
 	alias notify="~/dotfiles/scripts/notify.sh"
 	alias python="python3"
 	alias py="python3"

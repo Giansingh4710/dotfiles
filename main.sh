@@ -1,24 +1,20 @@
 #!/bin/bash
 
-filesForSymLink[0]=".bashrc"
-filesForSymLink[1]=".tmux.conf"
-filesForSymLink[2]=".bash_aliases"
-filesForSymLink[3]=".zshrc"
-filesForSymLink[4]=".vimrc"
-filesForSymLink[5]="nvim"
-filesForSymLink[6]="karabiner" #change keybindings like hyper on mac
-filesForSymLink[7]="skhd"      # keybindings for window manager etc
-filesForSymLink[8]="yabai"     #tiling window manager
+filesForSymLink=( #everything that goes in ~/
+	".bashrc"
+	".bash_aliases"
+	".vimrc"
+	# ".zshrc"
+	# ".tmux.conf"
+	# ".vrapperrc" #eclipse vim plugin
+)
 
-pathToSymLink[0]=~/.bashrc
-pathToSymLink[1]=~/.tmux.conf
-pathToSymLink[2]=~/.bash_aliases
-pathToSymLink[3]=~/.zshrc
-pathToSymLink[4]=~/.vimrc
-pathToSymLink[5]=~/.config/nvim
-pathToSymLink[6]=~/.config/karabiner
-pathToSymLink[7]=~/.config/skhd
-pathToSymLink[8]=~/.config/yabai
+foldersForSymLink=( #everything that goes in ~/.config
+	"nvim"
+	# "karabiner" #change keybindings like hyper on mac. No more use
+	"skhd"      # keybindings for window manager etc
+	"yabai"     #tiling window manager
+)
 
 # chsh -s $(which zsh) #change shell to zsh
 
@@ -32,65 +28,48 @@ if [ ! -d ~/OLD_FILES ]; then
 	echo Made OLD_FILES dir
 fi
 
-for i in "${!filesForSymLink[@]}"; do
-	theItem=${filesForSymLink[$i]}
-	pathToItem=~/dotfiles/$theItem
-	whereToPutItem=${pathToSymLink[$i]}
-	if {
-			# [ "$theItem" == ".bashrc" ] ||
-				[ "$theItem" == ".tmux.conf" ] ||
-				# [ "$theItem" == ".bash_aliases" ] ||
-				# [ "$theItem" == ".zshrc" ] ||
-				# [ "$theItem" == ".vimrc" ] ||
-				# [ "$theItem" == "nvim" ] ||
-				[ "$theItem" == "karabiner" ] ||
-				[ "$theItem" == "skhd" ] ||
-				[ "$theItem" == "yabai" ]
-		}; then
-			echo "'$theItem' Skipped"
-			continue
-	fi
+function makeSymLinks() {
+	local folderToPutIn="$1" # Save first argument in a variable
+	shift                    # Shift all arguments to the left (original $1 gets lost)
+	local items=("$@")       # Rebuild the array with rest of arguments
 
-	if [ -e "$whereToPutItem" ]; then
-		mv "$whereToPutItem" ~/OLD_FILES/
-	fi
+	for item in "${items[@]}"; do
+		pathToItem=~/dotfiles/$item
+		whereToPutItem="$folderToPutIn/$item"
 
-	ln -sf "$pathToItem" "$whereToPutItem"
-	if [ $? -eq 0 ]; then
-		echo "symlink created for ${filesForSymLink[$i]}"
-	else
-		echo "Error linking $pathToItem -> $whereToPutItem "
-	fi
-done
+		if [ -e "$whereToPutItem" ]; then
+			cp -r "$whereToPutItem" ~/OLD_FILES/
+      rm "$whereToPutItem"
+		fi
+
+		ln -sf "$pathToItem" "$whereToPutItem"
+		if [ $? -eq 0 ]; then
+			echo "symlink created for $item"
+		else
+			echo "Error linking $pathToItem -> $whereToPutItem "
+		fi
+	done
+  echo Symlinks created
+  echo
+}
+
+makeSymLinks ~ "${filesForSymLink[@]}"
+# makeSymLinks ~/.config "${foldersForSymLink[@]}"
 
 if [[ "$OSTYPE" == "darwin2"* ]]; then
+  echo Downloading Brew
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" #install brew
 	# Needed for stuff to run in script folder
-	brew install python
+	brew install python3
 	brew install yt-dlp
 	pip3 install selenium
 	pip3 install requests
 	pip3 install BeautifulSoup4
 	pip3 install mutagen
 
-	# brew install koekeishiya/formulae/yabai #window tile manager
-	# brew install koekeishiya/formulae/skhd #key binding for stuff like yabai and anything
-
+	# brew install koekeishiya/formulae/yabai # window tile manager
+	# brew install koekeishiya/formulae/skhd # key binding for stuff like yabai and anything
 	# brew services start yabai
 	# brew services start skhd
-	#brew services start/stop (name of service)
-	#brew services restart --all ; brew service list
-
-	#brew install --cask rectangle
-
+	# brew install --cask rectangle
 fi
-
-# brew install "$1"
-# sudo apt install "$1"
-#download neovim
-#download node #for lsp and other stuff. Node is node lol
-#download shellcheck #lsp for bash (neovim)
-#download starship #shows cool stuff in terminal like git and time spent in cli app
-#download youtube-dl
-#download tmux
-#download tree

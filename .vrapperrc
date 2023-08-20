@@ -1,0 +1,11 @@
+imap jk <esc>
+map L $
+map H ^
+
+set hlsearch
+set autoindent
+set ignorecase
+set smartcase
+set cursorline
+
+# https://vrapper.sourceforge.net/documentation/?topic=configuration#config

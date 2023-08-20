@@ -19,8 +19,6 @@
   highlight non-ASCII chars
     /[^\x00-\x7F]
 
-
-
 -anaconda
   conda activate base
   conda deactivate
@@ -51,7 +49,7 @@
     say ; says what you type after say
     security find-generic-password -wa Wifi ; find password of wifi network you have previously connected to
     pbcopy ; pipe anything to this to copy it 'echo hehehh| pbcopy'
-    command + option + shift + v ; paste without formating
+    command + option + shift + v ; paste without formatting
     caffeinate ; keep computer awake as long as terminal up
     defaults write com.apple.screencapture name NAME ; change default name of screenshot
     defaults write com.apple.screencapture type TYPE ; change defatut type of screen
@@ -71,6 +69,11 @@
   git reset --hard HEAD 
 
 -brew
+  brew bundle dump --describe ; save all installed brew stuff
+	brew services start/stop (name of service)
+	brew services restart --all 
+  brew services list
+
   https://stackoverflow.com/questions/11038028/what-is-the-best-safest-way-to-reinstall-homebrew
   uninstall:
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
@@ -82,12 +85,14 @@
     brew install tmux 
     brew install tree 
     brew install starship 
-    brew install koekeishiya/formulae/yabai
-    brew install koekeishiya/formulae/skhd
     brew install node 
     brew install python3 
-    ranger 
-    starship
+    brew install ranger 
+    brew install starship
+
+    brew install koekeishiya/formulae/yabai
+    brew install koekeishiya/formulae/skhd
+	  brew install --cask rectangle
 
 -stuff2
   format json:
