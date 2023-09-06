@@ -47,4 +47,4 @@ vim.opt.list = true
 vim.opt.listchars = { tab = "→ ", eol = "¬", trail = "⋅", extends = "❯", precedes = "❮" }
 
 vim.opt.foldmethod = "indent"
-vim.opt.foldlevel = 1 -- foldlevels opened on file open
+vim.opt.foldlevel = 10 -- foldlevels opened on file open

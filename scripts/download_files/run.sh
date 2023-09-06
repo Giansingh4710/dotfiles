@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#python3 ./code/gv.py ./  "https://gurmatveechar.com/audio.php?q=f&f=%2FGurbani_Ucharan%2FKabaal_Singh_%28Hazoor_Sahib_wale%29%2FSri_Dasam_Granth_Sahib_%28Hazoor_Sahib_Bir%29"
-#python3 ./code/akjorg.py ./ "Bhai Harpreet Singh" "Giaan Singh"
-#python3 ./code/goldenKhajan.py ./BobJones "http://sikhsoul.com/golden_khajana/index.php?q=f&f=%2FKeertan%2FBhai+Amolak+Singh"
+#python3 ./py_code/gv.py ./  "https://gurmatveechar.com/audio.php?q=f&f=%2FGurbani_Ucharan%2FKabaal_Singh_%28Hazoor_Sahib_wale%29%2FSri_Dasam_Granth_Sahib_%28Hazoor_Sahib_Bir%29"
+#python3 ./py_code/akjorg.py ./ "Bhai Harpreet Singh" "Giaan Singh"
+#python3 ./py_code/goldenKhajan.py ./BobJones "http://sikhsoul.com/golden_khajana/index.php?q=f&f=%2FKeertan%2FBhai+Amolak+Singh"
 
 show_n_run_cmd() {
 	the_command=$1
@@ -23,25 +23,25 @@ MainDir=~/dotfiles/scripts/download_files
 select opt in "GurmatVeechar" "AKJ.org" "GoldenKhajana" "yt-dlp" "Soundcloud" "Get Length Of Audio Files" "Number Files"; do
 	the_command=()
 	if [[ $opt == "Get Length Of Audio Files" ]]; then
-		the_command=(python3 "$MainDir/code/len_of_files.py" "$path")
+		the_command=(python3 "$MainDir/py_code/len_of_files.py" "$path")
 	elif [[ $opt == "Number Files" ]]; then
-		the_command=(python3 "$MainDir/code/number_files.py" "$path")
+		the_command=(python3 "$MainDir/py_code/number_files.py" "$path")
 	elif [[ $opt == "GurmatVeechar" ]]; then
 		echo "Enter links from GurmatVeechar.com separated by space: "
 		read -r -a links
-		the_command=(python3 "$MainDir/code/gv.py" "$path" "${links[*]}")
+		the_command=(python3 "$MainDir/py_code/gv.py" "$path" "${links[*]}")
 	elif [[ $opt == "AKJ.org" ]]; then
 		echo "Enter name of a Keertani: "
 		read -r name
-		the_command=(python3 "$MainDir/code/akjorg.py" "$path" "$name")
+		the_command=(python3 "$MainDir/py_code/akjorg.py" "$path" "$name")
 	elif [[ $opt == "GoldenKhajana" ]]; then
 		echo "Enter a link from Golden Khajan: "
 		read -r link
-		the_command=(python3 "$MainDir/code/goldenKhajan.py" "$path" "$link")
+		the_command=(python3 "$MainDir/py_code/goldenKhajan.py" "$path" "$link")
 	elif [[ $opt == "Soundcloud" ]]; then
 		echo "Enter a link from Soundcloud: "
 		read -r link
-		the_command=(python3 "$MainDir/code/soundcloud.py" "$path" "$link")
+		the_command=(python3 "$MainDir/py_code/soundcloud.py" "$path" "$link")
 	elif [[ $opt == "yt-dlp" ]]; then
 		echo "Enter a link for youtube-dl: "
 		read -r link
@@ -50,7 +50,7 @@ select opt in "GurmatVeechar" "AKJ.org" "GoldenKhajana" "yt-dlp" "Soundcloud" "G
 
 		read -r -p "Enter the number: " num
 		the_command=(yt-dlp -f "$num" "$link")
-	fi
+  fi
 	show_n_run_cmd "${the_command[@]}"
 	exit
 done

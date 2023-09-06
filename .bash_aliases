@@ -4,6 +4,7 @@ alias vimrc="vim ~/dotfiles/nvim/init.lua"
 alias vimv="~/dotfiles/scripts/vimv.sh"
 alias addX="~/dotfiles/scripts/addX.sh"
 alias dl="~/dotfiles/scripts/download_files/run.sh"
+alias dl_links="~/dotfiles/scripts/dl_links.sh"
 alias delFiles="~/dotfiles/scripts/delFiles.sh"
 
 alias ..='cd ..'
@@ -47,5 +48,6 @@ if [[ ~ == "/Users/gians" ]];then
 	alias dev="cd /Users/gians/Desktop/dev"
 	alias webdev="cd /Users/gians/Desktop/dev/webdev"
 	alias mobile="cd /Users/gians/Desktop/dev/mobile"
-  alias ssa="vim /Users/gians/Desktop/dev/rand/NJIT/SSA/SSA23-24.txt"
+  alias ssa="vim /Users/gians/Desktop/random/NJIT/SSA/SSA23-24.txt"
+  alias njit="source ~/dotfiles/scripts/go_to_class.sh"
 fi

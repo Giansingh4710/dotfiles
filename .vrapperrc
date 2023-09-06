@@ -1,6 +1,11 @@
 imap jk <esc>
 map L $
 map H ^
+nmap <Space>/ gcc
+vmap <Space>/ gc
+nmap Y y$
+nmap <Space><CR> :nohlsearch<CR>
+map <Space>lf :format<CR>
 
 set hlsearch
 set autoindent

@@ -49,10 +49,12 @@ keymap("n", ",java", ':r !bash ~/dotfiles/skeletons/java.sh %<CR>gg"_ddf.dt ', {
 
 keymap("n", "gF", '"hyiW:e <C-r>h<CR>', { desc = "Go make file" }) --go file but make file under cursor (put in h register)
 
+keymap("v", "<leader>M", "!bc<CR>", { desc = "Math" })
 keymap("v", "<leader>/", "<Plug>(comment_toggle_linewise_visual)", { desc = "Comment Visual Mode" })
 keymap("v", "<leader>p", '"_dP', { desc = "Paste Without Yank" })
 keymap("v", "<leader>r", 'y:%s/<C-r>"//gc<LEFT><LEFT><LEFT>', { desc = "Replace Old Fashion" })
 
+keymap("n", "<leader>M", "V!bc<CR>", { desc = "Math" })
 keymap("n", "<leader>r", 'yiw:%s/<C-R>"//gc<LEFT><LEFT><LEFT>', { desc = "Replace Word Old Fashion" })
 keymap("n", "<leader>cc", ":lua require'notify'.dismiss()<CR>", { desc = "Clear all Notifications" })
 keymap("n", "<leader>C", "<cmd>GetRandomColor<CR>", { desc = "Generate Random Color" })
@@ -70,7 +72,7 @@ keymap("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)", { desc = "Co
 keymap("n", "<leader>E", ":lua ToggleCharAtEndOfLine()<CR>", { desc = "Toggle EOL Char" })
 keymap("n", "<leader>F", "<cmd>ToggleFoldMethod<CR>", { desc = "Toggle Fold Method" })
 keymap("n", "<leader>s", ":lua Split_long_line()<CR>", { noremap = true, silent = true, desc = "Split line" })
-keymap("n", "<leader>x", "<cmd>!chmod +x %<CR>", { desc = "Make file Executable (chmod +x)" })
+keymap("n", "<leader>x", "<cmd>!chmod +x %;./%<CR>", { desc = "Make file Executable (chmod +x)" })
 keymap("n", "<leader>N", ":lua SaveToAppleNotes()<CR>", { desc = "Save to Apple Notes" })
 keymap("n", "<leader>S", ":lua Search_Exact_Phrase()<CR>", { desc = "Search" })
 

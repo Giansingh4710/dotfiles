@@ -109,6 +109,7 @@ call plug#end()
   "open a new tab
   nnoremap <leader>t :tabnew<CR>:Ex<CR>
 
+
   "starter for multiline comment for react,js,java type langs
   "noremap gcc <ESC>O{/*<CR>*/}<ESC>
   nnoremap <leader>V :tabnew $MYVIMRC<CR>:cd %:p:h<CR>

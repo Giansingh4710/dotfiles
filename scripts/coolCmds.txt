@@ -61,9 +61,6 @@
     shutdown
     sudo touch id
 
-  - make chromedriver usable; from https;//timonweb.com/misc/fixing-error-chromedriver-cannot-be-opened-because-the-developer-cannot-be-verified-unable-to-launch-the-chrome-browser-on-mac-os/
-    xattr -d com.apple.quarantine /Users/gians/Downloads/chromedriver 
-
 -git
   git commit --amend --no-edit  : add to last commit
   git reset --hard HEAD 
@@ -125,3 +122,31 @@
 
 - Java
   javac *.java -d .
+
+- logiware
+  setting up maven java project with testng
+    Choose: org.apache.maven.archetypes     maven-archetypes-quickstart   1.4
+
+  https://craft.qa.logiware.app/freight/#/auth/login
+  
+- ffmpeg
+  to converet mp4 to mp3:
+    ffmpeg -i filename.mp4 filename.mp3
+
+  to cut files up, have the times in times.txt:
+    node ../src/index.js Dec3.mp4 -t times.txt
+
+
+
+  to concat/stich files together:
+    ffmpeg -i "concat:lav1.mp3|lav2.mp3|lav3.mp3|lav4.mp3" -c copy fullLav.mp3
+
+    for m4a because m4a weird:
+      ffmpeg -i "file1.m4a" -i "file2.m4a" -filter_complex "[0:a][1:a]concat=n=2:v=0:a=1[out]" -map "[out]" output.m4a
+
+- chromedrivers for selenium
+  - make chromedriver usable; from https;//timonweb.com/misc/fixing-error-chromedriver-cannot-be-opened-because-the-developer-cannot-be-verified-unable-to-launch-the-chrome-browser-on-mac-os/
+    xattr -d com.apple.quarantine /Users/gians/Downloads/chromedriver 
+
+  all versions of drivers(chrome): https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json
+
