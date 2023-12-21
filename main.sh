@@ -4,16 +4,16 @@ filesForSymLink=( #everything that goes in ~/
 	".bashrc"
 	".bash_aliases"
 	".vimrc"
-	# ".zshrc"
-	# ".tmux.conf"
-	# ".vrapperrc" #eclipse vim plugin
+	".zshrc"
+	".tmux.conf"
+  ".vrapperrc" # eclipse(java) vim plugin
 )
 
 foldersForSymLink=( #everything that goes in ~/.config
 	"nvim"
-	# "karabiner" #change keybindings like hyper on mac. No more use
+	"yabai"     # tiling window manager
 	"skhd"      # keybindings for window manager etc
-	"yabai"     #tiling window manager
+  "alacritty" # terminal
 )
 
 # chsh -s $(which zsh) #change shell to zsh
@@ -39,7 +39,11 @@ function makeSymLinks() {
 
 		if [ -e "$whereToPutItem" ]; then
 			cp -r "$whereToPutItem" ~/OLD_FILES/
-      rm "$whereToPutItem"
+      if [ -L "$whereToPutItem" ]; then
+        unlink "$whereToPutItem"
+      else
+        rm -r "$whereToPutItem"
+      fi
 		fi
 
 		ln -sf "$pathToItem" "$whereToPutItem"
@@ -49,17 +53,18 @@ function makeSymLinks() {
 			echo "Error linking $pathToItem -> $whereToPutItem "
 		fi
 	done
-  echo Symlinks created
-  echo
 }
 
 makeSymLinks ~ "${filesForSymLink[@]}"
-# makeSymLinks ~/.config "${foldersForSymLink[@]}"
+makeSymLinks ~/.config "${foldersForSymLink[@]}"
+
+exit
 
 if [[ "$OSTYPE" == "darwin2"* ]]; then
   echo Downloading Brew
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" #install brew
-	# Needed for stuff to run in script folder
+
+	# Needed for stuff to run in ./scripts folder
 	brew install python3
 	brew install yt-dlp
 	pip3 install selenium
@@ -67,9 +72,10 @@ if [[ "$OSTYPE" == "darwin2"* ]]; then
 	pip3 install BeautifulSoup4
 	pip3 install mutagen
 
+  # brew install --cask warp
+  # brew install --cask alacritty
 	# brew install koekeishiya/formulae/yabai # window tile manager
 	# brew install koekeishiya/formulae/skhd # key binding for stuff like yabai and anything
-	# brew services start yabai
-	# brew services start skhd
 	# brew install --cask rectangle
+
 fi

@@ -17,5 +17,9 @@ Software to install:
   mac:
     yabai #window tile manager
     skhd #key binding for stuff like yabai and anything
-    karabiner-elements #change functions of keys on keyboard
-    rectangle #mac cool move window
+    rectangle # mac cool move window
+
+    warp
+    alacritty 
+    raycast
+

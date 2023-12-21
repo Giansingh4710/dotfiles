@@ -31,6 +31,24 @@ vim.api.nvim_create_user_command("ToggleFoldMethod", function()
   end
 end, {})
 
+vim.api.nvim_create_user_command("YankToClipboard", function()
+  local reg1 = "+"
+  local reg2 = '"'
+  local reg2_content = vim.fn.getreg(reg2)
+
+  vim.fn.setreg(reg1, reg2_content)
+end, {})
+
+vim.api.nvim_create_user_command("ToggleClipboard", function()
+  if vim.opt.clipboard:get() ~= "unnamedplus" then
+    vim.opt.clipboard = "unnamedplus"
+    print("clipboard: unnamedplus (Easy Copy/Paste)")
+  else
+    vim.opt.clipboard = "unnamed"
+    print("clipboard: unnamed")
+  end
+end, {})
+
 function RandomColorScheme()
   local table = { "darkplus", "nightfly", "gruvbox", "ayu" }
   math.randomseed(os.time())
@@ -46,14 +64,14 @@ function Get_Line_Len()
 
   local index_of_first_char = string.find(line, "%S") -- %S matches any non-space character
   local space = " "
-  local spaces = space:rep(index_of_first_char-1)
+  local spaces = space:rep(index_of_first_char - 1)
 
   return line, line_length, spaces
 end
 
 function Split_long_line()
   local line, line_length, spaces = Get_Line_Len()
-  line = line:gsub("^%s*(.-)%s*$", "%1")             -- trim string
+  line = line:gsub("^%s*(.-)%s*$", "%1") -- trim string
 
   if line_length > 80 then
     local words = {} -- split the line into words
@@ -102,12 +120,12 @@ end
 
 function Search_Exact_Phrase()
   local search = vim.fn.input("Search: ")
-	local magic_chars = { ".", "^", "$", "/" }
-	for _, char in ipairs(magic_chars) do
-		search = search:gsub("%" .. char, "\\" .. char)
-	end
-	-- print(search)
-	vim.cmd("/" .. search)
+  local magic_chars = { ".", "^", "$", "/" }
+  for _, char in ipairs(magic_chars) do
+    search = search:gsub("%" .. char, "\\" .. char)
+  end
+  -- print(search)
+  vim.cmd("/" .. search)
 end
 
 vim.cmd([[
@@ -123,7 +141,7 @@ vim.cmd([[
 vim.cmd([[
   function! DiffWindo()
     if &diff
-      :windo diffoff
+      :window diffoff
     else
       if len(tabpagebuflist()) > 1
         :10 wincmd l "go to the right most pane

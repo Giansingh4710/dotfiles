@@ -1,10 +1,13 @@
 #!/bin/bash
 
-notify=~/dotfiles/scripts/notify.sh
-if [ "$(brew services | grep 'yabai' | grep 'started' | wc -w)" -eq 0 ]; then
-	$notify "Starting yabai" "From toggleyabai.sh"
-	brew services start yabai
+notify="$HOME/dotfiles/scripts/notify.sh"
+
+YABAI_STATUS=$(yabai -m query --spaces --space | jq -r '.type')
+
+if [ "$YABAI_STATUS" == "bsp" ]; then
+	$notify "Stopping Yabai" "From toggleyabai.sh"
+	yabai --stop-service
 else
-	$notify "Stoping yabai" "From toggleyabai.sh"
-	brew services stop yabai
+	$notify "Starting Yabai" "From toggleyabai.sh"
+	yabai --start-service
 fi

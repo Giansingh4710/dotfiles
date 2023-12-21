@@ -48,6 +48,6 @@ if [[ ~ == "/Users/gians" ]];then
 	alias dev="cd /Users/gians/Desktop/dev"
 	alias webdev="cd /Users/gians/Desktop/dev/webdev"
 	alias mobile="cd /Users/gians/Desktop/dev/mobile"
-  alias ssa="vim /Users/gians/Desktop/random/NJIT/SSA/SSA23-24.txt"
+  alias ssa="vim /Users/gians/Desktop/NJIT/SSA/SSA23-24.txt"
   alias njit="source ~/dotfiles/scripts/go_to_class.sh"
 fi

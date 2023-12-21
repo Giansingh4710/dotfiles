@@ -1,9 +1,8 @@
 #!/bin/bash
 
-base_dir="/Users/gians/Desktop/NJIT/classes/"
-cd "$base_dir" || exit
+base_dir="/Users/gians/Desktop/NJIT/classes"
 
-directories=($(find . -maxdepth 1 -type d))
+directories=($(find "$base_dir" -maxdepth 1 -name ".*" -prune -o -print))
 # echo "${directories[@]}"
 
 echo "Enter num: "
@@ -11,18 +10,22 @@ len=${#directories[@]}
 offset=0
 if [[ "${directories[0]}" == "" ]]; then
 	for ((i = 2; i < len + 1; i++)); do
-		echo "$((i - 1)): ${directories[$i]//\.\//}"
+		echo "$((i - 1)): ${directories[$i]##*/}"
 	done
   offset=1
 else
 	for ((i = 1; i < len; i++)); do
-		echo "$i: ${directories[$i]//\.\//}"
+		echo "$i: ${directories[$i]##*/}"
 	done
 fi
 
 printf "Enter num: "
 read -r choice
 choice=$((choice + offset))
-cd "${directories[$choice]}" || exit
+if [ -f "${directories[$choice]}" ];then
+  vim "${directories[$choice]}"
+else
+  echo "Changed to: $(pwd)"
+  cd "${directories[$choice]}" || exit
+fi
 
-echo "Changed to: $(pwd)"

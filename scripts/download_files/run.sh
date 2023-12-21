@@ -20,7 +20,7 @@ fi
 printf "\nThe Directory: %s\n\n" "$path"
 
 MainDir=~/dotfiles/scripts/download_files
-select opt in "GurmatVeechar" "AKJ.org" "GoldenKhajana" "yt-dlp" "Soundcloud" "Get Length Of Audio Files" "Number Files"; do
+select opt in "GurmatVeechar" "AKJ.org" "GoldenKhajana" "yt-dlp" "Soundcloud" "Get Length Of Audio Files" "Number Files" "Download Links"; do
 	the_command=()
 	if [[ $opt == "Get Length Of Audio Files" ]]; then
 		the_command=(python3 "$MainDir/py_code/len_of_files.py" "$path")
@@ -50,6 +50,10 @@ select opt in "GurmatVeechar" "AKJ.org" "GoldenKhajana" "yt-dlp" "Soundcloud" "G
 
 		read -r -p "Enter the number: " num
 		the_command=(yt-dlp -f "$num" "$link")
+	elif [[ $opt == "Download Links" ]]; then
+		echo -n "Enter File Name: "
+		read -r file_name
+		the_command=(~/dotfiles/scripts/dl_links.sh "$file_name")
   fi
 	show_n_run_cmd "${the_command[@]}"
 	exit

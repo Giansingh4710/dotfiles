@@ -26,7 +26,7 @@
   conda config --set auto_activate_base true : to start anaconda from starting
   jupyter notebook
 
--stuff
+-stuff/rand
   find $(pwd) -type f -not -path '*/\.*' ; finds all files
     find / -type f | xargs grep -i LoadModule : find all files that have 'LoadModule' in it
     find / -type f -name "*.html" : file all html files
@@ -41,8 +41,13 @@
   uptime
   curl ; to Download stuff
 
-  php -S localhost:8080
+  php -S localhost:3000
+    lsof -i :3000 #find process
+    kill -9 <PID> #kill process
+
   jp2a pic.png :convert pic to text
+
+  gcc myprog.cpp -lstdc++
 
 -mac
   - from https;//www.youtube.com/watch?v=qOrlYzqXPa8
@@ -120,6 +125,8 @@
     yt-dlp --extract-audio --audio-format mp3 "$link" 
     the_command=(yt-dlp -F "$link" -o "%(playlist_index)s) %(title)s.%(ext)s")
 
+    yt-dlp $url --flat-playlist --print '%(url)s' --no-warnings > urls.txt
+
 - Java
   javac *.java -d .
 
@@ -136,8 +143,6 @@
   to cut files up, have the times in times.txt:
     node ../src/index.js Dec3.mp4 -t times.txt
 
-
-
   to concat/stich files together:
     ffmpeg -i "concat:lav1.mp3|lav2.mp3|lav3.mp3|lav4.mp3" -c copy fullLav.mp3
 
@@ -150,3 +155,37 @@
 
   all versions of drivers(chrome): https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json
 
+- du : checks how much space is taken
+  du -sh .git ; check how much space .git is taking
+
+- azur
+  Couldn't access storage account, had to add role assignment to my user
+    Storage account -> Access Control -> Add -> Add role assignment,
+    https://www.reddit.com/r/AZURE/comments/oasjpl/unable_to_access_storage_account/
+
+mysql -u root -p
+
+cs490 server root passowrd:
+  ssh root@45.56.108.221
+  Cs490Group5$
+
+  sudo apt update
+
+  sudo ufw status
+  sudo ufw default allow outgoing
+  sudo ufw allow 22343
+  sudo ufw enable
+  sudo ufw status
+
+  sudo apt install mysql-server
+  sudo mysql_secure_installation
+  sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf 
+    port 3306
+  sudo systemctl restart mysql
+
+  sudo mysql
+    CREATE USER 'dbuser'@'%' IDENTIFIED BY 'BobJones123!';
+    GRANT ALL PRIVILEGES ON *.* TO 'dbuser'@'%' WITH GRANT OPTION;
+    FLUSH PRIVILEGES;
+
+  sudo ufw allow 3306

@@ -61,7 +61,6 @@ capabilities.offsetEncoding = { "utf-16" } -- for clangd to remove error
 lspconfig["clangd"].setup({ capabilities = capabilities })
 
 require("plugins.lspish.null_ls")
-require("plugins.lspish.dap")
 
 require("lspsaga").setup({
   scroll_preview = { scroll_down = "<C-f>", scroll_up = "<C-b>" }, -- keybinds for navigation in lspsaga window
@@ -73,4 +72,3 @@ require("lspsaga").setup({
   },
 })
 
--- require("plugins.lspish.java")

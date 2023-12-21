@@ -8,6 +8,7 @@
 # HYPER == SHIFT + CMD + ALT + OPTION
 # hyper - return : /Applications/iTerm.app/Contents/MacOS/iTerm2
 alt - return : /Applications/Warp.app/Contents/MacOS/stable
+# alt - return : /Applications/Alacritty.app/Contents/MacOS/alacritty
 
 ## swap window
 shift + alt - h : yabai -m window --swap west
@@ -15,6 +16,7 @@ shift + alt - j : yabai -m window --swap south
 shift + alt - k : yabai -m window --swap north
 shift + alt - l : yabai -m window --swap east
 
+# alt=option
 ## got to windows
 alt - h : yabai -m window --focus west
 alt - j : yabai -m window --focus south
@@ -28,14 +30,19 @@ alt - right : yabai -m window --resize right:20:0 ; yabai -m window --resize lef
 
 alt - 0x18 : yabai -m space --balance #0x18 -> =
 alt - f : yabai -m window --toggle zoom-fullscreen
-alt - 4 : yabai -m space --mirror y-axis
 alt - p : yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 4:4:1:1:2:2
 alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
 alt - s : yabai -m window --toggle split
+alt - m : yabai -m space --mirror y-axis
 
+# alt - r : ~/dotfiles/scripts/notify.sh "Restarting";brew services restart skhd; brew services restart yabai
+alt - r : ~/dotfiles/scripts/notify.sh "Restarting!"; yabai --restart-service; skhd --restart-service
 alt - t : ~/dotfiles/skhd/toggleyabai.sh
-alt - r : ~/dotfiles/scripts/notify.sh "Restarting";brew services restart skhd; brew services restart yabai
+
+alt - 1 : ~/dotfiles/skhd/go_to_workspace.sh 1
+alt - 2 : ~/dotfiles/skhd/go_to_workspace.sh 2
+alt - 3 : ~/dotfiles/skhd/go_to_workspace.sh 3
 
 #   ? = 0x2C
-alt - 0x2C : ~/dotfiles/scripts/notify.sh \
-        "= - equal \n f - fullscreen \n 4 - mirror y-axis \n r - restart \n t - toggle Yabai \n p - Pop Window \n g - toggle gap \n s - toggle split type" "alt/option key"
+alt - 0x2C : ~/dotfiles/skhd/show_keys.sh
+

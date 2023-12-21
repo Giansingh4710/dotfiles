@@ -7,10 +7,10 @@ local keymap = vim.keymap.set
 require("user.helper_funcs")
 
 Sections_For_Whichkey = {
-	l = { name = " LSP" },
-	-- d = { name = " Debugger" },
-	-- b = { name = "󰓩 Buffers" },
-	-- g = { name = " Git" },
+  l = { name = " LSP" },
+  -- d = { name = " Debugger" },
+  -- b = { name = "󰓩 Buffers" },
+  -- g = { name = " Git" },
 }
 
 --[[
@@ -24,7 +24,7 @@ Sections_For_Whichkey = {
 keymap("i", "jk", "<ESC>", opts)
 keymap({ "n", "v", "x" }, "H", "^", opts) -- I hate typing these
 keymap({ "n", "v", "x" }, "L", "$", opts)
-keymap("v", "<", "<gv", opts) -- Stay in indent mode
+keymap("v", "<", "<gv", opts)             -- Stay in indent mode
 keymap("v", ">", ">gv", opts)
 
 -- scroll the viewport faster
@@ -52,11 +52,12 @@ keymap("n", "gF", '"hyiW:e <C-r>h<CR>', { desc = "Go make file" }) --go file but
 keymap("v", "<leader>M", "!bc<CR>", { desc = "Math" })
 keymap("v", "<leader>/", "<Plug>(comment_toggle_linewise_visual)", { desc = "Comment Visual Mode" })
 keymap("v", "<leader>p", '"_dP', { desc = "Paste Without Yank" })
-keymap("v", "<leader>r", 'y:%s/<C-r>"//gc<LEFT><LEFT><LEFT>', { desc = "Replace Old Fashion" })
+keymap("v", "<leader>r", ":%s/<C-r><C-w>//gc<LEFT><LEFT><LEFT>", { desc = "Replace Old Fashion" })
 
 keymap("n", "<leader>M", "V!bc<CR>", { desc = "Math" })
-keymap("n", "<leader>r", 'yiw:%s/<C-R>"//gc<LEFT><LEFT><LEFT>', { desc = "Replace Word Old Fashion" })
+keymap("n", "<leader>r", ":%s/<C-R><C-w>//gc<LEFT><LEFT><LEFT>", { desc = "Replace Word Old Fashion" })
 keymap("n", "<leader>cc", ":lua require'notify'.dismiss()<CR>", { desc = "Clear all Notifications" })
+keymap("n", "<leader>cd", ":Copilot disable<CR>", { desc = "Disable Copilot" })
 keymap("n", "<leader>C", "<cmd>GetRandomColor<CR>", { desc = "Generate Random Color" })
 keymap("n", "<leader>n", ":call ToggleNERDTree()<CR>", { desc = "Toggle NERDTree" })
 keymap("n", "<leader>D", ":bdelete<CR>", { desc = "Buffer Delete" })
@@ -101,7 +102,7 @@ keymap("n", "<leader>Tf", "<cmd>ToggleTerm direction=float<cr>", { desc = "Float
 keymap("n", "<leader>Th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", { desc = "Horizontal" })
 keymap("n", "<leader>Tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", { desc = "Vertical" })
 
-Sections_For_Whichkey["d"] = { name = " Debugger or Diff" }
+Sections_For_Whichkey["d"] = { name = " Diff" }
 Sections_For_Whichkey["d"]["g"] = { name = " Git" }
 keymap("n", "<leader>dw", ":call DiffWindo()<CR>", { desc = "Diff Windows(files)" })
 keymap("n", "<leader>dgF", ":DiffviewFileHistory<CR>", { desc = "Diff of All FILES (Git)" })
@@ -109,44 +110,35 @@ keymap("n", "<leader>dgf", ":DiffviewFileHistory %<CR>", { desc = "Diff File (Gi
 keymap("n", "<leader>dgt", ":DiffviewToggleFiles<CR>", { desc = "Diff toggle File Panel (Git)" })
 keymap("n", "<leader>dgc", ":DiffviewClose<CR>", { desc = "Diff Close (Git)" })
 
-keymap("n", "<F5>", ":lua require('dap').continue()<CR>", { desc = "Debugger: Start" })
-keymap("n", "<F17>", ":lua require('dap').terminate()<CR>", { desc = "Debugger: Stop" }) -- Shift+F5
-keymap("n", "<F29>", ":lua require('dap').restart_frame()<CR>", { desc = "Debugger: Restart" }) -- Control+F5
-keymap("n", "<F6>", ":lua require('dap').pause()<CR>", { desc = "Debugger: Pause" })
-keymap("n", "<F9>", ":lua require('dap').toggle_breakpoint()<CR>", { desc = "Debugger: Toggle Breakpoint" })
-keymap("n", "<F10>", ":lua require('dap').step_over()<CR>", { desc = "Debugger: Step Over" })
-keymap("n", "<F11>", ":lua require('dap').step_into()<CR>", { desc = "Debugger: Step Into" })
-keymap("n", "<F23>", ":lua require('dap').step_out()<CR>", { desc = "Debugger: Step Out" }) -- Shift+F11
-keymap("n", "<leader>db", ":lua require('dap').toggle_breakpoint()<CR>", { desc = "Toggle Breakpoint (F9)" })
-keymap(
-	"n",
-	"<leader>dB",
-	":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
-	{ desc = "Set Breakpoint with condition" }
-)
-keymap("n", "<leader>dR", ":lua require('dap').clear_breakpoints()<CR>", { desc = "Reset Breakpoints" })
-keymap("n", "<leader>dc", ":lua require('dap').continue()<CR>", { desc = "Start/Continue (F5)" })
-keymap("n", "<leader>di", ":lua require('dap').step_into()<CR>", { desc = "Step Into (F11)" })
-keymap("n", "<leader>do", ":lua require('dap').step_over()<CR>", { desc = "Step Over (F10)" })
-keymap("n", "<leader>dO", ":lua require('dap').step_out()<CR>", { desc = "Step Out (S-F11)" })
-keymap("n", "<leader>dq", ":lua require('dap').close()<CR>", { desc = "Close Session" })
-keymap("n", "<leader>dQ", ":lua require('dap').terminate()<CR>", { desc = "Terminate Session (S-F5)" })
-keymap("n", "<leader>dp", ":lua require('dap').pause()<CR>", { desc = "Pause (F6)" })
-keymap("n", "<leader>dr", ":lua require('dap').restart_frame()<CR>", { desc = "Restart (C-F5)" })
--- keymap("n", "<leader>dR", ":lua require('dap').repl.toggle()<CR>", { desc = "Toggle REPL" })
-keymap("n", "<leader>du", ":lua require('dapui').toggle()<CR>", { desc = "Toggle Debugger UI" })
-keymap("n", "<leader>dh", ":lua require('dap.ui.widgets').hover()<CR>", { desc = "Debugger Hover" })
-keymap("n", "<leader>dn", ":lua require('dap').run_to_cursor()<CR>", { desc = "Run To Cursor" })
-keymap("n", "<leader>dlf", ":Telescope dap frames<CR>", { desc = "Debugger Frames" })
-keymap("n", "<leader>dC", ":Telescope dap commands<CR>", { desc = "Debugger Commands" })
-keymap("n", "<leader>dlb", ":Telescope dap list_breakpoints<CR>", { desc = "Debugger Breakpoints" })
+Sections_For_Whichkey["g"] = { name = " Git" }
+keymap("n", "<leader>gj", ":Gitsigns next_hunk<CR>", { desc = "Next Git Hunk" })
+keymap("n", "<leader>gk", ":Gitsigns prev_hunk<CR>", { desc = "Previous Git Hunk" })
+keymap("n", "<leader>gd", ":Gitsigns diffthis<CR>", { desc = "Git Diffthis" })
+keymap("n", "<leader>gr", ":Gitsigns reset_hunk<CR>", { desc = "Git Reset Hunk" })
+keymap("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", { desc = "Git Preview Hunk" })
+keymap("n", "<leader>gb", ":Gitsigns blame_line<CR>", { desc = "Git Blame Line" })
 
-keymap("n", "<leader>d?", function()
-	local widgets = require("dap.ui.widgets")
-	widgets.centered_float(widgets.scopes)
-end, { desc = "Debugger Scopes" })
--- keymap("n", "<leader>dk", ':lua require'dap'.up()<CR>zz')
--- keymap("n", "<leader>dj", ':lua require'dap'.down()<CR>zz')
--- keymap("n", "<leader>dr", ':lua require'dap'.repl.toggle({}, "vsplit")<CR><C-w>l')
+Sections_For_Whichkey["h"] = { name = "Harpoon" }
+keymap("n", "<leader>ha", "<cmd>lua require('harpoon.mark').add_file()<cr>", { desc = "Mark file with harpoon" })
+keymap("n", "<leader>hh", "<cmd>lua require('harpoon.ui').nav_prev()<cr>", { desc = "Go to previous harpoon mark" })
+keymap("n", "<leader>hl", "<cmd>lua require('harpoon.ui').nav_next()<cr>", { desc = "Go to next harpoon mark" })
+keymap("n", "<leader>hm", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", { desc = "Show harpoon marks" })
 
 keymap("n", "<leader>lf", ":lua vim.lsp.buf.format()<CR>", { noremap = true, silent = false, desc = "Format" })
+keymap("n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "Info" })
+keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format()<CR>", { desc = "Format" })
+keymap("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", { desc = "Code Action" })
+keymap("n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", { desc = "Next diagnostic" })
+keymap("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", { desc = "Previous diagnostic" })
+keymap("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", { desc = "Rename" })
+keymap("n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", { desc = "Diagnostic Quickfix" })
+keymap("n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { desc = "Signature help" })
+keymap("n", "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", { desc = "Workspace Symbols" })
+keymap("n", "<leader>lt", "<cmd>ToggleDiag<cr>", { desc = "Toggle Diagnostics" })
+
+keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", {desc="Go to implementation"})
+keymap("n", "gr", "<cmd>Telescope lsp_references<CR>", {desc="Telescope References"})
+keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", {desc="Go to Definition"})
+keymap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", {desc="Show Line diagnostics"})
+
+keymap("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })

@@ -9,31 +9,60 @@ call plug#begin()
   Plug 'preservim/nerdcommenter'
   Plug 'christoomey/vim-tmux-navigator' "tmux and vim window switcher BEST
   Plug 'https://github.com/rafi/awesome-vim-colorschemes'
-  Plug 'vim-scripts/AutoComplPop' "auto completion pops up automaticaly instead of <C-p>
+  Plug 'vim-scripts/AutoComplPop' "auto completion pops up automatically instead of <C-p>
   Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
   " Plug 'Yggdroot/indentLine' "show indent lines
 call plug#end()
+
+" functions
+  function! BookmarkDir()
+    if exists("g:NERDTree") && g:NERDTree.IsOpen()
+      :Bookmark
+    else
+      echo "NERDTree not Open"
+    endif
+  endfunction
+
+  function! DiffWindo()
+    if &diff
+      :window diffoff
+    else
+      if len(tabpagebuflist()) > 1
+        ":window diffthis
+        :10 wincmd l "go to the right most pane
+        :diffthis
+        :wincmd h "go to the pane on left and compare it to that
+        :diffthis 
+      else
+        :vs
+        :Ex
+      endif
+    endif
+  endfunction
+
+  function! QuickFixToggle()
+    if empty(filter(getwininfo(), 'v:val.quickfix'))
+      copen
+    else
+      cclose
+    endif
+  endfunction
+
+  function! ToggleNERDTree()
+    if g:NERDTree.IsOpen()
+      :NERDTreeClose
+    else
+      :NERDTreeFind
+    endif
+  endfunction
+" Done
 
 "Settings for plugins
   set background=dark
   colorscheme gruvbox "afterglow
   "hi Normal guibg=NONE ctermbg=NONE "makes backdround transparent
   
-  "Nerd Tree
-    nnoremap <expr> <leader>n g:NERDTree.IsOpen() ? ':NERDTreeClose<CR>' : @%=='' ? ':NERDTreeToggle<CR>' : ':NERDTreeFind<CR>'
-    "nnoremap <leader>n :Ex<CR>
-    "nnoremap <C-n> :NERDTree<CR>
-    nnoremap <C-t> :NERDTreeToggle<CR>
-    nnoremap <C-f> :NERDTreeFind<CR>
-    "bookmark in NerdTree
-    function! BookmarkDir()
-      if exists("g:NERDTree") && g:NERDTree.IsOpen()
-        :Bookmark
-      else
-        echo "NERDTree not Open"
-      endif
-    endfunction
-    nnoremap <leader>b :call BookmarkDir()<CR>
+  nnoremap <leader>n :call ToggleNERDTree()<CR>
 
   "for commenting. nerdcommenter toggle is <leader>c<Space>.
   map <leader>/ <space>c<space>
@@ -42,6 +71,7 @@ call plug#end()
 "Basic Defaults
   set clipboard=unnamed
   syntax enable
+  set grepprg=git\ grep\ -n
   set cmdheight=2 "more space in the neovim command line for displaying messages
   set pumheight=10 "pop up menu height
   set termguicolors "set term gui colors (most terminals support this)
@@ -96,7 +126,7 @@ call plug#end()
   nnoremap <C-w>t :tabnew %<CR>
   "yank till end of line
   nnoremap Y y$
-  "Go to Begining of line
+  "Go to Beginning of line
   nnoremap B 0
   "Go to end of line
   nnoremap E E$
@@ -108,7 +138,7 @@ call plug#end()
   cnoremap ,py !python3 <C-r>%
   "open a new tab
   nnoremap <leader>t :tabnew<CR>:Ex<CR>
-
+  nnoremap <leader>q :call QuickFixToggle()<CR>
 
   "starter for multiline comment for react,js,java type langs
   "noremap gcc <ESC>O{/*<CR>*/}<ESC>
@@ -120,7 +150,7 @@ call plug#end()
 
   nnoremap <leader>x :!chmod +x %<CR>
 
-  "starter templetes for files
+  "starter templates for files
   nnoremap ,cpp :r ~/.dotfiles/skeletons/cpp<CR>gg"_dd4j
   nnoremap ,html :r ~/.dotfiles/skeletons/html<CR>gg"_dd9j
   nnoremap ,java :r !bash ~/.dotfiles/skeletons/java.sh %<CR>gg"_dd2j
@@ -131,27 +161,11 @@ call plug#end()
   vnoremap L $
 
   "compare windows
-  function! DiffWindo()
-    if &diff
-      :windo diffoff
-    else
-      if len(tabpagebuflist()) > 1
-        ":windo diffthis
-        :10 wincmd l "go to the right most pane
-        :diffthis
-        :wincmd h "go to the pane on left and compare it to that
-        :diffthis 
-      else
-        :vs
-        :Ex
-      endif
-    endif
-  endfunction
   nnoremap <leader>d :call DiffWindo()<CR>
 "Done Remapings
 
 "Other Things
-  "c++ formating :help cinoptions-values 
+  "c++ formatting :help cinoptions-values 
   autocmd FileType cpp set cinoptions=l1 
 
   " Reference chart of values:
@@ -181,4 +195,5 @@ call plug#end()
       autocmd TextYankPost * if v:event.operator ==# 'y' |call system(s:clip, @0) | endif
     augroup END
   endif
+
 "Done
