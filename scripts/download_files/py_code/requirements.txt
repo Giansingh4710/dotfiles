@@ -1,8 +1,0 @@
-#time os sys re
-requests
-mutagen
-
-selenium == 3.141.0
-BeautifulSoup4 == 4.9.3
-
-#pip install -r requirements.txt

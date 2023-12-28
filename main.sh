@@ -1,19 +1,19 @@
 #!/bin/bash
 
 filesForSymLink=( #everything that goes in ~/
-	".bashrc"
-	".bash_aliases"
-	".vimrc"
-	".zshrc"
-	".tmux.conf"
-  ".vrapperrc" # eclipse(java) vim plugin
+	"./configs/.bashrc"
+	"./configs/.bash_aliases"
+	"./configs/.vimrc"
+	"./configs/.zshrc"
+	"./configs/.tmux.conf"
+	"./configs/.vrapperrc" # eclipse(java) vim plugin
 )
 
 foldersForSymLink=( #everything that goes in ~/.config
-	"nvim"
-	"yabai"     # tiling window manager
-	"skhd"      # keybindings for window manager etc
-  "alacritty" # terminal
+	"./configs/nvim"
+	"./configs/yabai"     # tiling window manager
+	"./configs/skhd"      # keybindings for window manager etc
+	"./configs/alacritty" # terminal
 )
 
 # chsh -s $(which zsh) #change shell to zsh
@@ -34,16 +34,17 @@ function makeSymLinks() {
 	local items=("$@")       # Rebuild the array with rest of arguments
 
 	for item in "${items[@]}"; do
-		pathToItem=~/dotfiles/$item
-		whereToPutItem="$folderToPutIn/$item"
+		base_name=${item#./configs/}
+		pathToItem=~/dotfiles/configs/$base_name
+		whereToPutItem="$folderToPutIn/$base_name"
 
 		if [ -e "$whereToPutItem" ]; then
 			cp -r "$whereToPutItem" ~/OLD_FILES/
-      if [ -L "$whereToPutItem" ]; then
-        unlink "$whereToPutItem"
-      else
-        rm -r "$whereToPutItem"
-      fi
+			if [ -L "$whereToPutItem" ]; then
+				unlink "$whereToPutItem"
+			else
+				rm -r "$whereToPutItem"
+			fi
 		fi
 
 		ln -sf "$pathToItem" "$whereToPutItem"
@@ -61,7 +62,7 @@ makeSymLinks ~/.config "${foldersForSymLink[@]}"
 exit
 
 if [[ "$OSTYPE" == "darwin2"* ]]; then
-  echo Downloading Brew
+	echo Downloading Brew
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" #install brew
 
 	# Needed for stuff to run in ./scripts folder
@@ -72,8 +73,8 @@ if [[ "$OSTYPE" == "darwin2"* ]]; then
 	pip3 install BeautifulSoup4
 	pip3 install mutagen
 
-  # brew install --cask warp
-  # brew install --cask alacritty
+	# brew install --cask warp
+	# brew install --cask alacritty
 	# brew install koekeishiya/formulae/yabai # window tile manager
 	# brew install koekeishiya/formulae/skhd # key binding for stuff like yabai and anything
 	# brew install --cask rectangle

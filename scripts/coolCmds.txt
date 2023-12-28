@@ -32,6 +32,12 @@
     find / -type f -name "*.html" : file all html files
     find . -size +20M | cat >> .gitignore : add bigger than 20mb to gitignore
 
+  
+    print all the directory:
+      find . -name 'node_modules' -type d -prune
+    remove all node modules:
+      find . -name 'node_modules' -type d -prune -exec rm -r {} +
+
   df -h ; see space on harddrive
   afplay ; plays audio in terminal
   ps
@@ -96,6 +102,9 @@
     brew install koekeishiya/formulae/skhd
 	  brew install --cask rectangle
 
+-yabai
+  yabai --start-service
+  yabai --stop-service
 -stuff2
   format json:
     json_pp < input.json > formatted.json
