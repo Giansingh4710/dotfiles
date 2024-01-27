@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # base_dir="/Users/gians/Desktop/NJIT/classes"
-base_dir="/Users/gians/Desktop/dev/njit_classes/"
+base_dir="/Users/gians/Desktop/NJIT/njit_classes/"
 
 directories=($(find "$base_dir" -maxdepth 1 -name ".*" -prune -o -print))
 # echo "${directories[@]}"

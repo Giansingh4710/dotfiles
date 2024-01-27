@@ -5,6 +5,8 @@ if [ -f ~/dotfiles/scripts/alias.sh ]; then
 fi
 
 alias vim="nvim"
+alias t="tmux"
+alias gs="git status"
 alias vimrc="vim ~/dotfiles/configs/nvim/init.lua"
 alias toggleyabai="~/dotfiles/configs/skhd/toggleyabai.sh"
 alias nvims="~/dotfiles/nvim/switch_configs.sh"

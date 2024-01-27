@@ -2,9 +2,8 @@
 
 filesForSymLink=( #everything that goes in ~/
 	"./configs/.bashrc"
-	"./configs/.bash_aliases"
-	"./configs/.vimrc"
 	"./configs/.zshrc"
+	"./configs/.vimrc"
 	"./configs/.tmux.conf"
 	"./configs/.vrapperrc" # eclipse(java) vim plugin
 )
@@ -16,7 +15,20 @@ foldersForSymLink=( #everything that goes in ~/.config
 	"./configs/alacritty" # terminal
 )
 
-# chsh -s $(which zsh) #change shell to zsh
+function ask() {
+	if [ "$ASK_ALL" = true ]; then
+		return 0
+	fi
+
+	read -p "$1 (Y/n): " resp
+	if [ -z "$resp" ]; then
+		response_lc="y" # empty is Yes
+	else
+		response_lc=$(echo "$resp" | tr '[:upper:]' '[:lower:]') # case insensitive
+	fi
+
+	[ "$response_lc" = "y" ]
+}
 
 if [ ! -d ~/.config/ ]; then
 	mkdir ~/.config
@@ -38,6 +50,12 @@ function makeSymLinks() {
 		pathToItem=~/dotfiles/configs/$base_name
 		whereToPutItem="$folderToPutIn/$base_name"
 
+		if ask "Link $base_name"; then
+			: # do nothing
+		else
+			continue
+		fi
+
 		if [ -e "$whereToPutItem" ]; then
 			cp -r "$whereToPutItem" ~/OLD_FILES/
 			if [ -L "$whereToPutItem" ]; then
@@ -47,36 +65,47 @@ function makeSymLinks() {
 			fi
 		fi
 
-		ln -sf "$pathToItem" "$whereToPutItem"
+		ln -s "$pathToItem" "$whereToPutItem"
 		if [ $? -eq 0 ]; then
 			echo "symlink created for $item"
 		else
 			echo "Error linking $pathToItem -> $whereToPutItem "
 		fi
 	done
+  echo
 }
+
+if [ "$1" = "-y" ]; then
+	ASK_ALL=true
+fi
 
 makeSymLinks ~ "${filesForSymLink[@]}"
 makeSymLinks ~/.config "${foldersForSymLink[@]}"
 
-exit
+# chsh -s $(which zsh) #change shell to zsh
+# exit
 
 if [[ "$OSTYPE" == "darwin2"* ]]; then
-	echo Downloading Brew
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" #install brew
+	if ask "Download Brew"; then
+		echo Downloading Brew
+		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" #install brew
+	fi
 
-	# Needed for stuff to run in ./scripts folder
-	brew install python3
-	brew install yt-dlp
-	pip3 install selenium
-	pip3 install requests
-	pip3 install BeautifulSoup4
-	pip3 install mutagen
+	if ask "Install Brew and Pip Packages"; then
+		# Needed for stuff to run in ./scripts folder
+    brew install zoxide
+		brew install python3
+		brew install yt-dlp
 
-	# brew install --cask warp
-	# brew install --cask alacritty
-	# brew install koekeishiya/formulae/yabai # window tile manager
-	# brew install koekeishiya/formulae/skhd # key binding for stuff like yabai and anything
-	# brew install --cask rectangle
+		pip3 install selenium
+		pip3 install requests
+		pip3 install BeautifulSoup4
+		pip3 install mutagen
 
+		# brew install --cask warp
+		# brew install --cask alacritty
+		# brew install --cask rectangle
+		# brew install koekeishiya/formulae/yabai # window tile manager
+		# brew install koekeishiya/formulae/skhd # key binding for stuff like yabai and anything
+	fi
 fi

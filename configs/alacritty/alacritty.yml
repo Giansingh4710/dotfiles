@@ -18,4 +18,7 @@ scrolling:
   history: 10000
   # multiplier: 99
 
-
+key_bindings:
+  - { key: Key6,     mods: Control, chars: "\x1b[94;5u" } # to fix CRTL + 6 in vim
+  - { key: Return,   mods: Shift,   chars: "\x1b[13;2u" }
+  - { key: Return,   mods: Control, chars: "\x1b[13;5u" }
