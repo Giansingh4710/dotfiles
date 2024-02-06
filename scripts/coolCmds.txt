@@ -177,6 +177,12 @@ mysql -u root -p
 change node version:
   nvm use 18.17.0
 
+  ```
+  "You are using Node.js 16.20.2. For Next.js, Node.js version >= v18.17.0 is required."
+  ->: nvm use 18.17.0
+  "Now using node v18.17.0 (npm v9.6.7)"
+  ```
+
 cs490 server root passowrd:
   ssh root@45.56.108.221
   Cs490Group5$
@@ -204,3 +210,5 @@ cs490 server root passowrd:
 
 cool sites:
   https://transform.tools/css-to-js
+  https://www.w3schools.com/charsets/ref_utf_arrows.asp
+  https://www.svgrepo.com/vectors/2-arrows/

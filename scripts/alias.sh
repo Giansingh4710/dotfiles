@@ -16,5 +16,7 @@ alias yt="~/dotfiles/scripts/code/yt_dlp.sh"
 alias sshLogin="~/dotfiles/scripts/code/sshLogin.sh"
 alias njit="source ~/dotfiles/scripts/code/go_to_class.sh"
 
+alias mkgif="~/dotfiles/scripts/code/mkgif.sh"
+
 alias rbs="~/dotfiles/scripts/run_scripts.sh"        # run bash script
 alias rps="~/dotfiles/scripts/python_scripts/run.sh" # run py script

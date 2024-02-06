@@ -148,8 +148,6 @@ local plugins = {
 
 require("lazy").setup(plugins)
 
--- vim.cmd.colorscheme("nightfly")
-RandomColorScheme()
 
 require("plugins.configs.treesitter")
 require("plugins.configs.bufferline") --top tab line

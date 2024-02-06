@@ -1,3 +1,5 @@
+source ~/.vimrc
+
 imap jk <esc>
 map L $
 map H ^

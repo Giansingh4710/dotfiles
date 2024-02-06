@@ -46,3 +46,6 @@ fi
 
 cap () { tee /tmp/capture.out; } # capture the output of a command so it can be retrieved with ret
 ret () { cat /tmp/capture.out; } # return the output of the most recent command that was captured by cap
+
+# see colors when using ls
+alias ls='ls --color=auto'
