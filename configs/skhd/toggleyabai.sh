@@ -1,6 +1,6 @@
 #!/bin/bash
 
-notify="$HOME/dotfiles/scripts/notify.sh"
+notify="$HOME/dotfiles/scripts/code/notify.sh"
 
 YABAI_STATUS=$(yabai -m query --spaces --space | jq -r '.type')
 

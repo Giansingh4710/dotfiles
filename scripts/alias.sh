@@ -4,6 +4,7 @@ alias vimv="~/dotfiles/scripts/code/vimv.sh"
 alias addX="~/dotfiles/scripts/code/addX.sh"
 
 alias dl_links="~/dotfiles/scripts/code/dl_links.sh"
+alias link_size="~/dotfiles/scripts/code/links_size.sh"
 alias delFiles="~/dotfiles/scripts/code/delFiles.sh"
 alias delDsStore="~/dotfiles/scripts/code/delDsStore.sh"
 

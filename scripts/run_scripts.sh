@@ -17,7 +17,7 @@ PS3="Enter the Number: " # Set the prompt for the select loop
 select opt in "${opts[@]}"; do
 	if [[ $opt ]]; then
 		echo "Selected: $opt"
-		"$base/$opt" # Execute the selected file
+		"$base/$opt" "$@" # Execute the selected file
 		exit
 	else
 		echo "Invalid option. Please try again."
