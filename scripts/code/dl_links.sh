@@ -8,7 +8,7 @@ download_if_valid() {
 
 	base=$(basename "$url")
 	clean_url="${url// /%20}"
-	curl -0 "$clean_url" >"$base"
+	curl -L -o "$base" "$clean_url" 
 }
 
 file_path="$1"

@@ -4,6 +4,7 @@ if [ -f ~/dotfiles/scripts/alias.sh ]; then
     . ~/dotfiles/scripts/alias.sh
 fi
 
+alias ls='ls --color=auto' # see colors when using ls
 alias vim="nvim"
 alias t="tmux"
 alias gs="git status"
@@ -20,8 +21,6 @@ alias lpath='echo $PATH | tr ":" "\n"' # list the PATH separated by new lines
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	alias cs="cd /mnt/c/Users/gians/Desktop/CS/"
-	alias schoolstuff="cd /mnt/c/Users/gians/Desktop/CS/SchoolStuff"
-	alias webdev="cd /mnt/c/Users/gians/Desktop/CS/WebDev"
 	alias open="xdg-open"
 	alias start="explorer.exe"
 	alias settings="vim /mnt/c/Users/gians/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
@@ -39,13 +38,18 @@ fi
 
 if [[ ~ == "/Users/gians" ]];then
 	alias dev="cd /Users/gians/Desktop/dev"
-	alias webdev="cd /Users/gians/Desktop/dev/webdev"
-	alias mobile="cd /Users/gians/Desktop/dev/mobile"
   alias ssa="vim /Users/gians/Desktop/NJIT/SSA/SSA23-24.txt"
 fi
 
 cap () { tee /tmp/capture.out; } # capture the output of a command so it can be retrieved with ret
 ret () { cat /tmp/capture.out; } # return the output of the most recent command that was captured by cap
 
-# see colors when using ls
-alias ls='ls --color=auto'
+if [ -e /tmp/last_working_dir ]; then
+  echo "Going to last working directory..."
+  cd "$(cat /tmp/last_working_dir )" 
+fi
+
+save_dir_changed () {
+  pwd > /tmp/last_working_dir
+}
+chpwd_functions+=(save_dir_changed) # chpwd_functions is an array of function names which when the working directory changes

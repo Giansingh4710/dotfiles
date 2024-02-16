@@ -23,3 +23,10 @@ export NVM_DIR="$HOME/.nvm"
 
 eval "$(starship init zsh)" # makes cmd line pretty
 eval "$(zoxide init zsh)" # cd hack
+
+# bun completions
+[ -s "/Users/gians/.bun/_bun" ] && source "/Users/gians/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

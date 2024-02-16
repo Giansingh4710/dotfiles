@@ -40,8 +40,8 @@ keymap("n", "<C-w>K", ":wincmd -<CR>", { desc = "Change window size" })
 keymap("n", "<C-w>L", ":wincmd ><CR>", { desc = "Change window size" })
 
 --snippets
+keymap("n", ",cc", ":-1r ~/dotfiles/other/skeletons/c<CR>", { desc = "C snippet" })
 keymap("n", ",cpp", ":-1r ~/dotfiles/other/skeletons/cpp<CR>", { desc = "C++ snippet" })
-keymap("n", ",c", ":-1r ~/dotfiles/other/skeletons/c<CR>", { desc = "C snippet" })
 keymap("n", ",html", ":-1r ~/dotfiles/other/skeletons/html<CR>", { desc = "html snippet" })
 keymap("n", ",java", ':r !bash ~/dotfiles/other/skeletons/java.sh %<CR>gg"_ddf.dt ', { desc = "Java snippet" })
 
