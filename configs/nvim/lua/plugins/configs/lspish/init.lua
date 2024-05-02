@@ -8,7 +8,8 @@ local servers = {
   "html",
   "phpactor",
   "tsserver",
-  "jdtls"
+  "jdtls",
+  "kotlin_language_server",
 }
 
 require("plugins.configs.lspish.handler").setup()

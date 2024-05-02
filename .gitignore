@@ -43,5 +43,5 @@ luac.out
 *.DS_Store
 
 *.luarc.json
-scripts/sshLogin.sh
 geckodriver.log
+*sshLogin.sh

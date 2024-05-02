@@ -28,6 +28,8 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 vim.cmd([[
   augroup Keerat
     autocmd!
-    autocmd BufWritePost ~/Desktop/dev/webdev/keerat/listenScreensUtils/index.html !/bin/bash ~/Desktop/dev/webdev/keerat/listenScreensUtils/makeHtml2js.sh
+    autocmd BufWritePost ~/Desktop/dev/webdev/keerat/app/Keertan/AkhandKeertan/TRACKS.js !/bin/bash ~/Desktop/dev/webdev/keerat/app/Keertan/AllKeertan/writeTracks.sh
+    autocmd BufWritePost ~/Desktop/dev/webdev/keerat/app/Keertan/DarbarSahibPuratanKeertanSGPC/TRACKS.js !/bin/bash ~/Desktop/dev/webdev/keerat/app/Keertan/AllKeertan/writeTracks.sh
+    autocmd BufWritePost ~/Desktop/dev/webdev/keerat/app/Keertan/TimeBasedRaagKeertan/TRACKS.js !/bin/bash ~/Desktop/dev/webdev/keerat/app/Keertan/AllKeertan/writeTracks.sh
   augroup END
 ]])

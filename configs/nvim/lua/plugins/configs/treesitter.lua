@@ -16,6 +16,7 @@ require("nvim-treesitter.configs").setup({
 		"tsx",
 		"vim",
 		"vimdoc",
+    "kotlin",
 	},
 	auto_install = false,
 	highlight = { enable = true },

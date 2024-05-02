@@ -6,6 +6,12 @@
     :version
     :redir END
 
+  Delete lines
+      :g/console.log/d 
+
+  open tabs in vim
+    vim -p file1 file2
+
   nvim switch
     git clone https://github.com/LazyVim/starter ~/.config/LazyVim
     NVIM_APPNAME=LazyVim nvim
@@ -18,6 +24,22 @@
 
   highlight non-ASCII chars
     /[^\x00-\x7F]
+
+  relocate tab with :tabm using either relative or zero-index absolute arguments.
+  absolute:
+    Move tab to position i: :tabm i
+  relative:
+    Move tab i positions to the right: :tabm +i
+    Move tab i positions to the left: :tabm -i
+
+-tmux
+  tmuxifier new-session 'rails'
+  tmuxifier edit-session rails
+  ~/.tmuxifier/layouts/brun.session.sh
+
+  move window to another session
+    swap-window -s 3 -t 1
+    swap-window -t 0
 
 -anaconda
   conda activate base
@@ -55,6 +77,9 @@
 
   gcc myprog.cpp -lstdc++
 
+  tree depth files:
+    eza --tree --level=2
+
 -mac
   - from https;//www.youtube.com/watch?v=qOrlYzqXPa8
     say ; says what you type after say
@@ -75,6 +100,10 @@
 -git
   git commit --amend --no-edit  : add to last commit
   git reset --hard HEAD 
+
+  github
+    make new repo
+      gh repo create
 
 -brew
   brew bundle dump --describe ; save all installed brew stuff
@@ -158,6 +187,11 @@
     for m4a because m4a weird:
       ffmpeg -i "file1.m4a" -i "file2.m4a" -filter_complex "[0:a][1:a]concat=n=2:v=0:a=1[out]" -map "[out]" output.m4a
 
+  ffmpeg -i input.mp3 -filter:a "atempo=2.0" -vn output_double_speed.mp3
+
+  get pics from gif:
+    ffmpeg -i input.gif -vf "fps=1" output_%04d.png
+
 - chromedrivers for selenium
   - make chromedriver usable; from https;//timonweb.com/misc/fixing-error-chromedriver-cannot-be-opened-because-the-developer-cannot-be-verified-unable-to-launch-the-chrome-browser-on-mac-os/
     xattr -d com.apple.quarantine /Users/gians/Downloads/chromedriver 
@@ -172,16 +206,14 @@
     Storage account -> Access Control -> Add -> Add role assignment,
     https://www.reddit.com/r/AZURE/comments/oasjpl/unable_to_access_storage_account/
 
-mysql -u root -p
+private AI:
+  Where are models stored? macOS: ~/.ollama/models
+  ollama run llama2 # i deleted this one to save space because I have the uncensored one
+  ollama run llama2-uncensored
+  ollama run codellama "Write me a function that outputs the fibonacci sequence"
 
 change node version:
   nvm use 18.17.0
-
-  ```
-  "You are using Node.js 16.20.2. For Next.js, Node.js version >= v18.17.0 is required."
-  ->: nvm use 18.17.0
-  "Now using node v18.17.0 (npm v9.6.7)"
-  ```
 
 cs490 server root passowrd:
   ssh root@45.56.108.221
@@ -201,6 +233,8 @@ cs490 server root passowrd:
     port 3306
   sudo systemctl restart mysql
 
+  mysql -u root -p
+
   sudo mysql
     CREATE USER 'dbuser'@'%' IDENTIFIED BY 'BobJones123!';
     GRANT ALL PRIVILEGES ON *.* TO 'dbuser'@'%' WITH GRANT OPTION;
@@ -212,3 +246,12 @@ cool sites:
   https://transform.tools/css-to-js
   https://www.w3schools.com/charsets/ref_utf_arrows.asp
   https://www.svgrepo.com/vectors/2-arrows/
+  https://sflix.to/
+  https://react-md.dev/packages/material-icons/demos
+
+  from(UI design tools): https://www.youtube.com/watch?v=PQfQZ9iH8bg
+    fffuel: https://fffuel.co/
+    coolors: https://coolors.co/palettes/trending
+
+randTemp:
+  ywcc Genrative AI article GPT chat: https://chat.openai.com/c/a78b7631-dc14-48a6-8270-1ebde4b3c165

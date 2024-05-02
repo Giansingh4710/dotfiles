@@ -7,6 +7,9 @@ end
 toggleterm.setup({
 	size = 25,
 	open_mapping = [[\\]],
+  on_open = function()
+    vim.api.nvim_set_current_dir(vim.fn.getcwd())
+  end,
 	hide_numbers = true,
 	shade_filetypes = {},
 	shade_terminals = true,
