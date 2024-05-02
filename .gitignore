@@ -44,4 +44,6 @@ luac.out
 
 *.luarc.json
 geckodriver.log
+
 *sshLogin.sh
+scripts/code/sshLogin.sh
