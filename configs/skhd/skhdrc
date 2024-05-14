@@ -1,7 +1,7 @@
 # brew install koekeishiya/formulae/yabai
 # brew install koekeishiya/formulae/skhd
-# brew services start skhd
-# brew services start yabai
+# old: brew services start yabai 
+# skhd --start-service && yabai --start-service
 
 # find keycode: 'skhd --observe' in a terminal and type a key
 

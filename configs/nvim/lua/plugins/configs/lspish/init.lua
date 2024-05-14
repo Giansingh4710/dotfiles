@@ -10,11 +10,14 @@ local servers = {
   "tsserver",
   "jdtls",
   "kotlin_language_server",
+  "gopls", -- go
+  "tailwindcss",
 }
 
 require("plugins.configs.lspish.handler").setup()
 require("mason").setup()
 require("mason-lspconfig").setup({ ensure_installed = servers, automatic_installation = true })
+
 
 local lspconfig = require("lspconfig")
 local on_attach = require("plugins.configs.lspish.handler").on_attach
@@ -33,7 +36,7 @@ lspconfig["tsserver"].setup({
         vim.lsp.buf.execute_command({
           command = "_typescript.organizeImports",
           arguments = { vim.api.nvim_buf_get_name(0) },
-          title = "Organize Imports"
+          title = "Organize Imports",
         })
       end,
       description = "Organize Imports",
@@ -58,6 +61,18 @@ lspconfig["lua_ls"].setup({
   },
 })
 
+lspconfig.gopls.setup({
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
+      gofumpt = true,
+    },
+  },
+})
+
 capabilities.offsetEncoding = { "utf-16" } -- for clangd to remove error
 lspconfig["clangd"].setup({ capabilities = capabilities })
 
@@ -65,11 +80,10 @@ require("plugins.configs.lspish.null_ls")
 
 require("lspsaga").setup({
   scroll_preview = { scroll_down = "<C-f>", scroll_up = "<C-b>" }, -- keybinds for navigation in lspsaga window
-  definition = { edit = "<CR>" },                                  -- use enter to open file with definition preview
+  definition = { edit = "<CR>" },                                 -- use enter to open file with definition preview
   ui = {
     colors = {
       normal_bg = "#022746",
     },
   },
 })
-

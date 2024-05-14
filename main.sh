@@ -103,9 +103,10 @@ if [[ "$OSTYPE" == "darwin2"* ]]; then
 		pip3 install mutagen
 
 		# brew install --cask warp
-		# brew install --cask alacritty
 		# brew install --cask rectangle
+		# brew install --cask alacritty
 		# brew install koekeishiya/formulae/yabai # window tile manager
 		# brew install koekeishiya/formulae/skhd # key binding for stuff like yabai and anything
+    # skhd --start-service && yabai --start-service
 	fi
 fi

@@ -92,7 +92,7 @@ call plug#end()
   set expandtab
   set smartindent
   set nu
-  set relativenumber
+  " set relativenumber
   set nowrap
   set noswapfile
   set scrolloff=8

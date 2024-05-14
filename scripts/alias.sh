@@ -16,6 +16,7 @@ alias macVim="~/dotfiles/scripts/code/macVim.sh"
 alias yt="~/dotfiles/scripts/code/yt_dlp.sh"
 alias tload="~/dotfiles/scripts/code/tmux_load_session.sh"
 alias tnew="~/dotfiles/scripts/code/tmux_make_session.sh"
+alias tswap="~/dotfiles/scripts/code/tmux_swap_windows.sh"
 alias concatAudios="~/dotfiles/scripts/code/concatAudios.sh"
 
 alias sshLogin="~/dotfiles/scripts/code/sshLogin.sh"

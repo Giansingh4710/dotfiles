@@ -1,5 +1,5 @@
 vim.opt.number = true -- set numbered lines
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 vim.opt.incsearch = true
 vim.opt.ignorecase = true -- ignore case in search patterns
 vim.opt.smartcase = true -- will be case sensitive if you search with a capital letter

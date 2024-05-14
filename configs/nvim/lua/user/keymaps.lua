@@ -7,8 +7,8 @@ local keymap = vim.keymap.set
 require("user.helper_funcs")
 
 Sections_For_Whichkey = {
-  l = { name = " LSP" },
-  -- d = { name = " Debugger" },
+	-- l = { name = " LSP" },
+	-- d = { name = " Debugger" },
 }
 
 --[[
@@ -22,15 +22,8 @@ Sections_For_Whichkey = {
 keymap("i", "jk", "<ESC>", opts)
 keymap({ "n", "v", "x" }, "H", "^", opts) -- I hate typing these
 keymap({ "n", "v", "x" }, "L", "$", opts)
-keymap("v", "<", "<gv", opts)             -- Stay in indent mode
+keymap("v", "<", "<gv", opts) -- Stay in indent mode
 keymap("v", ">", ">gv", opts)
-
--- scroll the viewport faster
-keymap("n", "<C-e>", "3<c-e>", opts)
-keymap("n", "<C-y>", "3<c-y>", opts)
-
-keymap("v", "x", '"_d', opts) --no save to register
-keymap("x", "x", '"_d', opts)
 
 keymap("n", "<C-w>t", ":tabnew %<CR>", opts) -- NOTE: the fact that tab and ctrl-i are the same is stupid
 
@@ -114,15 +107,10 @@ keymap("n", "<leader>gr", ":Gitsigns reset_hunk<CR>", { desc = "Git Reset Hunk" 
 keymap("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", { desc = "Git Preview Hunk" })
 keymap("n", "<leader>gb", ":Gitsigns blame_line<CR>", { desc = "Git Blame Line" })
 
-Sections_For_Whichkey["h"] = { name = "Harpoon" }
-keymap("n", "<leader>ha", "<cmd>lua require('harpoon.mark').add_file()<cr>", { desc = "Mark file with harpoon" })
-keymap("n", "<leader>hh", "<cmd>lua require('harpoon.ui').nav_prev()<cr>", { desc = "Go to previous harpoon mark" })
-keymap("n", "<leader>hl", "<cmd>lua require('harpoon.ui').nav_next()<cr>", { desc = "Go to next harpoon mark" })
-keymap("n", "<leader>hm", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", { desc = "Show harpoon marks" })
-
-keymap("n", "<leader>lf", ":lua vim.lsp.buf.format()<CR>", { noremap = true, silent = false, desc = "Format" })
+Sections_For_Whichkey["l"] = { name = " LSP" }
+-- keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format()<CR>", { desc = "Format" })
+keymap("n", "<leader>lf", "<cmd>Format<CR>", { desc = "Format" })
 keymap("n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "Info" })
-keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format()<CR>", { desc = "Format" })
 keymap("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", { desc = "Code Action" })
 keymap("n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", { desc = "Next diagnostic" })
 keymap("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", { desc = "Previous diagnostic" })
@@ -131,11 +119,15 @@ keymap("n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", { desc = "
 keymap("n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { desc = "Signature help" })
 keymap("n", "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", { desc = "Workspace Symbols" })
 keymap("n", "<leader>lt", "<cmd>ToggleDiag<cr>", { desc = "Toggle Diagnostics" })
-
-keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", {desc="Go to implementation"})
-keymap("n", "gr", "<cmd>Telescope lsp_references<CR>", {desc="Telescope References"})
-keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", {desc="Go to Definition"})
-keymap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", {desc="Show Line diagnostics"})
+keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", { desc = "Go to implementation" })
+keymap("n", "gr", "<cmd>Telescope lsp_references<CR>", { desc = "Telescope References" })
+keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "Go to Definition" })
+keymap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Show Line diagnostics" })
+keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {desc = "Hover Info"})
+keymap("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>",{desc = "Previous Diagnostic"})
+keymap("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>",{desc = "Next Diagnostic"})
+keymap("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>",{desc = "Code Action"})
+keymap("n", "<leader>o", "<cmd>Lspsaga outline<CR>",{desc = "Toggle Outile"})
 
 Sections_For_Whichkey["b"] = { name = "󰓩 Buffers" }
 keymap("n", "<leader>bd", ":bdelete<CR>", { desc = "Buffer Delete" })

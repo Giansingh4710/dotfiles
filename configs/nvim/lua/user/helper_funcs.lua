@@ -49,6 +49,7 @@ vim.api.nvim_create_user_command("ToggleClipboard", function()
   end
 end, {})
 
+
 function RandomColorScheme()
   local table = { "darkplus", "nightfly", "gruvbox", "ayu" }
   math.randomseed(os.time())
@@ -127,6 +128,14 @@ function Search_Exact_Phrase()
   -- print(search)
   vim.cmd("/" .. search)
 end
+
+function TabsToSpaces()
+  local tabSize = vim.opt.tabstop:get()
+  local tabSpaces = string.rep(" ", tabSize or 4)
+  vim.api.nvim_command(":%s/\t/" .. tabSpaces .. "/g")
+end
+
+vim.api.nvim_create_user_command("TabsToSpace", TabsToSpaces, {})
 
 vim.cmd([[
   function! QuickFixToggle()

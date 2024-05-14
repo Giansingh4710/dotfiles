@@ -39,6 +39,7 @@ if [[ "$OSTYPE" == "darwin2"* ]]; then
 
   alias ai="ollama run llama2-uncensored"
   alias codeai="ollama run codellama:7b-code"
+  alias obd="cd '/Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents/Gian/'"
 fi
 
 if [[ ~ == "/Users/gians" ]];then

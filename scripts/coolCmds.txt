@@ -1,6 +1,4 @@
-#!/bin/bash
-
--vim
+- vim
   save vim commands
     :redir > a.txt
     :version
@@ -8,6 +6,9 @@
 
   Delete lines
       :g/console.log/d 
+  Run command on all lines.
+    select lines with visual mode, then press :
+      :norm I//
 
   open tabs in vim
     vim -p file1 file2
@@ -96,6 +97,10 @@
     diff
     shutdown
     sudo touch id
+
+
+    cool dirs:
+      cd '/Users/gians/Library/Mobile Documents' && ls
 
 -git
   git commit --amend --no-edit  : add to last commit

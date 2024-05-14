@@ -16,4 +16,10 @@ addRWX(){
   done
 }
 
-addRWX
+echo "Are you sure you want to add read, write, and execute permissions to all files and directories in the current directory? (y/n)"
+read -r response
+if [ "$response" = "y" ]; then
+  addRWX
+else
+  echo "No changes made."
+fi
