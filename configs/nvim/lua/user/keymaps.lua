@@ -1,14 +1,17 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-local opts = { silent = false }
 local keymap = vim.keymap.set
+
+local function keymap_opts(desc)
+  return { silent = false, desc = desc }
+end
 
 require("user.helper_funcs")
 
 Sections_For_Whichkey = {
-	-- l = { name = " LSP" },
-	-- d = { name = " Debugger" },
+  -- l = { name = " LSP" },
+  -- d = { name = " Debugger" },
 }
 
 --[[
@@ -19,119 +22,122 @@ Sections_For_Whichkey = {
   term_mode = "t",
   command_mode = "c",
 ]]
-keymap("i", "jk", "<ESC>", opts)
-keymap({ "n", "v", "x" }, "H", "^", opts) -- I hate typing these
-keymap({ "n", "v", "x" }, "L", "$", opts)
-keymap("v", "<", "<gv", opts) -- Stay in indent mode
-keymap("v", ">", ">gv", opts)
+keymap("i", "jk", "<ESC>")
+keymap({ "n", "v", "x" }, "H", "^") -- I hate typing these
+keymap({ "n", "v", "x" }, "L", "$")
+keymap("v", "<", "<gv") -- Stay in indent mode
+keymap("v", ">", ">gv")
+keymap("n", "<C-w>t", ":tabnew %<CR>") -- NOTE: the fact that tab and ctrl-i are the same is stupid
 
-keymap("n", "<C-w>t", ":tabnew %<CR>", opts) -- NOTE: the fact that tab and ctrl-i are the same is stupid
-
-keymap("n", "<C-w>H", ":wincmd <<CR>", { desc = "Change window size" })
-keymap("n", "<C-w>J", ":wincmd +<CR>", { desc = "Change window size" })
-keymap("n", "<C-w>K", ":wincmd -<CR>", { desc = "Change window size" })
-keymap("n", "<C-w>L", ":wincmd ><CR>", { desc = "Change window size" })
+keymap("n", "<C-w>H", ":wincmd <<CR>", keymap_opts("Change window size"))
+keymap("n", "<C-w>J", ":wincmd +<CR>", keymap_opts("Change window size"))
+keymap("n", "<C-w>K", ":wincmd -<CR>", keymap_opts("Change window size"))
+keymap("n", "<C-w>L", ":wincmd ><CR>", keymap_opts("Change window size"))
 
 --snippets
-keymap("n", ",cc", ":-1r ~/dotfiles/other/skeletons/c<CR>", { desc = "C snippet" })
-keymap("n", ",cpp", ":-1r ~/dotfiles/other/skeletons/cpp<CR>", { desc = "C++ snippet" })
-keymap("n", ",html", ":-1r ~/dotfiles/other/skeletons/html<CR>", { desc = "html snippet" })
-keymap("n", ",java", ':r !bash ~/dotfiles/other/skeletons/java.sh %<CR>gg"_ddf.dt ', { desc = "Java snippet" })
+keymap("n", ",cc", ":-1r ~/dotfiles/other/skeletons/c<CR>", keymap_opts("C snippet"))
+keymap("n", ",cpp", ":-1r ~/dotfiles/other/skeletons/cpp<CR>", keymap_opts("C++ snippet"))
+keymap("n", ",html", ":-1r ~/dotfiles/other/skeletons/html<CR>", keymap_opts("html snippet"))
+keymap("n", ",java", ':r !bash ~/dotfiles/other/skeletons/java.sh %<CR>gg"_ddf.dt ', keymap_opts("Java snippet"))
 
-keymap("n", "gF", '"hyiW:e <C-r>h<CR>', { desc = "Go make file" }) --go file but make file under cursor (put in h register)
+keymap("v", "<leader>/", "<Plug>(comment_toggle_linewise_visual)", keymap_opts("Comment Visual Mode"))
+keymap("v", "<leader>p", '"_dP', keymap_opts("Paste Without Yank"))
+keymap("v", "<leader>r", ":%s/<C-r><C-w>//gc<LEFT><LEFT><LEFT>", keymap_opts("Replace Old Fashion"))
 
-keymap("v", "<leader>M", "!bc<CR>", { desc = "Math" })
-keymap("v", "<leader>/", "<Plug>(comment_toggle_linewise_visual)", { desc = "Comment Visual Mode" })
-keymap("v", "<leader>p", '"_dP', { desc = "Paste Without Yank" })
-keymap("v", "<leader>r", ":%s/<C-r><C-w>//gc<LEFT><LEFT><LEFT>", { desc = "Replace Old Fashion" })
-
-keymap("n", "<leader><leader>", ":w<CR>:source $MYVIMRC<CR>", { desc = "Save and Source Nvim config" })
-keymap("n", "<leader>M", "V!bc<CR>", { desc = "Math" })
-keymap("n", "<leader>r", ":%s/<C-R><C-w>//gc<LEFT><LEFT><LEFT>", { desc = "Replace Word Old Fashion" })
-keymap("n", "<leader>cc", ":lua require'notify'.dismiss()<CR>", { desc = "Clear all Notifications" })
-keymap("n", "<leader>cd", ":Copilot disable<CR>", { desc = "Disable Copilot" })
-keymap("n", "<leader>C", "<cmd>GetRandomColor<CR>", { desc = "Generate Random Color" })
-keymap("n", "<leader>n", ":call ToggleNERDTree()<CR>", { desc = "Toggle NERDTree" })
-keymap("n", "<leader>e", ":lua require'lir.float'.toggle()<CR>", { desc = "lir File Explorer" })
-keymap("n", "<leader>v", "<cmd>vsplit<cr>", { desc = "vsplit" })
-keymap("n", "<leader>q", ":call QuickFixToggle()<CR>", { desc = "Toggle Quick Fix List" })
-keymap("n", "<leader>t", ":tabnew<CR>:Ex<CR>", { desc = "New Tab" })
-keymap("n", "<leader>m", "<cmd>Mason<CR>", { desc = "Mason (LSP)" })
-keymap("n", "<leader>V", ":tabnew $MYVIMRC<CR>", { desc = "edit Vimrc" })
-keymap("n", "<leader><CR>", ":nohlsearch<CR>", { desc = "No Highlight" })
-keymap("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)", { desc = "Comment" })
-keymap("n", "<leader>E", ":lua ToggleCharAtEndOfLine()<CR>", { desc = "Toggle EOL Char" })
-keymap("n", "<leader>F", "<cmd>ToggleFoldMethod<CR>", { desc = "Toggle Fold Method" })
-keymap("n", "<leader>s", ":lua Split_long_line()<CR>", { noremap = true, silent = true, desc = "Split line" })
-keymap("n", "<leader>x", "<cmd>!chmod +x %;./%<CR>", { desc = "Make file Executable (chmod +x)" })
-keymap("n", "<leader>N", ":lua SaveToAppleNotes()<CR>", { desc = "Save to Apple Notes" })
-keymap("n", "<leader>S", ":lua Search_Exact_Phrase()<CR>", { desc = "Search" })
+keymap("n", "<leader><leader>", ":w<CR>:source $MYVIMRC<CR>", keymap_opts("Save and Source Nvim config"))
+keymap("n", "<leader>M", "V!bc<CR>", keymap_opts("Math"))
+keymap("n", "<leader>r", ":%s/<C-R><C-w>//gc<LEFT><LEFT><LEFT>", keymap_opts("Replace Word Old Fashion"))
+keymap("n", "<leader>cd", ":Copilot disable<CR>", keymap_opts("Disable Copilot"))
+keymap("n", "<leader>C", ":GetRandomColor<CR>", keymap_opts("Generate Random Color"))
+keymap("n", "<leader>e", ":call ToggleNERDTree()<CR>", keymap_opts("Toggle Explorer (NERDTree)"))
+keymap("n", "<leader>v", ":vsplit<cr>", keymap_opts("vsplit"))
+keymap("n", "<leader>q", ":call QuickFixToggle()<CR>", keymap_opts("Toggle Quick Fix List"))
+keymap("n", "<leader>t", ":tabnew<CR>:Ex<CR>", keymap_opts("New Tab"))
+keymap("n", "<leader>m", ":Mason<CR>", keymap_opts("Mason (LSP)"))
+keymap("n", "<leader>V", ":tabnew $MYVIMRC<CR>", keymap_opts("edit Vimrc"))
+keymap("n", "<leader><CR>", ":nohlsearch<CR>", keymap_opts("No Highlight"))
+keymap("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)", keymap_opts("Comment"))
+keymap("n", "<leader>E", ":lua ToggleCharAtEndOfLine()<CR>", keymap_opts("Toggle EOL Char"))
+keymap("n", "<leader>F", ":ToggleFoldMethod<CR>", keymap_opts("Toggle Fold Method"))
+keymap("n", "<leader>s", ":lua Split_long_line()<CR>", keymap_opts("Split line"))
+keymap("n", "<leader>x", ":!chmod +x %;./%<CR>", keymap_opts("Make file Executable (chmod +x)"))
+keymap("n", "<leader>N", ":lua SaveToAppleNotes()<CR>", keymap_opts("Save to Apple Notes"))
+keymap("n", "<leader>S", ":lua Search_Exact_Phrase()<CR>", keymap_opts("Search"))
 
 Sections_For_Whichkey["f"] = { name = " Find" }
-keymap("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find Buffer" })
-keymap("n", "<leader>fc", "<cmd>Telescope colorscheme<cr>", { desc = "Colorscheme" })
-keymap("n", "<leader>fC", "<cmd>Telescope commands<cr>", { desc = "Commands" })
-keymap("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
-keymap("n", "<leader>ft", "<cmd>Telescope live_grep<cr>", { desc = "Find Text" })
-keymap("n", "<leader>fs", "<cmd>Telescope grep_string<cr>", { desc = "Find String" })
-keymap("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help" })
-keymap("n", "<leader>fH", "<cmd>Telescope highlights<cr>", { desc = "Highlights" })
-keymap("n", "<leader>fl", "<cmd>Telescope resume<cr>", { desc = "Last Search" })
-keymap("n", "<leader>fm", "<cmd>Telescope man_pages<cr>", { desc = "Man Pages" })
-keymap("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Recent File" })
-keymap("n", "<leader>fR", "<cmd>Telescope registers<cr>", { desc = "Registers" })
-keymap("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "Keymaps" })
+keymap("n", "<leader>fb", ":Telescope buffers<cr>", keymap_opts("Find Buffer"))
+keymap("n", "<leader>fc", ":Telescope colorscheme<cr>", keymap_opts("Colorscheme"))
+keymap("n", "<leader>fC", ":Telescope commands<cr>", keymap_opts("Commands"))
+keymap("n", "<leader>ff", ":Telescope find_files<cr>", keymap_opts("Find files"))
+keymap("n", "<leader>ft", ":Telescope live_grep<cr>", keymap_opts("Find Text"))
+keymap("n", "<leader>fs", ":Telescope grep_string<cr>", keymap_opts("Find String"))
+keymap("n", "<leader>fh", ":Telescope help_tags<cr>", keymap_opts("Help"))
+keymap("n", "<leader>fH", ":Telescope highlights<cr>", keymap_opts("Highlights"))
+keymap("n", "<leader>fl", ":Telescope resume<cr>", keymap_opts("Last Search"))
+keymap("n", "<leader>fm", ":Telescope man_pages<cr>", keymap_opts("Man Pages"))
+keymap("n", "<leader>fr", ":Telescope oldfiles<cr>", keymap_opts("Recent File"))
+keymap("n", "<leader>fR", ":Telescope registers<cr>", keymap_opts("Registers"))
+keymap("n", "<leader>fk", ":Telescope keymaps<cr>", keymap_opts("Keymaps"))
 
 Sections_For_Whichkey["T"] = { name = " Terminal" }
-keymap("n", "<leader>Tn", "<cmd>lua _NODE_TOGGLE()<cr>", { desc = "Node" })
-keymap("n", "<leader>Tu", "<cmd>lua _NCDU_TOGGLE()<cr>", { desc = "NCDU" })
-keymap("n", "<leader>Tt", "<cmd>lua _HTOP_TOGGLE()<cr>", { desc = "Htop" })
-keymap("n", "<leader>Tp", "<cmd>lua _PYTHON_TOGGLE()<cr>", { desc = "Python" })
-keymap("n", "<leader>Tf", "<cmd>ToggleTerm direction=float<cr>", { desc = "Float" })
-keymap("n", "<leader>Th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", { desc = "Horizontal" })
-keymap("n", "<leader>Tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", { desc = "Vertical" })
+keymap("n", "<leader>Tn", ":lua _NODE_TOGGLE()<cr>", keymap_opts("Node"))
+keymap("n", "<leader>Tu", ":lua _NCDU_TOGGLE()<cr>", keymap_opts("NCDU"))
+keymap("n", "<leader>Tt", ":lua _HTOP_TOGGLE()<cr>", keymap_opts("Htop"))
+keymap("n", "<leader>Tp", ":lua _PYTHON_TOGGLE()<cr>", keymap_opts("Python"))
+keymap("n", "<leader>Tf", ":ToggleTerm direction=float<cr>", keymap_opts("Float"))
+keymap("n", "<leader>Th", ":ToggleTerm size=10 direction=horizontal<cr>", keymap_opts("Horizontal"))
+keymap("n", "<leader>Tv", ":ToggleTerm size=80 direction=vertical<cr>", keymap_opts("Vertical"))
 
 Sections_For_Whichkey["d"] = { name = " Diff" }
-Sections_For_Whichkey["d"]["g"] = { name = " Git" }
-keymap("n", "<leader>dw", ":call DiffWindo()<CR>", { desc = "Diff Windows(files)" })
-keymap("n", "<leader>dgF", ":DiffviewFileHistory<CR>", { desc = "Diff of All FILES (Git)" })
-keymap("n", "<leader>dgf", ":DiffviewFileHistory %<CR>", { desc = "Diff File (Git)" })
-keymap("n", "<leader>dgt", ":DiffviewToggleFiles<CR>", { desc = "Diff toggle File Panel (Git)" })
-keymap("n", "<leader>dgc", ":DiffviewClose<CR>", { desc = "Diff Close (Git)" })
+Sections_For_Whichkey["d"]["v"] = { name = " Diffview (git)" }
+keymap("n", "<leader>dw", ":call DiffWindo()<CR>", keymap_opts("Diff Windows(files)"))
+keymap("n", "<leader>dvo", ":DiffviewOpen<CR>", keymap_opts("Diffview Open"))
+keymap("n", "<leader>dvc", ":DiffviewClose<CR>", keymap_opts("Diffview Close"))
+keymap("n", "<leader>dvF", ":DiffviewFileHistory<CR>", keymap_opts("Diff of All FILES (Git)"))
+keymap("n", "<leader>dvf", ":DiffviewFileHistory %<CR>", keymap_opts("Diff File (Git)"))
 
 Sections_For_Whichkey["g"] = { name = " Git" }
-keymap("n", "<leader>gj", ":Gitsigns next_hunk<CR>", { desc = "Next Git Hunk" })
-keymap("n", "<leader>gk", ":Gitsigns prev_hunk<CR>", { desc = "Previous Git Hunk" })
-keymap("n", "<leader>gd", ":Gitsigns diffthis<CR>", { desc = "Git Diffthis" })
-keymap("n", "<leader>gr", ":Gitsigns reset_hunk<CR>", { desc = "Git Reset Hunk" })
-keymap("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", { desc = "Git Preview Hunk" })
-keymap("n", "<leader>gb", ":Gitsigns blame_line<CR>", { desc = "Git Blame Line" })
+keymap("n", "<leader>gj", ":Gitsigns next_hunk<CR>", keymap_opts("Next Git Hunk"))
+keymap("n", "<leader>gk", ":Gitsigns prev_hunk<CR>", keymap_opts("Previous Git Hunk"))
+keymap("n", "<leader>gd", ":Gitsigns diffthis<CR>", keymap_opts("Git Diffthis"))
+keymap("n", "<leader>gr", ":Gitsigns reset_hunk<CR>", keymap_opts("Git Reset Hunk"))
+keymap("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", keymap_opts("Git Preview Hunk"))
+keymap("n", "<leader>gb", ":Gitsigns blame_line<CR>", keymap_opts("Git Blame Line"))
 
 Sections_For_Whichkey["l"] = { name = " LSP" }
--- keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format()<CR>", { desc = "Format" })
-keymap("n", "<leader>lf", "<cmd>Format<CR>", { desc = "Format" })
-keymap("n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "Info" })
-keymap("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", { desc = "Code Action" })
-keymap("n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", { desc = "Next diagnostic" })
-keymap("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", { desc = "Previous diagnostic" })
-keymap("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", { desc = "Rename" })
-keymap("n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", { desc = "Diagnostic Quickfix" })
-keymap("n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { desc = "Signature help" })
-keymap("n", "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", { desc = "Workspace Symbols" })
-keymap("n", "<leader>lt", "<cmd>ToggleDiag<cr>", { desc = "Toggle Diagnostics" })
-keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", { desc = "Go to implementation" })
-keymap("n", "gr", "<cmd>Telescope lsp_references<CR>", { desc = "Telescope References" })
-keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "Go to Definition" })
-keymap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Show Line diagnostics" })
-keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {desc = "Hover Info"})
-keymap("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>",{desc = "Previous Diagnostic"})
-keymap("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>",{desc = "Next Diagnostic"})
-keymap("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>",{desc = "Code Action"})
-keymap("n", "<leader>o", "<cmd>Lspsaga outline<CR>",{desc = "Toggle Outile"})
+-- keymap("n", "<leader>lf", ":lua vim.lsp.buf.format()<CR>", keymap_opts("Format"))
+keymap("n", "<leader>lf", ":Format<CR>", keymap_opts("Format"))
+keymap("n", "<leader>li", ":LspInfo<cr>", keymap_opts("Info"))
+keymap("n", "<leader>la", ":lua vim.lsp.buf.code_action()<cr>", keymap_opts("Code Action"))
+keymap("n", "<leader>lj", ":lua vim.diagnostic.goto_next({buffer=0})<cr>", keymap_opts("Next diagnostic"))
+keymap("n", "<leader>lk", ":lua vim.diagnostic.goto_prev({buffer=0})<cr>", keymap_opts("Previous diagnostic"))
+keymap("n", "<leader>lr", ":lua vim.lsp.buf.rename()<cr>", keymap_opts("Rename"))
+keymap("n", "<leader>lq", ":lua vim.diagnostic.setloclist()<CR>", keymap_opts("Diagnostic Quickfix"))
+keymap("n", "<leader>ls", ":lua vim.lsp.buf.signature_help()<CR>", keymap_opts("Signature help"))
+keymap("n", "<leader>lS", ":Telescope lsp_dynamic_workspace_symbols<cr>", keymap_opts("Workspace Symbols"))
+keymap("n", "<leader>lt", ":ToggleDiag<cr>", keymap_opts("Toggle Diagnostics"))
+keymap("n", "<leader>lo", ":Lspsaga outline<CR>", keymap_opts("Toggle Outile"))
+keymap("n", "<leader>lca", ":Lspsaga code_action<CR>", keymap_opts("Code Action"))
+keymap("n", "[d", ":Lspsaga diagnostic_jump_prev<CR>", keymap_opts("Previous Diagnostic"))
+keymap("n", "]d", ":Lspsaga diagnostic_jump_next<CR>", keymap_opts("Next Diagnostic"))
+keymap("n", "gi", ":lua vim.lsp.buf.implementation()<CR>", keymap_opts("Go to implementation"))
+keymap("n", "gr", ":Telescope lsp_references<CR>", keymap_opts("Telescope References"))
+keymap("n", "gd", ":lua vim.lsp.buf.definition()<CR>", keymap_opts("Go to Definition"))
+keymap("n", "gl", ":lua vim.diagnostic.open_float()<CR>", keymap_opts("Show Line diagnostics"))
+keymap("n", "K", ":lua vim.lsp.buf.hover()<CR>", keymap_opts("Hover Info"))
 
 Sections_For_Whichkey["b"] = { name = "󰓩 Buffers" }
-keymap("n", "<leader>bd", ":bdelete<CR>", { desc = "Buffer Delete" })
-keymap("n", "<leader>bn", ":bnext<CR>", { desc = "Buffer Next" })
-keymap("n", "<leader>bp", ":bprev<CR>", { desc = "Buffer Prev" })
+keymap("n", "<leader>bd", ":bdelete<CR>", keymap_opts("Buffer Delete"))
+keymap("n", "<leader>bn", ":bnext<CR>", keymap_opts("Buffer Next"))
+keymap("n", "<leader>bp", ":bprev<CR>", keymap_opts("Buffer Prev"))
 
-keymap("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+Sections_For_Whichkey["h"] = { name = " Harpoon" }
+keymap("n", "<leader>ha", ":lua Harpoon:list():add()", keymap_opts("Add current file to harpoon"))
+keymap("n", "<leader>hl", ":lua Harpoon.ui:toggle_quick_menu(Harpoon:list())", keymap_opts("Toggle harpoon menu"))
+keymap("n", "<leader>h1", ":lua Harpoon:list():select(1)", keymap_opts("Select harpoon item 1"))
+keymap("n", "<leader>h2", ":lua Harpoon:list():select(2)", keymap_opts("Select harpoon item 2"))
+keymap("n", "<leader>h3", ":lua Harpoon:list():select(3)", keymap_opts("Select harpoon item 3"))
+keymap("n", "<leader>h4", ":lua Harpoon:list():select(4)", keymap_opts("Select harpoon item 4"))
+keymap("n", "<leader>ht", ":lua Toggle_telescope_haroon(Harpoon:list())<CR>", keymap_opts("Toggle harpoon telescope"))
+
+keymap("n", "-", ":Oil<CR>", keymap_opts("Open parent directory"))

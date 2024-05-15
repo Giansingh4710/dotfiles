@@ -36,7 +36,7 @@ vim.opt.colorcolumn = "80"
 vim.opt.virtualedit = "block" -- allows cursor to move where there is no text in visual block mode
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 vim.opt.shortmess:append("c")
-vim.opt.autochdir = true
+vim.opt.autochdir = false -- changing to false for harpoon
 vim.opt.lazyredraw = false
 -- vim.opt.title = true
 vim.cmd("set whichwrap+=<,>,[,],h,l") --got to next line if end of line

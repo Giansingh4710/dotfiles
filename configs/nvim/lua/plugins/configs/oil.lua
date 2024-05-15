@@ -1,19 +1,15 @@
 require("oil").setup({
-  -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
   default_file_explorer = false,
-  -- See :help oil-columns
   columns = {
     "icon",
-    "size",
-    "permissions",
+    -- "size",
+    -- "permissions",
     -- "mtime",
   },
-  -- Buffer-local options to use for oil buffers
   buf_options = {
     buflisted = false,
     bufhidden = "hide",
   },
-  -- Window-local options to use for oil buffers
   win_options = {
     wrap = false,
     signcolumn = "no",
@@ -24,15 +20,9 @@ require("oil").setup({
     conceallevel = 3,
     concealcursor = "nvic",
   },
-  -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
   delete_to_trash = true,
-  -- Skip the confirmation popup for simple operations
   skip_confirm_for_simple_edits = false,
-  -- Selecting a new/moved/renamed file or directory will prompt you to save changes first
   prompt_save_on_select_new_entry = true,
-  -- Oil will automatically delete hidden buffers after this delay
-  -- You can set the delay to false to disable cleanup entirely
-  -- Note that the cleanup process only starts when none of the oil buffers are currently displayed
   cleanup_delay_ms = 2000,
   -- Keymaps in oil buffer. Can be any value that `vim.keymap.set` accepts OR a table of keymap
   -- options with a `callback` (e.g. { callback = function() ... end, desc = "", mode = "n" })
@@ -43,12 +33,12 @@ require("oil").setup({
   keymaps = {
     ["g?"] = "actions.show_help",
     ["<CR>"] = "actions.select",
-    ["<C-s>"] = "actions.select_vsplit",
-    ["<C-h>"] = "actions.select_split",
+    -- ["<C-s>"] = "actions.select_vsplit",
+    -- ["<C-h>"] = "actions.select_split",
+    -- ["<C-l>"] = "actions.refresh",
     ["<C-t>"] = "actions.select_tab",
     ["<C-p>"] = "actions.preview",
     ["<C-c>"] = "actions.close",
-    ["<C-l>"] = "actions.refresh",
     ["-"] = "actions.parent",
     ["_"] = "actions.open_cwd",
     ["`"] = "actions.cd",
@@ -58,19 +48,17 @@ require("oil").setup({
     ["g."] = "actions.toggle_hidden",
     ["g\\"] = "actions.toggle_trash",
 
-    -- ["h"] = "actions.parent",
-    -- ["l"] = "actions.select",
+    ["<C-h>"] = "actions.parent",
+    ["<C-l>"] = "actions.select",
   },
   -- Set to false to disable all of the above keymaps
   use_default_keymaps = true,
   view_options = {
-    show_hidden = false,
-    -- This function defines what is considered a "hidden" file
-    is_hidden_file = function(name, bufnr)
+    show_hidden = true,
+    is_hidden_file = function(name, bufnr) -- This function defines what is considered a "hidden" file
       return vim.startswith(name, ".")
     end,
-    -- This function defines what will never be shown, even when `show_hidden` is set
-    is_always_hidden = function(name, bufnr)
+    is_always_hidden = function(name, bufnr) -- This function defines what will never be shown, even when `show_hidden` is set
       return false
     end,
     sort = {

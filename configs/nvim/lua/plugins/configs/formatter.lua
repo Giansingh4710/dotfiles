@@ -17,6 +17,10 @@ require("formatter").setup({
         return {
           exe = "stylua",
           args = {
+            "--indent-type",
+            "Spaces",
+            "--indent-width",
+            vim.opt.shiftwidth:get(),
             "--search-parent-directories",
             "--stdin-filepath",
             util.escape_path(util.get_current_buffer_file_path()),

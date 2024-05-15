@@ -19,7 +19,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   callback = function()
     vim.opt.shiftwidth = 2 -- the number of spaces inserted for each indentation
-    vim.opt.tabstop = 2  -- insert 2 spaces for a tab
+    vim.opt.tabstop = 2 -- insert 2 spaces for a tab
   end,
   group = vim.api.nvim_create_augroup("CS490Group", { clear = true }),
   pattern = { "~/Desktop/NJIT/classes/CS490/group_proj/*" },
