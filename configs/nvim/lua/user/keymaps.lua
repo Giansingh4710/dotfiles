@@ -132,12 +132,12 @@ keymap("n", "<leader>bn", ":bnext<CR>", keymap_opts("Buffer Next"))
 keymap("n", "<leader>bp", ":bprev<CR>", keymap_opts("Buffer Prev"))
 
 Sections_For_Whichkey["h"] = { name = " Harpoon" }
-keymap("n", "<leader>ha", ":lua Harpoon:list():add()", keymap_opts("Add current file to harpoon"))
-keymap("n", "<leader>hl", ":lua Harpoon.ui:toggle_quick_menu(Harpoon:list())", keymap_opts("Toggle harpoon menu"))
-keymap("n", "<leader>h1", ":lua Harpoon:list():select(1)", keymap_opts("Select harpoon item 1"))
-keymap("n", "<leader>h2", ":lua Harpoon:list():select(2)", keymap_opts("Select harpoon item 2"))
-keymap("n", "<leader>h3", ":lua Harpoon:list():select(3)", keymap_opts("Select harpoon item 3"))
-keymap("n", "<leader>h4", ":lua Harpoon:list():select(4)", keymap_opts("Select harpoon item 4"))
+keymap("n", "<leader>ha", ":lua Harpoon:list():add()<CR>", keymap_opts("Add current file to harpoon"))
+keymap("n", "<leader>hl", ":lua Harpoon.ui:toggle_quick_menu(Harpoon:list())<CR>", keymap_opts("Toggle harpoon menu"))
+keymap("n", "<leader>h1", ":lua Harpoon:list():select(1)<CR>", keymap_opts("Select harpoon item 1"))
+keymap("n", "<leader>h2", ":lua Harpoon:list():select(2)<CR>", keymap_opts("Select harpoon item 2"))
+keymap("n", "<leader>h3", ":lua Harpoon:list():select(3)<CR>", keymap_opts("Select harpoon item 3"))
+keymap("n", "<leader>h4", ":lua Harpoon:list():select(4)<CR>", keymap_opts("Select harpoon item 4"))
 keymap("n", "<leader>ht", ":lua Toggle_telescope_haroon(Harpoon:list())<CR>", keymap_opts("Toggle harpoon telescope"))
 
 keymap("n", "-", ":Oil<CR>", keymap_opts("Open parent directory"))

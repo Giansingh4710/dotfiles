@@ -10,6 +10,12 @@ toggleterm.setup({
   on_open = function()
     vim.api.nvim_set_current_dir(vim.fn.getcwd())
   end,
+  on_create = function()
+    local file_path = vim.api.nvim_buf_get_name(1) -- nvim_buf_get_name(0) is terminal buffer, 1 is the file opened from
+    local dir_path = file_path:match("(.*/)") -- get the directory path by removing the file name (GPT)
+    toggleterm.exec("cd " .. dir_path)
+    -- vim.cmd("startinsert!")
+  end,
   hide_numbers = true,
   shade_filetypes = {},
   shade_terminals = true,

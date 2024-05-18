@@ -4,31 +4,44 @@ base="/Users/gians/dotfiles/scripts/code"
 opts=("$base"/*)             # Create an array of files in the ./code/ directory
 opts=("${opts[@]#$base/}") # Remove ".../code/" prefix from each file name
 
-chosen=$1
-if [[ $chosen =~ ^[0-9]+$ ]]; then
-  index=$((chosen - 1))
+DEFAULT="true"
+for i in "$@"; do
+  case $i in
+    -sn|--show-numbers)
+      DEFAULT="false"
+      SHOW_NUMBERS="true"
+      shift # past argument=value
+      ;;
+    -r=*|--run=*)
+      DEFAULT="false"
+      RUN_NUM="${i#*=}"
+      shift # past argument=value
+      ;;
+    -*|--*)
+      echo "Unknown option $i"
+      exit 1
+      ;;
+    *)
+      ;;
+  esac
+done
+
+if [ "$DEFAULT" == "true" ]; then
+  opt=$(printf "%s\n" "${opts[@]}" | fzf --height 40% --reverse --border --prompt="Select a script: ")
+else
+  if [ "$SHOW_NUMBERS" == "true" ]; then
+    for i in "${!opts[@]}"; do
+      printf "%s: %s\n" "$((i + 1))" "${opts[$i]}"
+    done
+  fi
+
+  if [ -z "$RUN_NUM" ];then
+    read -p "Enter the Number: " -r RUN_NUM
+  fi
+
+  index=$((RUN_NUM - 1))
   opt="${opts[$index]}"
-  echo "Selected: $opt"
-  "$base/$opt"
-  exit
 fi
 
-if ! command -v fzf &> /dev/null
-then
-  echo "fzf could not be found"
-  PS3="Enter the Number: " # Set the prompt for the select loop
-  select opt in "${opts[@]}"; do
-    if [[ $opt ]]; then
-      echo "Selected: $opt"
-      "$base/$opt" "$@" # Execute the selected file
-      exit
-    else
-      echo "Invalid option. Please try again."
-    fi
-  done
-  exit
-fi
-
-opt=$(printf "%s\n" "${opts[@]}" | fzf --height 40% --reverse --border --prompt="Select a script: ")
 echo "Selected: $opt"
 "$base/$opt"
