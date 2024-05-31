@@ -49,6 +49,12 @@ vim.api.nvim_create_user_command("ToggleClipboard", function()
   end
 end, {})
 
+vim.api.nvim_create_user_command("Chdir", function()
+  local current_file = vim.api.nvim_buf_get_name(0) -- Get the current file name
+  local dir = vim.fn.fnamemodify(current_file, ":p:h") -- Get the directory of the current file
+  vim.cmd("chdir " .. dir) -- Change the working directory
+  print("Changed directory to " .. dir) -- Optional: Print a message to confirm the change
+end, {})
 
 function RandomColorScheme()
   local table = { "darkplus", "nightfly", "gruvbox", "ayu" }
@@ -82,9 +88,13 @@ function Split_long_line()
 
     -- re-join the words into lines that are no longer than 80 characters
     local lines = {}
-    local current_line = spaces .. ""
-    for _, word in ipairs(words) do
+    local current_line = spaces
+    for idx, word in ipairs(words) do
       local new_line = current_line .. " " .. word
+      if idx == 1 then
+        new_line = current_line .. word -- don't want extra space at the beginning
+      end
+
       if string.len(new_line) <= 80 then
         current_line = new_line
       else
@@ -96,9 +106,9 @@ function Split_long_line()
 
     local win = vim.api.nvim_get_current_win()
     local cursor = vim.api.nvim_win_get_cursor(win)
+    -- print(Dump(cursor))
     local line_number = cursor[1]
     vim.api.nvim_buf_set_lines(0, line_number - 1, line_number, true, {}) -- delete the original long line
-
     vim.api.nvim_buf_set_lines(0, line_number - 1, line_number - 1, true, lines)
   end
 end
@@ -133,6 +143,22 @@ function TabsToSpaces()
   local tabSize = vim.opt.tabstop:get()
   local tabSpaces = string.rep(" ", tabSize or 4)
   vim.api.nvim_command(":%s/\t/" .. tabSpaces .. "/g")
+end
+
+function Dump(o)
+  -- print table
+  if type(o) == "table" then
+    local s = "{ "
+    for k, v in pairs(o) do
+      if type(k) ~= "number" then
+        k = '"' .. k .. '"'
+      end
+      s = s .. "[" .. k .. "] = " .. Dump(v) .. ","
+    end
+    return s .. "} "
+  else
+    return tostring(o)
+  end
 end
 
 vim.api.nvim_create_user_command("TabsToSpace", TabsToSpaces, {})

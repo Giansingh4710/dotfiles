@@ -48,7 +48,7 @@ keymap("n", "<leader><leader>", ":w<CR>:source $MYVIMRC<CR>", keymap_opts("Save 
 keymap("n", "<leader>M", "V!bc<CR>", keymap_opts("Math"))
 keymap("n", "<leader>r", ":%s/<C-R><C-w>//gc<LEFT><LEFT><LEFT>", keymap_opts("Replace Word Old Fashion"))
 keymap("n", "<leader>cd", ":Copilot disable<CR>", keymap_opts("Disable Copilot"))
-keymap("n", "<leader>C", ":GetRandomColor<CR>", keymap_opts("Generate Random Color"))
+keymap("n", "<leader>gc", ":GetRandomColor<CR>", keymap_opts("Generate Random Color"))
 keymap("n", "<leader>e", ":call ToggleNERDTree()<CR>", keymap_opts("Toggle Explorer (NERDTree)"))
 keymap("n", "<leader>v", ":vsplit<cr>", keymap_opts("vsplit"))
 keymap("n", "<leader>q", ":call QuickFixToggle()<CR>", keymap_opts("Toggle Quick Fix List"))
@@ -138,6 +138,8 @@ keymap("n", "<leader>h1", ":lua Harpoon:list():select(1)<CR>", keymap_opts("Sele
 keymap("n", "<leader>h2", ":lua Harpoon:list():select(2)<CR>", keymap_opts("Select harpoon item 2"))
 keymap("n", "<leader>h3", ":lua Harpoon:list():select(3)<CR>", keymap_opts("Select harpoon item 3"))
 keymap("n", "<leader>h4", ":lua Harpoon:list():select(4)<CR>", keymap_opts("Select harpoon item 4"))
+keymap("n", "<leader>h5", ":lua Harpoon:list():select(5)<CR>", keymap_opts("Select harpoon item 5"))
+keymap("n", "<leader>h6", ":lua Harpoon:list():select(6)<CR>", keymap_opts("Select harpoon item 6"))
 keymap("n", "<leader>ht", ":lua Toggle_telescope_haroon(Harpoon:list())<CR>", keymap_opts("Toggle harpoon telescope"))
 
 keymap("n", "-", ":Oil<CR>", keymap_opts("Open parent directory"))

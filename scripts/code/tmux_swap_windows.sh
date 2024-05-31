@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# ~/dotfiles/scripts/code/notify.sh "bpb" "the alt/option keys"
 
 from="$1"
 to="$2"

@@ -29,19 +29,15 @@ local plugins = {
   "nvim-lualine/lualine.nvim", -- bottom line
   "akinsho/toggleterm.nvim",
 
+  "JoosepAlviste/nvim-ts-context-commentstring", -- correct comments in html file where there is js,html,css using treesitter
+  "numToStr/Comment.nvim",
+
+
   -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
   { "stevearc/dressing.nvim", opt = {} }, -- cool looks like inputing
   { "folke/which-key.nvim", opts = {} },
   { "lukas-reineke/indent-blankline.nvim", main = "ibl" },
-  {
-    "numToStr/Comment.nvim",
-    opts = {
-      padding = true,
-      sticky = true,
-      mappings = false, -- no default mappings like gcc
-    },
-    lazy = false,
-  },
+
   {
     "NvChad/nvim-colorizer.lua",
     opts = {
@@ -118,7 +114,6 @@ local plugins = {
   },
   "windwp/nvim-ts-autotag", --treesitter autotag
   "windwp/nvim-autopairs", -- Autopairs, integrates with both cmp and treesitter
-  { "JoosepAlviste/nvim-ts-context-commentstring", opts = {} }, -- correct comments in html file where there is js,html,css using treesitter
 
   -- Autocomplete
   "hrsh7th/nvim-cmp", -- The completion plugin
@@ -169,6 +164,7 @@ require("plugins.configs.lualine") --bottom line
 require("plugins.configs.toggleterm")
 require("plugins.configs.cmp") -- completion
 
+require("plugins.configs.comment")
 require("plugins.configs.indentline")
 require("plugins.configs.autopairs")
 require("plugins.configs.zen-mode")

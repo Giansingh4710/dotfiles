@@ -1,18 +1,12 @@
 #!/bin/bash
 
 if [ -f ~/dotfiles/scripts/alias.sh ]; then
-    . ~/dotfiles/scripts/alias.sh
+  . ~/dotfiles/scripts/alias.sh
 fi
 
 alias ls='ls --color=auto' # see colors when using ls
-alias lg='lazygit'
-alias vim="nvim"
-alias t="tmux"
+alias v="vim"
 alias gs="git status"
-alias vimrc="vim ~/dotfiles/configs/nvim/init.lua"
-alias toggleyabai="~/dotfiles/configs/skhd/toggleyabai.sh"
-alias nvims="~/dotfiles/nvim/switch_configs.sh"
-
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....="cd ../../.."
@@ -20,31 +14,61 @@ alias .....="cd ../../../.."
 alias df='df -h' # disk free, in Gigabytes, not bytes
 alias lpath='echo $PATH | tr ":" "\n"' # list the PATH separated by new lines
 
+# check if nvim is installed
+if command -v nvim &> /dev/null; then
+  alias v="nvim"
+  alias vimrc="nvim ~/dotfiles/configs/nvim/init.lua"
+else
+  alias vimrc="vim ~/.vimrc"
+fi
+
+if command -v tmux &> /dev/null; then
+  alias t="tmux"
+fi
+
+if command -v trash &> /dev/null; then
+  alias rm=trash
+fi
+
+if command -v bat &> /dev/null; then
+  alias cat=bat
+fi
+
+if command -v zoxide &> /dev/null; then
+  alias cd="z"
+fi
+
+if command -v lazygit &> /dev/null; then
+  alias lg='lazygit'
+fi
+
+if command -v python3 &> /dev/null; then
+  alias py="python3"
+  alias python="python3"
+fi
+
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-	alias cs="cd /mnt/c/Users/gians/Desktop/CS/"
-	alias open="xdg-open"
-	alias start="explorer.exe"
-	alias settings="vim /mnt/c/Users/gians/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
-	alias randShabad="python3 /mnt/c/Users/gians/Desktop/CS/pythons/randomstuff/randSikhStuff/randShabad.py"
+  alias open="xdg-open"
+  alias start="explorer.exe"
 fi
 
 if [[ "$OSTYPE" == "darwin2"* ]]; then
-  alias rm=trash
   alias ios='open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'
-	alias python="python3"
-	alias py="python3"
-	alias pip="pip3"
   alias icloud="cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/"
-  alias passwords="vi ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/randomTxtFiles/passwords.txt"
+  alias randTxt="v ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/randomTxtFiles/info.txt"
+
+  alias toggleyabai="~/dotfiles/configs/skhd/toggleyabai.sh"
+  alias nvims="~/dotfiles/nvim/switch_configs.sh"
+
 
   alias ai="ollama run llama2-uncensored"
   alias codeai="ollama run codellama:7b-code"
-  alias obd="cd '/Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents/Gian/'"
+  alias obd="cd '/Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents/'"
 fi
 
 if [[ ~ == "/Users/gians" ]];then
-	alias dev="cd /Users/gians/Desktop/dev"
-  alias ssa="vim /Users/gians/Desktop/NJIT/SSA/SSA23-24.txt"
+  alias dev="cd /Users/gians/Desktop/dev"
+  alias ssa="nvim /Users/gians/Desktop/NJIT/SSA/SSA23-24.txt"
 
   alias ghcs="gh copilot suggest"
   alias ghce="gh copilot explain"

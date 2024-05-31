@@ -63,10 +63,10 @@ call plug#end()
 
 "Settings for plugins
   set background=dark
-  colorscheme gruvbox "afterglow
+  " colorscheme gruvbox "afterglow
   "hi Normal guibg=NONE ctermbg=NONE "makes backdround transparent
   
-  nnoremap <leader>n :call ToggleNERDTree()<CR>
+  nnoremap <leader>e :call ToggleNERDTree()<CR>
 
   "for commenting. nerdcommenter toggle is <leader>c<Space>.
   map <leader>/ <space>c<space>

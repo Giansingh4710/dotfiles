@@ -1,4 +1,7 @@
 - vim
+  not loop to next search result when at end
+    :set nowrapscan
+
   save vim commands
     :redir > a.txt
     :version
@@ -33,7 +36,7 @@
     Move tab i positions to the right: :tabm +i
     Move tab i positions to the left: :tabm -i
 
--tmux
+- tmux
   tmuxifier new-session 'rails'
   tmuxifier edit-session rails
   ~/.tmuxifier/layouts/brun.session.sh
@@ -42,14 +45,14 @@
     swap-window -s 3 -t 1
     swap-window -t 0
 
--anaconda
+- anaconda
   conda activate base
   conda deactivate
   conda config --set auto_activate_base false : to stop anaconda from starting
   conda config --set auto_activate_base true : to start anaconda from starting
   jupyter notebook
 
--stuff/rand
+- stuff/rand
   find $(pwd) -type f -not -path '*/\.*' ; finds all files
     find / -type f | xargs grep -i LoadModule : find all files that have 'LoadModule' in it
     find / -type f -name "*.html" : file all html files
@@ -81,7 +84,7 @@
   tree depth files:
     eza --tree --level=2
 
--mac
+- mac
   - from https;//www.youtube.com/watch?v=qOrlYzqXPa8
     say ; says what you type after say
     security find-generic-password -wa Wifi ; find password of wifi network you have previously connected to
@@ -98,11 +101,14 @@
     shutdown
     sudo touch id
 
+  - malicious software fix
+    xattr -d com.apple.quarantine /Users/gians/Downloads/chromedriver 
+
 
     cool dirs:
       cd '/Users/gians/Library/Mobile Documents' && ls
 
--git
+- git
   git commit --amend --no-edit  : add to last commit
   git reset --hard HEAD 
 
@@ -110,7 +116,7 @@
     make new repo
       gh repo create
 
--brew
+- brew
   brew bundle dump --describe ; save all installed brew stuff
 	brew services start/stop (name of service)
 	brew services restart --all 
@@ -136,22 +142,40 @@
     brew install koekeishiya/formulae/skhd
 	  brew install --cask rectangle
 
--yabai
+
+- bash
+  Comparisons:
+    -eq   equal to
+    -ne   not equal to
+    -lt   less than
+    -le   less than or equal to
+    -gt   greater than
+    -ge   greater than or equal to
+  File Operators:
+    -d file   True if directory exists
+    -e file   True if the file exists
+    -f file   True if the file exists and is not a dir
+    -r file   True if the file is readable
+    -s file   True if the file exists and is not empty
+    -w file   True if the file is writable
+    -x file   True if the file is executable
+
+- yabai
   yabai --start-service
   yabai --stop-service
--stuff2
-  format json:
-    json_pp < input.json > formatted.json
 
-  fat sorter:
-    brew install fatsort
-    sudo fatsort -D /GAMES/ -a -c -o a /dev/disk2
-      sort /GAMES and all the sub directories (-D), and ascii sort (-a),
-      ignore casing (-c), files and directories are not differentiated (-o a
+- format json:
+  json_pp < input.json > formatted.json
 
-    https://remysharp.com/til/cli/sorting-fat32-sdcard
+- fat sorter:
+  brew install fatsort
+  sudo fatsort -D /GAMES/ -a -c -o a /dev/disk2
+    sort /GAMES and all the sub directories (-D), and ascii sort (-a),
+    ignore casing (-c), files and directories are not differentiated (-o a
 
--react-native
+  https://remysharp.com/til/cli/sorting-fat32-sdcard
+
+- react-native
   npx react-native doctor
   /Users/gians/Library/Android/sdk/cmdline-tools/latest/bin/sdkmanager "platforms;android-31"
 
@@ -173,12 +197,6 @@
 - Java
   javac *.java -d .
 
-- logiware
-  setting up maven java project with testng
-    Choose: org.apache.maven.archetypes     maven-archetypes-quickstart   1.4
-
-  https://craft.qa.logiware.app/freight/#/auth/login
-  
 - ffmpeg
   to converet mp4 to mp3:
     ffmpeg -i filename.mp4 filename.mp3

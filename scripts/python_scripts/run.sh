@@ -40,6 +40,12 @@ done
 
 if [ "$DEFAULT" == "true" ]; then
   opt=$(printf "%s\n" "${opts[@]}" | fzf --height 40% --reverse --border --prompt="Select a script: ")
+  for i in "${!opts[@]}"; do
+    if [ "${opts[$i]}" == "$opt" ]; then
+      RUN_NUM=$((i + 1))
+      break
+    fi
+  done
 else
   if [ "$SHOW_NUMBERS" == "true" ]; then
     for i in "${!opts[@]}"; do
@@ -55,6 +61,6 @@ else
   opt="${opts[$index]}"
 fi
 
-echo "Selected: $opt"
+echo "Selected: $opt -r=$RUN_NUM"
 the_command=(python3 "$base/$opt" "$path")
 show_n_run_cmd "${the_command[@]}"

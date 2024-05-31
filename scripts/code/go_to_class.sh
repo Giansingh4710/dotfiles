@@ -24,7 +24,7 @@ printf "Enter num: "
 read -r choice
 choice=$((choice + offset))
 if [ -f "${directories[$choice]}" ];then
-  vim "${directories[$choice]}"
+  nvim "${directories[$choice]}"
 else
   echo "Changed to: $(pwd)"
   cd "${directories[$choice]}" || exit
