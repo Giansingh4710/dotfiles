@@ -14,6 +14,28 @@ alias .....="cd ../../../.."
 alias df='df -h' # disk free, in Gigabytes, not bytes
 alias lpath='echo $PATH | tr ":" "\n"' # list the PATH separated by new lines
 
+if [[ "$OSTYPE" == "darwin2"* ]]; then
+  alias ios='open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'
+  alias toggleyabai="~/dotfiles/configs/skhd/toggleyabai.sh"
+  alias nvims="~/dotfiles/nvim/switch_configs.sh"
+
+  alias ai="ollama run llama2-uncensored"
+  alias codeai="ollama run codellama:7b-code"
+  alias obd="cd '/Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents/'"
+fi
+
+if [[ ~ == "/Users/gians" ]];then
+  alias icloud="cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/"
+  alias randTxt="v ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/randomTxtFiles/info.txt"
+
+  alias dev="cd /Users/gians/Desktop/dev"
+  alias todo="v /Users/gians/Desktop/todo.md"
+  alias ssa="nvim /Users/gians/Desktop/NJIT/SSA/SSA23-24.txt"
+
+  alias ghcs="gh copilot suggest"
+  alias ghce="gh copilot explain"
+fi
+
 # check if nvim is installed
 if command -v nvim &> /dev/null; then
   alias v="nvim"
@@ -31,7 +53,7 @@ if command -v trash &> /dev/null; then
 fi
 
 if command -v bat &> /dev/null; then
-  alias cat=bat
+  alias cat='bat --paging=never'
 fi
 
 if command -v zoxide &> /dev/null; then
@@ -50,28 +72,6 @@ fi
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   alias open="xdg-open"
   alias start="explorer.exe"
-fi
-
-if [[ "$OSTYPE" == "darwin2"* ]]; then
-  alias ios='open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'
-  alias icloud="cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/"
-  alias randTxt="v ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/randomTxtFiles/info.txt"
-
-  alias toggleyabai="~/dotfiles/configs/skhd/toggleyabai.sh"
-  alias nvims="~/dotfiles/nvim/switch_configs.sh"
-
-
-  alias ai="ollama run llama2-uncensored"
-  alias codeai="ollama run codellama:7b-code"
-  alias obd="cd '/Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents/'"
-fi
-
-if [[ ~ == "/Users/gians" ]];then
-  alias dev="cd /Users/gians/Desktop/dev"
-  alias ssa="nvim /Users/gians/Desktop/NJIT/SSA/SSA23-24.txt"
-
-  alias ghcs="gh copilot suggest"
-  alias ghce="gh copilot explain"
 fi
 
 cap () { tee /tmp/capture.out; } # capture the output of a command so it can be retrieved with ret

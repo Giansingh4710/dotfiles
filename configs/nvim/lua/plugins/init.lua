@@ -32,7 +32,6 @@ local plugins = {
   "JoosepAlviste/nvim-ts-context-commentstring", -- correct comments in html file where there is js,html,css using treesitter
   "numToStr/Comment.nvim",
 
-
   -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
   { "stevearc/dressing.nvim", opt = {} }, -- cool looks like inputing
   { "folke/which-key.nvim", opts = {} },
@@ -114,6 +113,7 @@ local plugins = {
   },
   "windwp/nvim-ts-autotag", --treesitter autotag
   "windwp/nvim-autopairs", -- Autopairs, integrates with both cmp and treesitter
+  { "echasnovski/mini.ai", version = false }, -- Extend and create a/i textobjects
 
   -- Autocomplete
   "hrsh7th/nvim-cmp", -- The completion plugin
@@ -171,6 +171,7 @@ require("plugins.configs.zen-mode")
 require("plugins.configs.oil")
 require("plugins.configs.formatter")
 require("plugins.configs.illuminate")
+require("plugins.configs.miniai")
 
 require("plugins.configs.harpoon")
 require("plugins.configs.lspish")

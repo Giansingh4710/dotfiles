@@ -56,6 +56,34 @@ vim.api.nvim_create_user_command("Chdir", function()
   print("Changed directory to " .. dir) -- Optional: Print a message to confirm the change
 end, {})
 
+vim.api.nvim_create_user_command("SaveToAppleNotes", function()
+  vim.api.nvim_command("w")
+  local currentBuffer = vim.api.nvim_get_current_buf()
+  local currentBufferPath = vim.api.nvim_buf_get_name(currentBuffer)
+  local cmd = "osascript /Users/gians/dotfiles/scripts/AppleNotes/save_to_notes.applescript " .. currentBufferPath
+  os.execute(cmd)
+end, {})
+
+vim.api.nvim_create_user_command("ReadFromAppleNotes", function()
+  local currentBuffer = vim.api.nvim_get_current_buf()
+  local firstLine = vim.api.nvim_buf_get_lines(currentBuffer, 0, 1, false)[1]
+  local note_title = firstLine
+  local cmd = "osascript /Users/gians/dotfiles/scripts/AppleNotes/read_from_notes.applescript '" .. note_title .. "'"
+  local handle = io.popen(cmd)
+  if handle == nil then
+    print("Error reading note")
+    return
+  end
+  local result = handle:read("*a")
+  handle:close()
+
+  result = result:gsub("\r", "\n") -- Remove trailing newline from the result
+
+  local bufnr = vim.api.nvim_get_current_buf() -- Insert the result into the current buffer
+  vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.split(result, "\n"))
+end, {})
+
+
 function RandomColorScheme()
   local table = { "darkplus", "nightfly", "gruvbox", "ayu" }
   math.randomseed(os.time())
@@ -119,14 +147,6 @@ function ToggleCharAtEndOfLine()
   else
     vim.opt.list = true
   end
-end
-
-function SaveToAppleNotes()
-  vim.api.nvim_command("w")
-  local currentBuffer = vim.api.nvim_get_current_buf()
-  local currentBufferPath = vim.api.nvim_buf_get_name(currentBuffer)
-  local cmd = "osascript /Users/gians/dotfiles/scripts/AppleNotes/save_to_notes.applescript " .. currentBufferPath
-  os.execute(cmd)
 end
 
 function Search_Exact_Phrase()

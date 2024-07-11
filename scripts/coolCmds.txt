@@ -198,7 +198,7 @@
   javac *.java -d .
 
 - ffmpeg
-  to converet mp4 to mp3:
+  to convert mp4 to mp3:
     ffmpeg -i filename.mp4 filename.mp3
 
   to cut files up, have the times in times.txt:
@@ -275,6 +275,3 @@ cool sites:
   from(UI design tools): https://www.youtube.com/watch?v=PQfQZ9iH8bg
     fffuel: https://fffuel.co/
     coolors: https://coolors.co/palettes/trending
-
-randTemp:
-  ywcc Genrative AI article GPT chat: https://chat.openai.com/c/a78b7631-dc14-48a6-8270-1ebde4b3c165

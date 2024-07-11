@@ -61,7 +61,6 @@ keymap("n", "<leader>E", ":lua ToggleCharAtEndOfLine()<CR>", keymap_opts("Toggle
 keymap("n", "<leader>F", ":ToggleFoldMethod<CR>", keymap_opts("Toggle Fold Method"))
 keymap("n", "<leader>s", ":lua Split_long_line()<CR>", keymap_opts("Split line"))
 keymap("n", "<leader>x", ":!chmod +x %;./%<CR>", keymap_opts("Make file Executable (chmod +x)"))
-keymap("n", "<leader>N", ":lua SaveToAppleNotes()<CR>", keymap_opts("Save to Apple Notes"))
 keymap("n", "<leader>S", ":lua Search_Exact_Phrase()<CR>", keymap_opts("Search"))
 
 Sections_For_Whichkey["f"] = { name = " Find" }

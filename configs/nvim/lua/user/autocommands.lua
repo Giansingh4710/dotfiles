@@ -33,3 +33,11 @@ vim.cmd([[
     autocmd BufWritePost ~/Desktop/dev/webdev/keerat/app/Keertan/TimeBasedRaagKeertan/TRACKS.js !/bin/bash ~/Desktop/dev/webdev/keerat/app/Keertan/AllKeertan/writeTracks.sh
   augroup END
 ]])
+
+vim.cmd([[
+  augroup ThingsToDo
+    autocmd!
+    autocmd BufWritePost ~/Desktop/todo.md :SaveToAppleNotes
+    autocmd BufReadPost ~/Desktop/todo.md :ReadFromAppleNotes
+  augroup END
+]])
