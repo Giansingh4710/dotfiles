@@ -26,8 +26,9 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 export PATH="$HOME/.tmuxifier/bin:$PATH"
-eval "$(tmuxifier init -)"
 
 eval "$(starship init zsh)" # makes cmd line pretty
 eval "$(zoxide init zsh)" # cd hack
-eval "$(fzf --zsh)" # cd hack
+eval "$(fzf --zsh)"
+
+export PATH=$HOME/dev/flutter/bin:$PATH

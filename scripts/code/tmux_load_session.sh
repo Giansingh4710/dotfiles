@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# download tmuxifier
-# git clone https://github.com/jimeh/tmuxifier.git ~/.tmuxifier
-
-sessionName=$(ls ~/.tmuxifier/layouts/ | fzf)
-sessionName=${sessionName%%.*}
-
-tmuxifier load-session "$sessionName"
+sessionName=$(ls ~/dotfiles/other/tmux_layouts/ | fzf)
+. "$HOME/dotfiles/other/tmux_layouts/$sessionName"
+echo "Done with $sessionName"

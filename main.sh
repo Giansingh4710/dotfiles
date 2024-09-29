@@ -88,9 +88,6 @@ if ask "Download Vim Plug for ~/.vimrc"; then
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-if ask "Get Tmuxifier"; then
-  ~/dotfiles/other/tmuxifier_layouts/link.sh
-fi
 
 if [[ "$OSTYPE" == "darwin2"* ]]; then
   if ask "Download Brew"; then

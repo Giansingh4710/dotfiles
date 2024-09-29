@@ -12,7 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-  "github/copilot.vim",
+  { "Exafunction/codeium.vim", event = "BufEnter" },
   "tpope/vim-surround",
   "christoomey/vim-tmux-navigator",
   "preservim/nerdtree",
@@ -113,7 +113,6 @@ local plugins = {
   },
   "windwp/nvim-ts-autotag", --treesitter autotag
   "windwp/nvim-autopairs", -- Autopairs, integrates with both cmp and treesitter
-  { "echasnovski/mini.ai", version = false }, -- Extend and create a/i textobjects
 
   -- Autocomplete
   "hrsh7th/nvim-cmp", -- The completion plugin
@@ -152,6 +151,23 @@ local plugins = {
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
   },
+  {
+    "akinsho/flutter-tools.nvim",
+    lazy = false,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "stevearc/dressing.nvim", -- optional for vim.ui.select
+    },
+    config = true,
+  },
+  {
+    "folke/twilight.nvim",
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+  },
 }
 
 require("lazy").setup(plugins)
@@ -171,7 +187,6 @@ require("plugins.configs.zen-mode")
 require("plugins.configs.oil")
 require("plugins.configs.formatter")
 require("plugins.configs.illuminate")
-require("plugins.configs.miniai")
 
 require("plugins.configs.harpoon")
 require("plugins.configs.lspish")

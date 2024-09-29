@@ -5,7 +5,6 @@ if [ -f ~/dotfiles/scripts/alias.sh ]; then
 fi
 
 alias ls='ls --color=auto' # see colors when using ls
-alias v="vim"
 alias gs="git status"
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -31,6 +30,7 @@ if [[ ~ == "/Users/gians" ]];then
   alias dev="cd /Users/gians/Desktop/dev"
   alias todo="v /Users/gians/Desktop/todo.md"
   alias ssa="nvim /Users/gians/Desktop/NJIT/SSA/SSA23-24.txt"
+  alias py_src="source ~/py3_venv_1/bin/activate"
 
   alias ghcs="gh copilot suggest"
   alias ghce="gh copilot explain"
@@ -41,6 +41,7 @@ if command -v nvim &> /dev/null; then
   alias v="nvim"
   alias vimrc="nvim ~/dotfiles/configs/nvim/init.lua"
 else
+  alias v="vim"
   alias vimrc="vim ~/.vimrc"
 fi
 
@@ -52,9 +53,9 @@ if command -v trash &> /dev/null; then
   alias rm=trash
 fi
 
-if command -v bat &> /dev/null; then
-  alias cat='bat --paging=never'
-fi
+# if command -v bat &> /dev/null; then
+  # alias cat='bat --paging=never'
+# fi
 
 if command -v zoxide &> /dev/null; then
   alias cd="z"

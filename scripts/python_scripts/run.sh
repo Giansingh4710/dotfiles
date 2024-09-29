@@ -19,7 +19,7 @@ opts=("${opts[@]#$base/}") # Remove ".../code/" prefix from each file name
 DEFAULT="true"
 for i in "$@"; do
   case $i in
-    -sn|--show-numbers)
+    -sn|--show-numbers|-help)
       DEFAULT="false"
       SHOW_NUMBERS="true"
       shift # past argument=value

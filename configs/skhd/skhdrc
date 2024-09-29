@@ -36,7 +36,7 @@ alt - s : yabai -m window --toggle split
 alt - m : yabai -m space --mirror y-axis
 
 # alt - r : ~/dotfiles/scripts/notify.sh "Restarting";brew services restart skhd; brew services restart yabai
-alt - r : ~/dotfiles/scripts/code/notify.sh "Restarting!"; yabai --restart-service;
+alt - r : ~/dotfiles/scripts/code/notify.sh "Restarting!"; yabai --restart-service; skhd --restart-service;
 alt - t : ~/dotfiles/configs/skhd/toggleyabai.sh
 
 alt - 1 : ~/dotfiles/configs/skhd/go_to_workspace.sh 1

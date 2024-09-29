@@ -112,6 +112,14 @@ require("formatter").setup({
         }
       end,
     },
+    dart = {
+      function()
+        return {
+          exe = "dart format",
+          stdin = true,
+        }
+      end,
+    },
 
     ["*"] = {
       require("formatter.filetypes.any").remove_trailing_whitespace,

@@ -17,7 +17,7 @@ delDsStore() {
 			rm .DS_Store
       echo "deleted $(pwd)/$item "
 		elif [ -d "$item" ]; then
-			cd "$item"
+			cd "$item" || exit
 			delDsStore
 			cd ../
 		fi

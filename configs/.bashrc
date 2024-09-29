@@ -18,5 +18,10 @@ if [ -f ~/dotfiles/.bash_aliases ]; then
 	. ~/dotfiles/.bash_aliases
 fi
 
-# eval "$(starship init bash)" # makes cmd line pretty
-eval "$(zoxide init bash)"
+if command -v starship &> /dev/null; then
+  eval "$(starship init bash)" # makes cmd line pretty
+fi
+
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init bash)"
+fi

@@ -69,6 +69,8 @@ playlistDict = {
     "Sri Guru Granth Sahib Ji Katha": "https://soundcloud.com/gianishersinghjiambala/sets/sri-guru-granth-sahib-ji-katha",
 }
 
+# yt-dlp --extract-audio --audio-format mp3 "$link"
+
 # whereTodl = sys.argv[1] if len(sys.argv[1]) > 1 else "./"
 link = input("Enter the link: ")
 main(link)

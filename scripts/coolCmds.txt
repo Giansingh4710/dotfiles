@@ -45,6 +45,26 @@
     swap-window -s 3 -t 1
     swap-window -t 0
 
+- python virtual environment
+  Creating a new virtual environment in ~
+    python3 -m venv ~/py3_venv_1
+    source ~/py3_venv_1/bin/activate
+  to exit virtual environment:
+    deactivate
+
+  How to save and install requirements:
+    pip freeze > requirements.txt
+    pip install -r requirements.txt
+
+- open simulator from terminal for iphone
+  https://stackoverflow.com/questions/31179706/how-can-i-launch-the-ios-simulator-from-terminal
+  open -a Simulator.app
+  - get list of devices
+    xcrun simctl list
+
+    xcrun simctl install <YOUR-DEVICE-ID> <PATH-TO-APPLICATION-BUNDLE>
+    xcrun simctl launch <YOUR-DEVICE-ID> <BUNDLE-ID-OF-APP-BUNDLE>
+
 - anaconda
   conda activate base
   conda deactivate
@@ -168,6 +188,7 @@
   json_pp < input.json > formatted.json
 
 - fat sorter:
+  make sure disk is 'ExFat' not 'MS-DOS' or anything else
   brew install fatsort
   sudo fatsort -D /GAMES/ -a -c -o a /dev/disk2
     sort /GAMES and all the sub directories (-D), and ascii sort (-a),
@@ -198,6 +219,15 @@
   javac *.java -d .
 
 - ffmpeg
+  looping:
+    ffmpeg -stream_loop <N> -i input.mp3 -c copy output.mp3
+      <N> : The number of times to loop the audio. Use -1 for infinite looping.
+      ffmpeg -stream_loop 2 -i input.mp3 -c copy output.mp3
+          This will loop the audio twice after the initial play (total of 3 plays)
+
+    ffmpeg -stream_loop -1 -i input.mp3 -t 600 -c copy output.mp3
+      -t 600 : Sets the total duration to 600 seconds (10 minutes).
+
   to convert mp4 to mp3:
     ffmpeg -i filename.mp4 filename.mp3
 
