@@ -25,6 +25,16 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = { "~/Desktop/NJIT/classes/CS490/group_proj/*" },
 })
 
+-- Make the background transparent
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
+    vim.cmd("hi LineNr guibg=NONE ctermbg=NONE")
+    vim.cmd("hi SignColumn guibg=NONE ctermbg=NONE")
+    vim.cmd("hi NormalFloat guibg=NONE ctermbg=NONE") -- Transparent floating windows
+  end,
+})
+
 vim.cmd([[
   augroup Keerat
     autocmd!
@@ -41,3 +51,4 @@ vim.cmd([[
     autocmd BufReadPost ~/Desktop/todo.md :ReadFromAppleNotes
   augroup END
 ]])
+

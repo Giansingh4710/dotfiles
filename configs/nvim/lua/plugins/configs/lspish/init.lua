@@ -25,7 +25,7 @@ require("mason-lspconfig").setup({
     --[[ https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md ]]
     "emmet_ls",
     "html",
-    "tsserver",
+    "ts_ls",
     "tailwindcss",
 
     "bashls",
@@ -65,8 +65,8 @@ require("mason-lspconfig").setup({
         },
       })
     end,
-    tsserver = function()
-      require("lspconfig").tsserver.setup({
+    ts_ls = function()
+      require("lspconfig").ts_ls.setup({
         capabilities = lsp_capabilities,
         commands = {
           OrganizeImports = {

@@ -1,4 +1,9 @@
 - vim
+  reverse lines : https://superuser.com/questions/189947/how-do-i-reverse-selected-lines-order-in-vim
+    :g/^/m0
+  do action on quickfix list
+    :cdo s/foo/bar/g
+    :cdo w
   not loop to next search result when at end
     :set nowrapscan
 
@@ -296,6 +301,7 @@ cs490 server root passowrd:
   sudo ufw allow 3306
 
 cool sites:
+  https://www.istockphoto.com/ 
   https://transform.tools/css-to-js
   https://www.w3schools.com/charsets/ref_utf_arrows.asp
   https://www.svgrepo.com/vectors/2-arrows/

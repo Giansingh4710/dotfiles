@@ -2,7 +2,6 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 local keymap = vim.keymap.set
-
 local function keymap_opts(desc)
   return { silent = false, desc = desc }
 end
@@ -48,7 +47,7 @@ keymap("n", "<leader><leader>", ":w<CR>:source $MYVIMRC<CR>", keymap_opts("Save 
 keymap("n", "<leader>M", "V!bc<CR>", keymap_opts("Math"))
 keymap("n", "<leader>r", ":%s/<C-R><C-w>//gc<LEFT><LEFT><LEFT>", keymap_opts("Replace Word Old Fashion"))
 keymap("n", "<leader>cd", ":Copilot disable<CR>", keymap_opts("Disable Copilot"))
-keymap("n", "<leader>gc", ":GetRandomColor<CR>", keymap_opts("Generate Random Color"))
+keymap("n", "<leader>gC", ":GetRandomColor<CR>", keymap_opts("Generate Random Color"))
 keymap("n", "<leader>e", ":call ToggleNERDTree()<CR>", keymap_opts("Toggle Explorer (NERDTree)"))
 keymap("n", "<leader>v", ":vsplit<cr>", keymap_opts("vsplit"))
 keymap("n", "<leader>q", ":call QuickFixToggle()<CR>", keymap_opts("Toggle Quick Fix List"))
@@ -101,7 +100,7 @@ keymap("n", "<leader>gk", ":Gitsigns prev_hunk<CR>", keymap_opts("Previous Git H
 keymap("n", "<leader>gd", ":Gitsigns diffthis<CR>", keymap_opts("Git Diffthis"))
 keymap("n", "<leader>gr", ":Gitsigns reset_hunk<CR>", keymap_opts("Git Reset Hunk"))
 keymap("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", keymap_opts("Git Preview Hunk"))
-keymap("n", "<leader>gb", ":Gitsigns blame_line<CR>", keymap_opts("Git Blame Line"))
+keymap("n", "<leader>gB", ":Gitsigns blame_line<CR>", keymap_opts("Git Blame Line"))
 
 Sections_For_Whichkey["l"] = { name = " LSP" }
 -- keymap("n", "<leader>lf", ":lua vim.lsp.buf.format()<CR>", keymap_opts("Format"))
@@ -142,3 +141,4 @@ keymap("n", "<leader>h6", ":lua Harpoon:list():select(6)<CR>", keymap_opts("Sele
 keymap("n", "<leader>ht", ":lua Toggle_telescope_haroon(Harpoon:list())<CR>", keymap_opts("Toggle harpoon telescope"))
 
 keymap("n", "-", ":Oil<CR>", keymap_opts("Open parent directory"))
+keymap("n", "<leader>p", ":MacOSQuicklook<CR>", { silent = false, desc = "Preview file (MacOS)" })

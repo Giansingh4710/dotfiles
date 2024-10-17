@@ -13,6 +13,7 @@ foldersForSymLink=( #everything that goes in ~/.config
   "./configs/yabai"     # tiling window manager
   "./configs/skhd"      # keybindings for window manager etc
   "./configs/alacritty" # terminal
+  "./configs/kitty" # terminal
 )
 
 function ask() {

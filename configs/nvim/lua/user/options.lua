@@ -41,7 +41,7 @@ vim.opt.lazyredraw = false
 -- vim.opt.title = true
 vim.cmd("set whichwrap+=<,>,[,],h,l") --got to next line if end of line
 vim.cmd("set grepprg=git\\ grep\\ -n") -- for searching through :grep
-vim.cmd("hi Normal guibg=NONE ctermbg=NONE") -- makes backdround transparent
+-- vim.cmd("hi Normal guibg=NONE ctermbg=NONE") -- makes backdround transparent -- have function in ./autocommands.lua
 -- vim.cmd("set formatoptions-=cro") -- dont add comment when i go to new line from a comment line
 -- vim.opt.iskeyword:append("-")
 

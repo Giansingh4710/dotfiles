@@ -13,7 +13,6 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
   { "Exafunction/codeium.vim", event = "BufEnter" },
-  "tpope/vim-surround",
   "christoomey/vim-tmux-navigator",
   "preservim/nerdtree",
   "stevearc/oil.nvim", -- file Explorer
@@ -23,6 +22,10 @@ local plugins = {
   "bluz71/vim-nightfly-colors",
   "lunarvim/darkplus.nvim", -- vscode
 
+ -- to view telescope media files
+  "nvim-lua/popup.nvim",
+  "nvim-telescope/telescope-media-files.nvim",
+
   "nvim-telescope/telescope.nvim",
   "folke/zen-mode.nvim",
   "nvim-lua/plenary.nvim", -- Useful lua functions used by lots of plugins
@@ -30,7 +33,23 @@ local plugins = {
   "akinsho/toggleterm.nvim",
 
   "JoosepAlviste/nvim-ts-context-commentstring", -- correct comments in html file where there is js,html,css using treesitter
-  "numToStr/Comment.nvim",
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({})
+    end,
+  },
+  {
+    "numToStr/Comment.nvim",
+    opt = {
+      mappings = {
+        basic = false, -- Disable basic mappings like `gc` and `gb`
+        extra = false, -- Disable extra mappings like `gco`, `gcA`
+      },
+    },
+  },
 
   -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
   { "stevearc/dressing.nvim", opt = {} }, -- cool looks like inputing
@@ -77,28 +96,11 @@ local plugins = {
   },
 
   -- GIT
+  "lewis6991/gitsigns.nvim", -- Adds git related signs to the gutter, as well as utilities for managing changes
   {
     "sindrets/diffview.nvim",
     dependencies = "nvim-lua/plenary.nvim",
     opts = {},
-  },
-  {
-    "lewis6991/gitsigns.nvim", -- Adds git related signs to the gutter, as well as utilities for managing changes
-    opts = {
-      signs = {
-        add = { hl = "DiffAdd", text = "│", numhl = "GitSignsAddNr" },
-        change = { hl = "DiffChange", text = "│", numhl = "GitSignsChangeNr" },
-        delete = { hl = "DiffDelete", text = "", numhl = "GitSignsDeleteNr" },
-        topdelete = { hl = "DiffDelete", text = "‾", numhl = "GitSignsDeleteNr" },
-        changedelete = { hl = "DiffChangeDelete", text = "~", numhl = "GitSignsChangeNr" },
-        untracked = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
-      },
-      current_line_blame = true,
-      signcolumn = true,
-      numhl = false,
-      linehl = false,
-      word_diff = false,
-    },
   },
 
   -- Treesitter
@@ -111,6 +113,7 @@ local plugins = {
       pcall(require("nvim-treesitter.install").update({ with_sync = true }))
     end,
   },
+  -- "nvim-treesitter/nvim-treesitter-context", -- get functions on top so you know what function u in
   "windwp/nvim-ts-autotag", --treesitter autotag
   "windwp/nvim-autopairs", -- Autopairs, integrates with both cmp and treesitter
 
@@ -173,14 +176,15 @@ local plugins = {
 require("lazy").setup(plugins)
 
 require("plugins.configs.treesitter")
+require("plugins.configs.nvim-ts-autotag") --treesitter autotag vscode like tags
 require("plugins.configs.bufferline") -- top tab line
 require("plugins.configs.telescope")
-require("plugins.configs.nvim-ts-autotag") --treesitter autotag vscode like tags
 require("plugins.configs.lualine") --bottom line
 require("plugins.configs.toggleterm")
 require("plugins.configs.cmp") -- completion
 
 require("plugins.configs.comment")
+require("plugins.configs.gitsigns")
 require("plugins.configs.indentline")
 require("plugins.configs.autopairs")
 require("plugins.configs.zen-mode")

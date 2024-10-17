@@ -5,6 +5,7 @@ if [ -f ~/dotfiles/scripts/alias.sh ]; then
 fi
 
 alias ls='ls --color=auto' # see colors when using ls
+alias ll='ls -l'
 alias gs="git status"
 alias ..='cd ..'
 alias ...='cd ../..'

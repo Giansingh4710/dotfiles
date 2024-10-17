@@ -83,9 +83,30 @@ vim.api.nvim_create_user_command("ReadFromAppleNotes", function()
   vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.split(result, "\n"))
 end, {})
 
+vim.api.nvim_create_user_command("MacOSQuicklook", function()
+  local oil = require("oil")
+  local entry = oil.get_cursor_entry()
+  local full_path
+  if entry then
+    full_path = oil.get_current_dir() .. entry.name
+  else
+    full_path = vim.fn.expand("%:p") -- Gets the full path of the file in the current buffer
+  end
+
+  -- qlmanage -p <file> & sleep 0.5; osascript -e 'tell application "System Events" to set frontmost of process "QuickLookUIService" to true'
+  -- if pgrep "qlmanage" > /dev/null; then echo running; fi
+  if full_path then
+    vim.fn.system({
+      "qlmanage",
+      "-p",
+      full_path,
+    })
+  end
+end, {})
 
 function RandomColorScheme()
   local table = { "darkplus", "nightfly", "gruvbox", "ayu" }
+  -- local table = {   "gruvbox",  }
   math.randomseed(os.time())
   local index = math.random(1, #table)
   -- print("Colorscheme: " .. table[index])
