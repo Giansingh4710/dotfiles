@@ -16,6 +16,7 @@ fi
 
 if [[ -f "$file_path" ]]; then
   while IFS= read -r line; do
+    echo "$line"
     download_if_valid "$line"
   done <"$file_path"
 else

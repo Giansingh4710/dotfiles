@@ -273,32 +273,21 @@ private AI:
 change node version:
   nvm use 18.17.0
 
-cs490 server root passowrd:
-  ssh root@45.56.108.221
-  Cs490Group5$
+to block sites luke smith:
+  https://www.youtube.com/watch?v=VPfpCVW7ZvM
+  https://raw.githubusercontent.com/LukeSmithxyz/etc/master/ips
 
-  sudo apt update
+  become super user and edit hosts file:
+    sudo su
+    sudo vim /etc/hosts
+      0.0.0.0 gians.xyz
 
-  sudo ufw status
-  sudo ufw default allow outgoing
-  sudo ufw allow 22343
-  sudo ufw enable
-  sudo ufw status
+get ipvf address ipconfig ifconfig:
+  ipconfig getifaddr en0
+    192.168.1.15
 
-  sudo apt install mysql-server
-  sudo mysql_secure_installation
-  sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf 
-    port 3306
-  sudo systemctl restart mysql
-
-  mysql -u root -p
-
-  sudo mysql
-    CREATE USER 'dbuser'@'%' IDENTIFIED BY 'BobJones123!';
-    GRANT ALL PRIVILEGES ON *.* TO 'dbuser'@'%' WITH GRANT OPTION;
-    FLUSH PRIVILEGES;
-
-  sudo ufw allow 3306
+combine pdfs:
+   pdftk 1.pdf 2.pdf cat output 3.pdf
 
 cool sites:
   https://www.istockphoto.com/ 

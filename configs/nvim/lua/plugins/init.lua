@@ -22,17 +22,20 @@ local plugins = {
   "bluz71/vim-nightfly-colors",
   "lunarvim/darkplus.nvim", -- vscode
 
- -- to view telescope media files
-  "nvim-lua/popup.nvim",
-  "nvim-telescope/telescope-media-files.nvim",
-
-  "nvim-telescope/telescope.nvim",
   "folke/zen-mode.nvim",
-  "nvim-lua/plenary.nvim", -- Useful lua functions used by lots of plugins
   "nvim-lualine/lualine.nvim", -- bottom line
   "akinsho/toggleterm.nvim",
 
   "JoosepAlviste/nvim-ts-context-commentstring", -- correct comments in html file where there is js,html,css using treesitter
+
+  "nvim-lua/popup.nvim",
+  "nvim-lua/plenary.nvim", -- Useful lua functions used by lots of plugins
+  "nvim-telescope/telescope-media-files.nvim",
+  "nvim-telescope/telescope.nvim",
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+  },
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -43,7 +46,7 @@ local plugins = {
   },
   {
     "numToStr/Comment.nvim",
-    opt = {
+    opts = {
       mappings = {
         basic = false, -- Disable basic mappings like `gc` and `gb`
         extra = false, -- Disable extra mappings like `gco`, `gcA`
@@ -52,8 +55,23 @@ local plugins = {
   },
 
   -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+  {
+    "folke/which-key.nvim",
+    -- event = "VeryLazy",
+    opts = {},
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = true })
+        end,
+        desc = "Buffer Local Keymaps (which-key)",
+      },
+    },
+  },
+  { "echasnovski/mini.icons", opts = {} }, -- for which-key
+
   { "stevearc/dressing.nvim", opt = {} }, -- cool looks like inputing
-  { "folke/which-key.nvim", opts = {} },
   { "lukas-reineke/indent-blankline.nvim", main = "ibl" },
 
   {
@@ -171,6 +189,27 @@ local plugins = {
       -- refer to the configuration section below
     },
   },
+  {
+    "adelarsq/image_preview.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("image_preview").setup()
+      -- <leader>p - image preview for file under cursor
+    end,
+  },
+  {
+    "simonmclean/triptych.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "nvim-lua/plenary.nvim", -- required
+      "nvim-tree/nvim-web-devicons", -- optional for icons
+      "antosha417/nvim-lsp-file-operations", -- optional LSP integration
+    },
+    opts = {}, -- config options here
+    keys = {
+      { "<leader>-", ":Triptych<CR>" },
+    },
+  },
 }
 
 require("lazy").setup(plugins)
@@ -193,4 +232,4 @@ require("plugins.configs.formatter")
 require("plugins.configs.illuminate")
 
 require("plugins.configs.harpoon")
-require("plugins.configs.lspish")
+require("plugins.configs.lsp")

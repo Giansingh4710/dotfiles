@@ -1,106 +1,67 @@
 #!/bin/bash
 
-function ask() {
-	read -p "$1 (Y/n): " resp
-	if [ -z "$resp" ]; then
-		response_lc="y" # empty is Yes
-	else
-		response_lc=$(echo "$resp" | tr '[:upper:]' '[:lower:]') # case insensitive
-	fi
+# Create a temporary file to store the list of files
+echo "# This is a comment" > concat_list.txt
 
-	[ "$response_lc" = "y" ]
-}
-
-function copy_file_types_and_make_mp3() {
-	file_ext="$1"
-	if [ "$file_ext" == "mp3" ]; then
-		for file in "$input_folder"/*.mp3; do
-			cp "$file" "$temp_dir/"
-		done
-		return
-	fi
-
-	for file in "$input_folder"/*."$file_ext"; do
-		if [ ! -f "$file" ]; then
-			# echo "file: $file"
-			continue
-		fi
-		ffmpeg -i "$file" "$temp_dir/$(basename "${file%.*}").mp3"
-	done
-}
-
-input_folder="$1"
-if [ -z "$input_folder" ]; then
-	echo "Enter a folder path: "
-	read -r input_folder
-fi
-
-output_file="$2"
-if [ -z "$output_file" ]; then
-	echo "Enter a file path: "
-	read -r output_file
-fi
-
-# everything in the temp directory should be mp3 files
-# temp_dir=$(mktemp -d) # Create a temporary directory for converted files
-temp_dir="TEMP"
-mkdir "$temp_dir"
-
-if ask "2x audio speed?"; then
-	DOUBLE_SPEED=true
-fi
-
-copy_file_types_and_make_mp3 "mp3"
-copy_file_types_and_make_mp3 "m4a"
-copy_file_types_and_make_mp3 "wav"
-
-if [ "$DOUBLE_SPEED" = true ]; then
-	for file in "$temp_dir"/*.mp3; do
-		temp_file=the_temp_2x.mp3
-		ffmpeg -i "$file" -filter:a "atempo=2.0" -vn "$temp_file"
-		mv "$temp_file" "$file"
-		sleep 1
-	done
-fi
-
-echo "Conversion complete. Now concatenating files..."
-sleep 2
-
-# ffmpeg -i "concat:lav1.mp3|lav2.mp3|lav3.mp3|lav4.mp3" -c copy fullLav.mp3
-inside_concat="concat:"
-for file in "$temp_dir"/*; do
-	echo "file: $file"
-	inside_concat+="$file|"
+# Find all common audio files, sort them numerically
+find . -maxdepth 1 \( -name "*.mp3" -o -name "*.m4a" -o -name "*.wav" -o -name "*.aac" -o -name "*.ogg" -o -name "*.flac" -o -name "*.wma" \) | sort -V | while read -r file; do
+  file="${file#./}" # Remove the ./ prefix from the filename
+  echo "file '$file'" >> concat_list.txt
 done
-inside_concat=${inside_concat%?} # remove the last character
-ffmpeg -i "$inside_concat" -c copy "$output_file"
 
-# process_batch() {
-# 	local concat_batch=""
-# 	for file in "$@"; do
-# 		concat_batch+="$file|"
-# 	done
-# 	concat_batch=${concat_batch%?} # Remove the last character
-# 	ffmpeg -i "concat:$concat_batch" -c copy -bsf:a aac_adtstoasc "$output_file" || exit 1
-# }
-#
-# batch_size=5 # Adjust this value as needed
-# file_batch=()
-# count=0
-# for file in "$temp_dir"/*; do
-# 	file_batch+=("$file")
-# 	((count++))
-# 	if [ $count -eq $batch_size ]; then
-# 		process_batch "${file_batch[@]}"
-# 		file_batch=()
-# 		count=0
-# 	fi
-# done
-#
-# # Process the remaining files (if any)
-# if [ ${#file_batch[@]} -gt 0 ]; then
-# 	process_batch "${file_batch[@]}"
-# fi
+if [ ! -s concat_list.txt ]; then
+  echo "No audio files found in the current directory!"
+  rm concat_list.txt
+  exit 1
+fi
 
-rm -rf "$temp_dir"
-echo "Concatenation complete. Output file: $output_file"
+# Get the extension of the first file to determine output format
+first_file=$(head -n 2 concat_list.txt | tail -n 1 | cut -d "'" -f 2)
+extension="${first_file##*.}"
+
+# Create output filename
+output_file="combined_output.$extension"
+
+# Use ffmpeg to concatenate all files
+ffmpeg -f concat -safe 0 -i concat_list.txt -c copy "$output_file"
+
+# Check if ffmpeg was successful
+if [ $? -eq 0 ]; then
+  echo "Successfully concatenated all audio files into $output_file"
+  echo "Total files concatenated: $(grep -c "^file" concat_list.txt)"
+else
+  echo "Error occurred during concatenation!"
+  echo "Note: Some formats may not support direct stream copy."
+  echo "Try using the -transcode option to force transcoding."
+fi
+
+# Clean up the temporary file
+rm concat_list.txt
+
+# Function to convert to MP3 if needed
+transcode_to_mp3() {
+  local input="$1"
+  ffmpeg -i "$input" -codec:a libmp3lame -q:a 0 "combined_output.mp3"
+  if [ $? -eq 0 ]; then
+    rm "$input"
+    echo "Successfully transcoded to combined_output.mp3"
+  else
+    echo "Error during transcoding!"
+  fi
+}
+
+# Add help message if script is called with -h or --help
+if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+  echo "Usage: $0 [OPTIONS]"
+  echo "Concatenates all audio files in the current directory."
+  echo ""
+  echo "Options:"
+  echo "  -h, --help      Show this help message"
+  echo "  -transcode      Force transcoding to MP3 instead of stream copy"
+  exit 0
+fi
+
+# If -transcode option is used, convert to MP3
+if [ "$1" == "-transcode" ]; then
+  transcode_to_mp3 "$output_file"
+fi

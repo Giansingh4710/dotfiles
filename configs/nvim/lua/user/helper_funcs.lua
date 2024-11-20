@@ -86,23 +86,32 @@ end, {})
 vim.api.nvim_create_user_command("MacOSQuicklook", function()
   local oil = require("oil")
   local entry = oil.get_cursor_entry()
-  local full_path
   if entry then
-    full_path = oil.get_current_dir() .. entry.name
+    local full_path = oil.get_current_dir() .. entry.name
+    -- local cmd = 'bash -c \'if pgrep "qlmanage" > /dev/null; then killall qlmanage; else qlmanage -p "'.. full_path .. '"; fi\''
+    local cmd = "qlmanage -p " .. full_path
+    vim.fn.system(cmd)
   else
-    full_path = vim.fn.expand("%:p") -- Gets the full path of the file in the current buffer
-  end
-
-  -- qlmanage -p <file> & sleep 0.5; osascript -e 'tell application "System Events" to set frontmost of process "QuickLookUIService" to true'
-  -- if pgrep "qlmanage" > /dev/null; then echo running; fi
-  if full_path then
-    vim.fn.system({
-      "qlmanage",
-      "-p",
-      full_path,
-    })
+    print("Can only do quicklook in Oil")
   end
 end, {})
+
+vim.api.nvim_create_user_command("OilShowMore", function()
+  vim.b.oil_size_enabled = not vim.b.oil_size_enabled
+  if vim.b.oil_size_enabled then
+    require("oil").setup({ columns = { "icon", "size", "permissions", "mtime" } })
+  else
+    require("oil").setup({ columns = {} })
+  end
+  vim.cmd("e")
+end, {})
+
+function Transparent()
+  vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
+  vim.cmd("hi LineNr guibg=NONE ctermbg=NONE")
+  vim.cmd("hi SignColumn guibg=NONE ctermbg=NONE")
+  vim.cmd("hi NormalFloat guibg=NONE ctermbg=NONE") -- Transparent floating windows
+end
 
 function RandomColorScheme()
   local table = { "darkplus", "nightfly", "gruvbox", "ayu" }
@@ -203,6 +212,7 @@ function Dump(o)
 end
 
 vim.api.nvim_create_user_command("TabsToSpace", TabsToSpaces, {})
+vim.api.nvim_create_user_command("Transparent", Transparent, {})
 
 vim.cmd([[
   function! QuickFixToggle()

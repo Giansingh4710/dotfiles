@@ -9,7 +9,8 @@
 # HYPER == SHIFT + CMD + ALT + OPTION
 # hyper - return : /Applications/iTerm.app/Contents/MacOS/iTerm2
 # alt - return : /Applications/Warp.app/Contents/MacOS/stable
-alt - return : /Applications/Alacritty.app/Contents/MacOS/alacritty
+# alt - return : /Applications/Alacritty.app/Contents/MacOS/alacritty
+alt - return : /Applications/WezTerm.app/Contents/MacOS/wezterm
 
 ## swap window
 shift + alt - h : yabai -m window --swap west

@@ -1,7 +1,7 @@
 require("oil").setup({
-  default_file_explorer = false,
+  default_file_explorer = true,
   columns = {
-    "icon",
+    -- "icon",
     -- "size",
     -- "permissions",
     -- "mtime",
@@ -50,6 +50,8 @@ require("oil").setup({
 
     ["<C-h>"] = "actions.parent",
     ["<C-l>"] = "actions.select",
+    ["ts"] = function()
+    end,
   },
   -- Set to false to disable all of the above keymaps
   use_default_keymaps = true,

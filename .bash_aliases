@@ -76,6 +76,10 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   alias start="explorer.exe"
 fi
 
+if [ "$TERM_PROGRAM" = "WezTerm" ]; then
+    alias pic='wezterm imgcat'
+fi
+
 cap () { tee /tmp/capture.out; } # capture the output of a command so it can be retrieved with ret
 ret () { cat /tmp/capture.out; } # return the output of the most recent command that was captured by cap
 
@@ -84,3 +88,6 @@ ret () { cat /tmp/capture.out; } # return the output of the most recent command 
 # fi
 # save_dir_changed () { pwd > /tmp/last_working_dir; }
 # chpwd_functions+=(save_dir_changed) # chpwd_functions is an array of function names which when the working directory changes
+
+
+export REACT_EDITOR=nvim
