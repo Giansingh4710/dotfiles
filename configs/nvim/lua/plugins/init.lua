@@ -59,6 +59,7 @@ local plugins = {
     "folke/which-key.nvim",
     -- event = "VeryLazy",
     opts = {},
+    triggers = { "<leader>" },
     keys = {
       {
         "<leader>?",
@@ -145,10 +146,15 @@ local plugins = {
   "mhartington/formatter.nvim",
 
   -- LSP
-  { "VonHeikemen/lsp-zero.nvim", branch = "v3.x" },
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      local lspconfig = require("lspconfig")
+      lspconfig.sourcekit.setup({}) -- for swift
+    end,
+  },
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
-  "neovim/nvim-lspconfig",
   "L3MON4D3/LuaSnip",
   "rafamadriz/friendly-snippets",
   "RRethy/vim-illuminate", --highlight other words when on word
@@ -208,6 +214,46 @@ local plugins = {
     opts = {}, -- config options here
     keys = {
       { "<leader>-", ":Triptych<CR>" },
+    },
+  },
+  {
+    "yetone/avante.nvim",
+    event = "VeryLazy",
+    lazy = false,
+    version = false, -- set this if you want to always pull the latest change
+    opts = {},
+    build = "make",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "stevearc/dressing.nvim",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      --- The below dependencies are optional,
+      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "zbirenbaum/copilot.lua", -- for providers='copilot'
+      {
+        -- support for image pasting
+        "HakonHarnes/img-clip.nvim",
+        event = "VeryLazy",
+        opts = {
+          default = {
+            embed_image_as_base64 = false,
+            prompt_for_file_name = false,
+            drag_and_drop = {
+              insert_mode = true,
+            },
+            use_absolute_path = true,
+          },
+        },
+      },
+      {
+        -- Make sure to set this up properly if you have lazy=true
+        "MeanderingProgrammer/render-markdown.nvim",
+        opts = {
+          file_types = { "markdown", "Avante" },
+        },
+        ft = { "markdown", "Avante" },
+      },
     },
   },
 }

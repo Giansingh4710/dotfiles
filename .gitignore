@@ -49,3 +49,5 @@ geckodriver.log
 scripts/code/sshLogin.sh
 
 *THE_NOTE.txt
+
+api_keys.sh

@@ -129,6 +129,14 @@ require("formatter").setup({
         }
       end,
     },
+    swift = {
+      function()
+        return {
+          exe = "swiftformat",
+          stdin = true,
+        }
+      end,
+    },
 
     ["*"] = {
       require("formatter.filetypes.any").remove_trailing_whitespace,

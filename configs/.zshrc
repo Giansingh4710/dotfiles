@@ -1,5 +1,5 @@
-if [ -f ~/dotfiles/.bash_aliases ]; then
-    . ~/dotfiles/.bash_aliases
+if [ -f ~/dotfiles/bash_aliases ]; then
+    . ~/dotfiles/bash_aliases
 fi
 
 # Generated for envman. Do not edit.

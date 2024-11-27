@@ -4,6 +4,10 @@ if [ -f ~/dotfiles/scripts/alias.sh ]; then
   . ~/dotfiles/scripts/alias.sh
 fi
 
+if [ -f ~/dotfiles/api_keys.sh ]; then
+  . ~/dotfiles/api_keys.sh
+fi
+
 alias ls='ls --color=auto' # see colors when using ls
 alias ll='ls -l'
 alias gs="git status"

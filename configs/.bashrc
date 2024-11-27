@@ -14,8 +14,8 @@ parse_git_branch() {
 }
 PS1="${BLUE}[${RED}\t${BLUE}] ${BLUE}[${GREEN}\w${BLUE}]${YELLOW}\$(parse_git_branch) \n ${WHITE}-> "
 
-if [ -f ~/dotfiles/.bash_aliases ]; then
-	. ~/dotfiles/.bash_aliases
+if [ -f ~/dotfiles/bash_aliases ]; then
+	. ~/dotfiles/bash_aliases
 fi
 
 if command -v starship &> /dev/null; then

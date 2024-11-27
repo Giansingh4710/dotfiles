@@ -7,6 +7,6 @@ cursor_trail 3
 
 
 # BEGIN_KITTY_THEME
-# Adapta Nokto Maia
-include current-theme.conf
+# Gruvbox Dark
+# include current-theme.conf
 # END_KITTY_THEME

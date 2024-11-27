@@ -138,4 +138,4 @@ keymap("n", "<leader>h6", ":lua Harpoon:list():select(6)<CR>", "Select harpoon i
 keymap("n", "<leader>ht", ":lua Toggle_telescope_haroon(Harpoon:list())<CR>", "Toggle harpoon telescope")
 
 keymap("n", "-", ":Oil<CR>", "Open parent directory")
-keymap("n", "<leader>P", ":MacOSQuicklook<CR>", { silent = false, desc = "Preview file (MacOS)" })
+keymap("n", "<leader>P", ":MacOSQuicklook<CR>", "Preview file (MacOS)")

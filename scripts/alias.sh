@@ -1,5 +1,3 @@
-#!/bin/bash
-
 alias vimv="~/dotfiles/scripts/code/vimv.sh"
 alias addX="~/dotfiles/scripts/code/addX.sh"
 
