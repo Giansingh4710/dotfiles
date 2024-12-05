@@ -25,6 +25,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = { "~/Desktop/NJIT/classes/CS490/group_proj/*" },
 })
 
+
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     Transparent()
@@ -46,4 +47,8 @@ vim.cmd([[
     autocmd BufWritePost ~/Desktop/todo.md :SaveToAppleNotes
     autocmd BufReadPost ~/Desktop/todo.md :ReadFromAppleNotes
   augroup END
+]])
+
+vim.cmd([[
+  autocmd bufwritepost ~/.config/kitty/custom_kitty.conf :silent !pkill -USR1 kitty
 ]])

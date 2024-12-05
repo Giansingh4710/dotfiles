@@ -242,15 +242,6 @@ vim.cmd([[
   endfunction
 ]])
 
-vim.cmd([[
-  function! ToggleNERDTree()
-    if g:NERDTree.IsOpen()
-      :NERDTreeClose
-    else
-      :NERDTreeFind
-    endif
-  endfunction
-]])
 
 vim.cmd([[
   "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())
