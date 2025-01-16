@@ -14,15 +14,6 @@ return {
     },
   },
   {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    build = "cd app && yarn install",
-    init = function()
-      vim.g.mkdp_filetypes = { "markdown" }
-    end,
-    ft = { "markdown" },
-  },
-  {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     event = "VeryLazy",
@@ -53,8 +44,13 @@ return {
     "stevearc/oil.nvim",
     opts = {
       default_file_explorer = true,
+      hijack_netrw = true,
+      restore_win_options = true,
+      view_options = {
+        show_hidden = true,
+      },
     },
-    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    dependencies = { { "nvim-tree/nvim-web-devicons", opts = {} } },
   },
   {
     "nvim-neo-tree/neo-tree.nvim",

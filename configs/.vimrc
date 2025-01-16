@@ -121,6 +121,7 @@ call plug#end()
 
 "Remapings
   inoremap jk <ESC>
+  nnoremap - :Ex<CR>
 
   "make it easier to resize
   nnoremap <leader>h :wincmd <<CR>

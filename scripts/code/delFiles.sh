@@ -40,8 +40,8 @@ deleteFile "$fileType" "no"
 
 printf "Are you sure you would like to delete the Files above [y/n]:"
 read -r ans
-if [ "$ans" = "n" ] || [ "$ans" = "no" ] || [ "$ans" = "N" ] || 
-  [ "$ans" = "No" ] || [  "$ans" = "NO" ];then
+if [ "$ans" = "n" ] || [ "$ans" = "no" ] || [ "$ans" = "N" ] ||
+[ "$ans" = "No" ] || [  "$ans" = "NO" ];then
   echo "Nothing Deleted"
 else
   deleteFile "$fileType" "yes"

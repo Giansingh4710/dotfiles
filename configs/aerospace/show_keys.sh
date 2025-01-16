@@ -31,10 +31,10 @@ text=$(cat <<-END
     t - Toggle between floating and tiling layout
     = - reset layout
 
-    alt-shift-h = ['join-with left', 'mode main']
-    alt-shift-j = ['join-with down', 'mode main']
-    alt-shift-k = ['join-with up', 'mode main']
-    alt-shift-l = ['join-with right', 'mode main']
+    alt-h = ['join-with left', 'mode main']
+    alt-j = ['join-with down', 'mode main']
+    alt-k = ['join-with up', 'mode main']
+    alt-l = ['join-with right', 'mode main']
 
 END)
 

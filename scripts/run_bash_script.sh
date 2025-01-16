@@ -4,6 +4,11 @@ base="/Users/gians/dotfiles/scripts/code"
 opts=("$base"/*)             # Create an array of files in the ./code/ directory
 opts=("${opts[@]#$base/}") # Remove ".../code/" prefix from each file name
 
+source_scripts=(
+  "/Users/gians/dotfiles/scripts/code/go_to_class.sh"
+  "/Users/gians/dotfiles/scripts/code/switch_nvim_configs.sh"
+)
+
 DEFAULT="true"
 for i in "$@"; do
   case $i in
@@ -50,4 +55,5 @@ else
 fi
 
 echo "Selected: $opt (-r=$RUN_NUM)"
-"$base/$opt"
+fileToRun="$base/$opt"
+"$fileToRun"

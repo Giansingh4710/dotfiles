@@ -17,15 +17,15 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias df='df -h' # disk free, in Gigabytes, not bytes
 alias lpath='echo $PATH | tr ":" "\n"' # list the PATH separated by new lines
+alias configs="v ~/dotfiles -c ':chdir ~/dotfiles'"
 
 if [[ "$OSTYPE" == "darwin2"* ]]; then
   alias ios='open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'
   alias toggleyabai="~/dotfiles/configs/skhd/toggleyabai.sh"
-  alias nvims="~/dotfiles/nvim/switch_configs.sh"
 
   alias ai="ollama run llama2-uncensored"
   alias codeai="ollama run codellama:7b-code"
-  alias obd="cd '/Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents/'"
+  alias obd="cd '/Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents/KhojDil/'"
 fi
 
 if [[ ~ == "/Users/gians" ]];then
@@ -33,7 +33,6 @@ if [[ ~ == "/Users/gians" ]];then
   alias randTxt="v ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/randomTxtFiles/info.txt"
 
   alias dev="cd /Users/gians/Desktop/dev"
-  alias todo="v /Users/gians/Desktop/todo.md"
   alias ssa="nvim /Users/gians/Desktop/NJIT/SSA/SSA23-24.txt"
   alias py_src="source ~/py3_venv_1/bin/activate"
 
@@ -44,7 +43,7 @@ fi
 # check if nvim is installed
 if command -v nvim &> /dev/null; then
   alias v="nvim"
-  alias vimrc="nvim ~/dotfiles/configs/nvim/init.lua"
+  alias vimrc="nvim ~/dotfiles/configs/nvim/init.lua -c ':chdir ~/dotfiles/configs/nvim'"
 else
   alias v="vim"
   alias vimrc="vim ~/.vimrc"
@@ -62,9 +61,9 @@ fi
   # alias cat='bat --paging=never'
 # fi
 
-if command -v zoxide &> /dev/null; then
-  alias cd="z"
-fi
+# if command -v zoxide &> /dev/null; then
+#   alias cd="z"
+# fi
 
 if command -v lazygit &> /dev/null; then
   alias lg='lazygit'
@@ -80,9 +79,6 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   alias start="explorer.exe"
 fi
 
-if [ "$TERM_PROGRAM" = "WezTerm" ]; then
-    alias pic='wezterm imgcat'
-fi
 
 cap () { tee /tmp/capture.out; } # capture the output of a command so it can be retrieved with ret
 ret () { cat /tmp/capture.out; } # return the output of the most recent command that was captured by cap

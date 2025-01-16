@@ -50,4 +50,5 @@ scripts/code/sshLogin.sh
 
 *THE_NOTE.txt
 
+# Anthropic for nvim(avante)
 api_keys.sh

@@ -2,7 +2,8 @@
 
 # ~/dotfiles/scripts/code/notify.sh "Toggle opacity and blur"
 
-file=~/dotfiles/configs/kitty/blur_on
+# file=~/dotfiles/configs/kitty/blur_on
+file=~/Rand/kitty_blur_on
 
 if [ -e $file ]; then
   kitty @ set-background-opacity 0.4

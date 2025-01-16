@@ -19,49 +19,52 @@ end
   command_mode = "c",
 ]]
 keymap("i", "jk", "<ESC>")
-keymap({ "n", "v", "x" }, "H", "^") -- I hate typing these
-keymap({ "n", "v", "x" }, "L", "$")
+-- keymap({ "n", "v", "x" }, "H", "^") -- I hate typing these
+-- keymap({ "n", "v", "x" }, "L", "$")
 keymap("v", "<", "<gv") -- Stay in indent mode
 keymap("v", ">", ">gv")
-keymap("n", "<C-w>t", ":tabnew %<CR>") -- NOTE: the fact that tab and ctrl-i are the same is stupid
 
+keymap("n", "<C-e>", "5<C-e>")
+keymap("n", "<C-y>", "5<C-y>")
+
+keymap("n", "<C-w>t", ":tabnew %<CR>")
 keymap("n", "<C-w>H", ":wincmd <<CR>", "Change window size")
 keymap("n", "<C-w>J", ":wincmd +<CR>", "Change window size")
 keymap("n", "<C-w>K", ":wincmd -<CR>", "Change window size")
 keymap("n", "<C-w>L", ":wincmd ><CR>", "Change window size")
 
 --snippets
-table.insert(All_Keymaps, { ",", group = " Snippets" })
-keymap("n", ",cc", ":-1r ~/dotfiles/other/skeletons/c<CR>", "C snippet")
-keymap("n", ",cpp", ":-1r ~/dotfiles/other/skeletons/cpp<CR>", "C++ snippet")
-keymap("n", ",html", ":-1r ~/dotfiles/other/skeletons/html<CR>", "html snippet")
-keymap("n", ",java", ':r !bash ~/dotfiles/other/skeletons/java.sh %<CR>gg"_ddf.dt ', "Java snippet")
+-- table.insert(All_Keymaps, { ",", group = " Snippets" })
+-- keymap("n", ",cc", ":-1r ~/dotfiles/other/skeletons/c<CR>", "C snippet")
+-- keymap("n", ",cpp", ":-1r ~/dotfiles/other/skeletons/cpp<CR>", "C++ snippet")
+-- keymap("n", ",html", ":-1r ~/dotfiles/other/skeletons/html<CR>", "html snippet")
+-- keymap("n", ",java", ':r !bash ~/dotfiles/other/skeletons/java.sh %<CR>gg"_ddf.dt ', "Java snippet")
 
 keymap("v", "<leader>/", "<Plug>(comment_toggle_linewise_visual)", "Comment Visual Mode")
 keymap("v", "<leader>p", '"_dP', "Paste Without Yank")
-keymap("v", "<leader>r", ":%s/<C-r><C-w>//gc<LEFT><LEFT><LEFT>", "Replace Old Fashion")
+keymap("v", "<leader>r", 'y:%s/<C-r>"//gc<LEFT><LEFT><LEFT>', "Replace Old Fashion")
 
-keymap("n", "<leader><leader>", ":source $MYVIMRC<CR>", "Save and Source Nvim config")
-keymap("n", "<leader>r", ":%s/<C-R><C-w>//gc<LEFT><LEFT><LEFT>", "Replace Word Old Fashion")
-keymap("n", "<leader>cd", ":Copilot disable<CR>", "Disable Copilot")
-keymap("n", "<leader>gC", ":GetRandomColor<CR>", "Generate Random Color")
-keymap("n", "<leader>e", ":Neotree filesystem reveal toggle<CR>", "Toggle Explorer (NeoTree)")
-keymap("n", "<leader>v", ":vsplit<cr>", "vsplit")
-keymap("n", "<leader>q", ":call QuickFixToggle()<CR>", "Toggle Quick Fix List")
-keymap("n", "<leader>t", ":tabnew %<CR>:Oil<CR>", "New Tab")
-keymap("n", "<leader>V", ":tabnew $MYVIMRC<CR>", "edit Vimrc")
-keymap("n", "<leader><CR>", ":nohlsearch<CR>", "No Highlight")
 keymap("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)", "Comment")
+keymap("n", "<leader><CR>", ":nohlsearch<CR>", "No Highlight")
+keymap("n", "<leader><leader>", ":source $MYVIMRC<CR>", "Save and Source Nvim config")
 keymap("n", "<leader>E", ":lua ToggleCharAtEndOfLine()<CR>", "Toggle EOL Char")
 keymap("n", "<leader>F", ":ToggleFoldMethod<CR>", "Toggle Fold Method")
+keymap("n", "<leader>L", ":Lazy<CR>", "Lazy plugin manager")
+keymap("n", "<leader>S", Search_Exact_Phrase, "Search")
+keymap("n", "<leader>V", TelescopeSearchVimConfig, "Edit Vimrc")
+keymap("n", "<leader>O", ":tabnew /Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents <CR>", "Edit Obsidian")
+keymap("n", "<leader>e", ":Neotree filesystem reveal toggle<CR>", "Toggle Explorer (NeoTree)")
+keymap("n", "<leader>gC", ":GetRandomColor<CR>", "Generate Random Color")
+keymap("n", "<leader>q", ":call QuickFixToggle()<CR>", "Toggle Quick Fix List")
+keymap("n", "<leader>r", 'yiw:%s/<C-R>"//gc<LEFT><LEFT><LEFT>', "Replace Word Old Fashion")
 keymap("n", "<leader>s", ":lua Split_long_line()<CR>", "Split line")
+keymap("n", "<leader>t", ":tabnew %<CR>:Oil<CR>", "New Tab")
+keymap("n", "<leader>v", ":vsplit<cr>", "vsplit")
 keymap("n", "<leader>x", ":!chmod +x %;./%<CR>", "Make file Executable (chmod +x)")
-keymap("n", "<leader>S", ":lua Search_Exact_Phrase()<CR>", "Search")
-
 table.insert(All_Keymaps, { "<leader>f", group = " Find" })
 keymap("n", "<leader>fb", ":Telescope buffers<cr>", "Find Buffer")
-keymap("n", "<leader>fc", ":Telescope colorscheme<cr>", "Colorscheme")
-keymap("n", "<leader>fC", ":Telescope commands<cr>", "Commands")
+keymap("n", "<leader>fC", ":Telescope colorscheme<cr>", "Colorscheme")
+keymap("n", "<leader>fc", ":Telescope commands<cr>", "Commands")
 keymap("n", "<leader>ff", ":Telescope find_files<cr>", "Find files")
 keymap("n", "<leader>ft", ":Telescope live_grep<cr>", "Find Text")
 keymap("n", "<leader>fs", ":Telescope grep_string<cr>", "Find String")
@@ -126,6 +129,13 @@ keymap("n", "<leader>bd", ":bdelete<CR>", "Buffer Delete")
 keymap("n", "<leader>bn", ":bnext<CR>", "Buffer Next")
 keymap("n", "<leader>bp", ":bprev<CR>", "Buffer Prev")
 
+table.insert(All_Keymaps, { "<leader>m", group = "📈Markdown" })
+keymap("n", "<leader>mp", ":MarkdownPreview<CR>", "Markdown Preview (in browser)")
+keymap("n", "<leader>mr", ":RenderMarkdown toggle<CR>", "Render Markdown toggle")
+
+table.insert(All_Keymaps, { "<leader>X", group = "󰓩 Xcode" })
+keymap("n", "<leader>Xs", ":XcodebuildSetup<CR>", "Setup Xcode Project")
+
 table.insert(All_Keymaps, { "<leader>h", group = " Harpoon" })
 keymap("n", "<leader>ha", ":lua Harpoon:list():add()<CR>", "Add current file to harpoon")
 keymap("n", "<leader>hl", ":lua Harpoon.ui:toggle_quick_menu(Harpoon:list())<CR>", "Toggle harpoon menu")
@@ -137,5 +147,11 @@ keymap("n", "<leader>h5", ":lua Harpoon:list():select(5)<CR>", "Select harpoon i
 keymap("n", "<leader>h6", ":lua Harpoon:list():select(6)<CR>", "Select harpoon item 6")
 keymap("n", "<leader>ht", ":lua Toggle_telescope_haroon(Harpoon:list())<CR>", "Toggle harpoon telescope")
 
+table.insert(All_Keymaps, { "<leader>o", group = "Obsidian" })
+keymap("n", "<leader>ot", ":ObsidianToday ", "Open today note")
+
+keymap("n", "<leader>ct", ":CodeiumToggle<CR>", "Codeium Toggle")
+
 keymap("n", "-", ":Oil<CR>", "Open parent directory")
+keymap("n", "yp", ":OilYankPath<CR>", "Yank Path")
 keymap("n", "<leader>P", ":MacOSQuicklook<CR>", "Preview file (MacOS)")

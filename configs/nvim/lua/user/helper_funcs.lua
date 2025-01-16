@@ -1,3 +1,31 @@
+vim.api.nvim_create_user_command("FixGrammar", function()
+  -- Get the start and end positions of the visual selection
+  local start_pos = vim.fn.getpos("'<")
+  local end_pos = vim.fn.getpos("'>")
+
+  local start_line, start_col = start_pos[2], start_pos[3]
+  local end_line, end_col = end_pos[2], end_pos[3]
+
+  local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+  if #lines == 0 then
+    return
+  end
+
+  -- Adjust the end column to ensure it's within the bounds of the last line
+  local last_line_length = #lines[#lines]
+  end_col = math.min(end_col, last_line_length)
+
+  -- Extract the selected text, adjusting for columns
+  lines[1] = string.sub(lines[1], start_col)
+  lines[#lines] = string.sub(lines[#lines], 1, end_col)
+
+  local text = table.concat(lines, "\n")
+
+  local FIXED_TEXT = "Processed text here"
+
+  vim.api.nvim_buf_set_text(0, start_line - 1, start_col - 1, end_line - 1, end_col, vim.split(FIXED_TEXT, "\n"))
+end, { range = true })
+
 vim.api.nvim_create_user_command("ToggleAutoPairs", function()
   local a = require("nvim-autopairs")
   vim.ui.input({ prompt = "Enter 0 to disable or 1 to enable autopairs: " }, function(input)
@@ -101,9 +129,30 @@ vim.api.nvim_create_user_command("OilShowMore", function()
   if vim.b.oil_size_enabled then
     require("oil").setup({ columns = { "icon", "size", "permissions", "mtime" } })
   else
-    require("oil").setup({ columns = {} })
+    require("oil").setup({ columns = { "icon" } })
   end
   vim.cmd("e")
+end, {})
+
+vim.api.nvim_create_user_command("OilYankPath", function()
+  local entry = require("oil").get_cursor_entry()
+  if entry then
+    require("oil.actions").copy_entry_path.callback()
+    vim.fn.setreg("+", vim.fn.getreg(vim.v.register))
+  else
+    print("Can only Yank Path in Oil")
+  end
+end, {})
+
+vim.api.nvim_create_user_command("MarkdownRenderInGlow", function()
+  local buffer_full_path = vim.fn.expand("%:p")
+  local cmd =
+    string.format([[TermExec cmd='glow "%s"' direction=float size=80 go_back=0 close_on_exit=false]], buffer_full_path)
+  vim.cmd(cmd)
+end, {})
+
+vim.api.nvim_create_user_command("WordCount", function()
+  print(tostring(vim.fn.wordcount().words))
 end, {})
 
 function Transparent()
@@ -211,6 +260,10 @@ function Dump(o)
   end
 end
 
+function TelescopeSearchVimConfig()
+  require("telescope.builtin").live_grep({ cwd = vim.fn.stdpath("config") })
+end
+
 vim.api.nvim_create_user_command("TabsToSpace", TabsToSpaces, {})
 vim.api.nvim_create_user_command("Transparent", Transparent, {})
 
@@ -241,7 +294,6 @@ vim.cmd([[
     endif
   endfunction
 ]])
-
 
 vim.cmd([[
   "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())

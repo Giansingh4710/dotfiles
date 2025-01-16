@@ -2,6 +2,8 @@ return {
   {
     "mhartington/formatter.nvim",
     config = function()
+      local util = require("formatter.util")
+
       require("formatter").setup({
         logging = true,
         log_level = vim.log.levels.WARN,
@@ -79,6 +81,7 @@ return {
               return {
                 exe = "black",
                 args = { "-" },
+                -- args = { "--line-length 200" },
                 stdin = true,
               }
             end,
@@ -104,8 +107,8 @@ return {
             function()
               return {
                 exe = "beautysh",
-                args = { "-i", vim.opt.shiftwidth:get(), vim.api.nvim_buf_get_name(0) },
-                stdin = true,
+                args = { "--indent-size", vim.opt.shiftwidth:get(), vim.api.nvim_buf_get_name(0) },
+                stdin = false, -- beautysh does not support stdin
               }
             end,
           },
@@ -122,6 +125,15 @@ return {
               return {
                 exe = "swiftformat",
                 stdin = true,
+              }
+            end,
+          },
+          php = {
+            function()
+              return {
+                exe = "php-cs-fixer",
+                args = { "fix", "$FILENAME" },
+                stdin = false,
               }
             end,
           },

@@ -10,13 +10,15 @@ filesForSymLink=( #everything that goes in ~/
 
 foldersForSymLink=( #everything that goes in ~/.config
   "./configs/nvim"
+  "./configs/kitty"     # terminal
   "./configs/aerospace"   # tiling window manager
   "./configs/borders"    # border around windows
-  "./configs/wezterm"     # terminal
   # "./configs/yabai"     # tiling window manager
   # "./configs/skhd"      # keybindings for window manager etc
+
+  # "./configs/ghostty"     # terminal
   # "./configs/alacritty" # terminal
-  # "./configs/kitty"     # terminal
+  # "./configs/wezterm"     # terminal
 )
 
 function ask() {
@@ -99,22 +101,12 @@ if [[ "$OSTYPE" == "darwin2"* ]]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" #install brew
   fi
 
-  if ask "Install Brew and Pip Packages"; then
-    # Needed for stuff to run in ./scripts folder
-    brew install zoxide
-    brew install python3
-    brew install yt-dlp
+  if ask "Install Brew and Pip Packages"; then # Needed for stuff to run in ./scripts folder
+    xargs brew install < ./brewlist.txt
 
     pip3 install selenium
     pip3 install requests
     pip3 install BeautifulSoup4
     pip3 install mutagen
-
-    # brew install --cask warp
-    # brew install --cask rectangle
-    # brew install --cask alacritty
-    # brew install koekeishiya/formulae/yabai # window tile manager
-    # brew install koekeishiya/formulae/skhd # key binding for stuff like yabai and anything
-    # skhd --start-service && yabai --start-service
   fi
 fi

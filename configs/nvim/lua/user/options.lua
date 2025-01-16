@@ -6,7 +6,6 @@ vim.opt.smartcase = true -- will be case sensitive if you search with a capital 
 vim.opt.expandtab = true -- convert tabs to spaces
 vim.opt.tabstop = 2 -- insert 2 spaces for a tab
 vim.opt.numberwidth = 2 -- set number column width to 2 {default 4}
-vim.opt.shiftwidth = 2 -- the number of spaces inserted for each indentation
 vim.opt.cursorline = true -- highlight the current line
 vim.opt.cmdheight = 1 -- more space in the neovim command line for displaying messages
 vim.opt.completeopt = "menuone,noselect" -- mostly just for cmp
@@ -16,7 +15,8 @@ vim.opt.showmode = false -- we don't need to see things like -- INSERT -- anymor
 vim.opt.splitbelow = true -- force all horizontal splits to go below current window
 vim.opt.splitright = true -- force all vertical splits to go to the right of current window
 vim.opt.swapfile = false -- creates a swapfile
-vim.opt.conceallevel = 0 -- so that `` is visible in markdown files
+-- vim.opt.conceallevel = 0 -- so that `` is visible in markdown files
+vim.opt.conceallevel = 1 -- need 1 or 2 for obsidian
 vim.opt.fileencoding = "utf-8" -- the encoding written to a file
 vim.opt.termguicolors = true -- set term gui colors (most terminals support this)
 vim.opt.undofile = true -- enable persistent undo
@@ -49,4 +49,6 @@ vim.opt.list = true
 vim.opt.listchars = { tab = "→ ", eol = "¬", trail = "⋅", extends = "❯", precedes = "❮" }
 
 vim.opt.foldmethod = "indent"
+vim.opt.shiftwidth = 2 -- the number of spaces inserted for each indentation
 vim.opt.foldlevel = 10 -- foldlevels opened on file open
+vim.opt.foldignore = "" -- fixes markdown bug with folding and headers

@@ -24,6 +24,8 @@ return {
         "vim",
         "vimdoc",
         "kotlin",
+        "markdown",
+        "markdown_inline",
       },
       auto_install = false,
       highlight = { enable = true },

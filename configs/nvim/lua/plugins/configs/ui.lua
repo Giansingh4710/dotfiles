@@ -2,6 +2,7 @@ local icons = require("user.icons")
 
 return {
   {
+    -- colorschemes
     "rafi/awesome-vim-colorschemes",
     "bluz71/vim-nightfly-colors",
     "lunarvim/darkplus.nvim", -- vscode
@@ -24,80 +25,6 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
     opts = {},
-  },
-  {
-    "nvim-lualine/lualine.nvim",
-    config = function()
-      local diagnostics = {
-        "diagnostics",
-        sources = { "nvim_diagnostic" },
-        sections = { "error", "warn" },
-        symbols = { error = icons.diagnostics.Error, warn = icons.diagnostics.Warning },
-        colored = true,
-        update_in_insert = true,
-        always_visible = true,
-      }
-
-      local filetype = {
-        "filetype",
-        icons_enabled = true,
-        -- icon = nil
-      }
-
-      local branch = {
-        "branch",
-        icons_enabled = true,
-        icon = "",
-      }
-
-      local filename = {
-        "filename",
-        file_status = true, -- displays file status (readonly status, modified status)
-        path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
-      }
-
-      local lsp_server_name = function()
-        local msg = icons.diagnostics.Error
-        local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-        local clients = vim.lsp.get_active_clients()
-        if next(clients) == nil then
-          return msg
-        end
-
-        for _, client in ipairs(clients) do
-          local filetypes = client.config.filetypes
-          if client.name ~= "null-ls" and filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-            return client.name
-          end
-        end
-        return msg
-      end
-
-      local lsp_server_info = {
-        lsp_server_name,
-        icon = " LSP:",
-        color = { fg = "#EC7E22", gui = "bold" },
-      }
-
-      require("lualine").setup({
-        options = {
-          icons_enabled = false,
-          theme = "auto",
-          component_separators = "|",
-          section_separators = { left = "", right = "" },
-          disabled_filetypes = { "alpha", "dashboard", "toggleterm" },
-          always_divide_middle = true,
-        },
-        sections = {
-          lualine_a = { "mode" },
-          lualine_b = { branch, diagnostics },
-          lualine_c = { filename, filetype, lsp_server_info },
-          lualine_x = { "encoding", "fileformat" },
-          lualine_y = { "progress" },
-          lualine_z = { "location" },
-        },
-      })
-    end,
   },
   {
     "akinsho/bufferline.nvim",

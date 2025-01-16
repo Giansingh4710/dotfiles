@@ -71,7 +71,7 @@ t = ['layout floating tiling', 'mode main', 'exec-and-forget ~/dotfiles/scripts/
 equal = ['flatten-workspace-tree', 'mode main', 'exec-and-forget ~/dotfiles/scripts/code/notify.sh "Reset layout"'] # reset layout
 esc = ['mode main']
 
-alt-shift-h = ['join-with left', 'mode main']
-alt-shift-j = ['join-with down', 'mode main']
-alt-shift-k = ['join-with up', 'mode main']
-alt-shift-l = ['join-with right', 'mode main']
+alt-h = ['join-with left', 'mode main']
+alt-j = ['join-with down', 'mode main']
+alt-k = ['join-with up', 'mode main']
+alt-l = ['join-with right', 'mode main']
