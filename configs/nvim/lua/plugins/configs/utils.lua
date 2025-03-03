@@ -1,17 +1,9 @@
 return {
   {
-    "folke/which-key.nvim",
-    event = "VeryLazy",
-    opts = {},
-    keys = {
-      {
-        "<leader>?",
-        function()
-          require("which-key").show({ global = false })
-        end,
-        desc = "Buffer Local Keymaps (which-key)",
-      },
-    },
+    "nvim-pack/nvim-spectre",
+    config = function()
+      require("spectre").setup()
+    end,
   },
   {
     "kylechui/nvim-surround",
@@ -49,6 +41,8 @@ return {
       view_options = {
         show_hidden = true,
       },
+
+      delete_to_trash = true,
     },
     dependencies = { { "nvim-tree/nvim-web-devicons", opts = {} } },
   },

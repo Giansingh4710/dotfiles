@@ -48,7 +48,8 @@ vim.cmd("set grepprg=git\\ grep\\ -n") -- for searching through :grep
 vim.opt.list = true
 vim.opt.listchars = { tab = "→ ", eol = "¬", trail = "⋅", extends = "❯", precedes = "❮" }
 
-vim.opt.foldmethod = "indent"
+vim.opt.foldmethod = "indent" -- Automatically fold by indent level
+-- vim.opt.foldenable = false    -- Keep folds open by default
+vim.opt.foldlevel = 1 -- foldlevels opened on file open
 vim.opt.shiftwidth = 2 -- the number of spaces inserted for each indentation
-vim.opt.foldlevel = 10 -- foldlevels opened on file open
 vim.opt.foldignore = "" -- fixes markdown bug with folding and headers

@@ -35,9 +35,9 @@ return {
        formatting = {
          fields = { "menu", "abbr", "kind" },
          format = function(entry, vim_item)
-           local icons = require("user.icons").kind
+           -- local icons = require("user.icons").kind
            local kind = vim_item.kind
-           vim_item.kind = icons[kind] .. "  " .. kind
+           -- vim_item.kind = icons[kind] .. "  " .. kind
            vim_item.menu = ({
              nvim_lsp = "[LSP]",
              nvim_lua = "[Lua]",

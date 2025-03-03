@@ -10,13 +10,17 @@ fi
 
 alias ls='ls --color=auto' # see colors when using ls
 alias ll='ls -l'
-alias gs="git status"
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias df='df -h' # disk free, in Gigabytes, not bytes
 alias lpath='echo $PATH | tr ":" "\n"' # list the PATH separated by new lines
+
+alias gc="git checkout"
+alias gs="git status"
+alias glog="git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit"
+
 alias configs="v ~/dotfiles -c ':chdir ~/dotfiles'"
 
 if [[ "$OSTYPE" == "darwin2"* ]]; then
@@ -26,6 +30,7 @@ if [[ "$OSTYPE" == "darwin2"* ]]; then
   alias ai="ollama run llama2-uncensored"
   alias codeai="ollama run codellama:7b-code"
   alias obd="cd '/Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents/KhojDil/'"
+  alias free="system_profiler SPStorageDataType | grep 'Free' | head -1"
 fi
 
 if [[ ~ == "/Users/gians" ]];then

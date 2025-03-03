@@ -9,8 +9,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   callback = function()
-    vim.opt_local.foldmethod = "indent"
-    vim.opt_local.foldlevel = 0
+    -- vim.opt_local.foldmethod = "indent"
+    -- vim.opt_local.foldlevel = 0 -- closes all folds when I enter the file
   end,
   group = vim.api.nvim_create_augroup("MakeFoldIndent", { clear = true }),
   pattern = { "*.txt" },
@@ -24,7 +24,6 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
   group = vim.api.nvim_create_augroup("CS490Group", { clear = true }),
   pattern = { "~/Desktop/NJIT/classes/CS490/group_proj/*" },
 })
-
 
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
