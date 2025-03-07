@@ -29,7 +29,7 @@ if [[ "$OSTYPE" == "darwin2"* ]]; then
 
   alias ai="ollama run llama2-uncensored"
   alias codeai="ollama run codellama:7b-code"
-  alias obd="cd '/Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents/KhojDil/'"
+  alias oo="v  '/Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents/KhojDil/' -c ':chdir /Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents/KhojDil/'"
   alias free="system_profiler SPStorageDataType | grep 'Free' | head -1"
 fi
 
@@ -93,6 +93,11 @@ ret () { cat /tmp/capture.out; } # return the output of the most recent command 
 # fi
 # save_dir_changed () { pwd > /tmp/last_working_dir; }
 # chpwd_functions+=(save_dir_changed) # chpwd_functions is an array of function names which when the working directory changes
+function frontmost () {
+  osascript -e 'tell application "System Events" to tell process '"\"$1\"" \
+            -e 'set frontmost to true' \
+            -e 'end tell'
+}
 
 
 export REACT_EDITOR=nvim

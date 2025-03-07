@@ -65,7 +65,7 @@ return {
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "branch", "diagnostics", "diff", "selectioncount" },
-          lualine_c = { "%=", filename, macro },
+          lualine_c = { "%=", filename, "filesize", macro },
           lualine_x = { lsp_server_info, "filetype" },
           lualine_y = { "fileformat", "progress" },
           lualine_z = { "location" },

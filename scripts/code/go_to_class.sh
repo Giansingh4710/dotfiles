@@ -15,7 +15,7 @@ else
   elif [[ -d "$absPath" ]]; then
     cd "$absPath" || exit
   else
-    echo "NOT a FILE or DIR. Not sure what to do!!!"
-    exit
+    # echo "NOT a FILE or DIR. Not sure what to do!!!"
+    cd "$base_dir" || exit
   fi
 fi

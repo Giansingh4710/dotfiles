@@ -111,19 +111,6 @@ vim.api.nvim_create_user_command("ReadFromAppleNotes", function()
   vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.split(result, "\n"))
 end, {})
 
-vim.api.nvim_create_user_command("MacOSQuicklook", function()
-  local oil = require("oil")
-  local entry = oil.get_cursor_entry()
-  if entry then
-    local full_path = oil.get_current_dir() .. entry.name
-    -- local cmd = 'bash -c \'if pgrep "qlmanage" > /dev/null; then killall qlmanage; else qlmanage -p "'.. full_path .. '"; fi\''
-    local cmd = "qlmanage -p " .. full_path
-    vim.fn.system(cmd)
-  else
-    print("Can only do quicklook in Oil")
-  end
-end, {})
-
 vim.api.nvim_create_user_command("OilShowMore", function()
   vim.b.oil_size_enabled = not vim.b.oil_size_enabled
   if vim.b.oil_size_enabled then
@@ -154,6 +141,22 @@ end, {})
 vim.api.nvim_create_user_command("WordCount", function()
   print(tostring(vim.fn.wordcount().words))
 end, {})
+
+function MacOSQuicklook()
+  local oil = require("oil")
+  local entry = oil.get_cursor_entry()
+  if entry then
+    local full_path = oil.get_current_dir() .. entry.name
+    vim.fn.jobstart({ "qlmanage", "-p", full_path }, { detach = true })
+    vim.defer_fn(function()
+      vim.fn.system(
+        "osascript -e 'tell application \"System Events\" to tell process \"qlmanage\"' -e 'set frontmost to true' -e 'end tell'"
+      )
+    end, 300) -- Delay in milliseconds
+  else
+    print("Can only do quicklook in Oil")
+  end
+end
 
 function Transparent()
   vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
@@ -258,10 +261,6 @@ function Dump(o)
   else
     return tostring(o)
   end
-end
-
-function TelescopeSearchVimConfig()
-  require("telescope.builtin").live_grep({ cwd = vim.fn.stdpath("config") })
 end
 
 vim.api.nvim_create_user_command("TabsToSpace", TabsToSpaces, {})

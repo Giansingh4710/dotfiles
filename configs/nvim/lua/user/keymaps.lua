@@ -1,8 +1,4 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
 -- local keymap = vim.keymap.set
-require("user.helper_funcs")
 
 AllKeymapGroups = {}
 local function keymap(mode, keymap_binding, command, desc)
@@ -47,30 +43,23 @@ keymap("v", "<leader>r", 'y:%s/<C-r>"//gc<LEFT><LEFT><LEFT>', "Replace Old Fashi
 keymap("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)", "Comment")
 keymap("n", "<leader><CR>", ":nohlsearch<CR>", "No Highlight")
 keymap("n", "<leader><leader>", ":source $MYVIMRC<CR>", "Save and Source Nvim config")
-keymap("n", "<leader>E", ":lua ToggleCharAtEndOfLine()<CR>", "Toggle EOL Char")
+keymap("n", "<leader>E", ToggleCharAtEndOfLine, "Toggle EOL Char")
 keymap("n", "<leader>F", ":ToggleFoldMethod<CR>", "Toggle Fold Method")
 keymap("n", "<leader>L", ":Lazy<CR>", "Lazy plugin manager")
-keymap("n", "<leader>V", TelescopeSearchVimConfig, "Edit Vimrc")
-keymap("n", "<leader>e", ":Neotree filesystem reveal toggle<CR>", "Toggle Explorer (NeoTree)")
 keymap("n", "<leader>gC", ":GetRandomColor<CR>", "Generate Random Color")
 keymap("n", "<leader>q", ":call QuickFixToggle()<CR>", "Toggle Quick Fix List")
 keymap("n", "<leader>r", 'yiw:%s/<C-R>"//gc<LEFT><LEFT><LEFT>', "Replace Word Old Fashion")
 keymap("n", "<leader>s", ":lua Split_long_line()<CR>", "Split line")
 keymap("n", "<leader>t", ":tabnew %<CR>:Oil<CR>", "New Tab")
 keymap("n", "<leader>v", ":vsplit<cr>", "vsplit")
-keymap("n", "<leader>x", ":!chmod +x %;./%<CR>", "Make file Executable (chmod +x)")
+keymap("n", "<leader>X", ":!chmod +x %;./%<CR>", "Make file Executable (chmod +x)")
 
-table.insert(AllKeymapGroups, { "<leader>S", group = "Search (Spectre)" })
-keymap("n", "<leader>St", '<cmd>lua require("spectre").toggle()<CR>', "Toggle Spectre")
-keymap("n", "<leader>Sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', "Search current word")
-keymap("v", "<leader>Sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', "Search current word")
-keymap("n", "<leader>Sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', "Search on current file")
-
-
-table.insert(AllKeymapGroups, { "<leader>f", group = " Find" })
+table.insert(AllKeymapGroups, { "<leader>f", group = "Find" })
 keymap("n", "<leader>fb", ":Telescope buffers<cr>", "Find Buffer")
-keymap("n", "<leader>fC", ":Telescope colorscheme<cr>", "Colorscheme")
-keymap("n", "<leader>fc", ":Telescope commands<cr>", "Commands")
+keymap("n", "<leader>fco", ":Telescope colorscheme<cr>", "Colorscheme")
+keymap("n", "<leader>fcm", ":Telescope commands<cr>", "Commands")
+keymap("n", "<leader>fcf", ':lua require("telescope.builtin").live_grep({ cwd = vim.fn.stdpath("config") })<CR>', "(config) Edit Vimrc")
+keymap("n", "<leader>V", ':lua require("telescope.builtin").live_grep({ cwd = vim.fn.stdpath("config") })<CR>', "(config) Edit Vimrc")
 keymap("n", "<leader>ff", ":Telescope find_files<cr>", "Find files")
 keymap("n", "<leader>ft", ":Telescope live_grep<cr>", "Find Text")
 keymap("n", "<leader>fs", ":Telescope grep_string<cr>", "Find String")
@@ -139,8 +128,8 @@ table.insert(AllKeymapGroups, { "<leader>m", group = "📈Markdown" })
 keymap("n", "<leader>mp", ":MarkdownPreview<CR>", "Markdown Preview (in browser)")
 keymap("n", "<leader>mr", ":RenderMarkdown toggle<CR>", "Render Markdown toggle")
 
-table.insert(AllKeymapGroups, { "<leader>X", group = "󰓩 Xcode" })
-keymap("n", "<leader>Xs", ":XcodebuildSetup<CR>", "Setup Xcode Project")
+table.insert(AllKeymapGroups, { "<leader>x", group = "Xcode" })
+keymap("n", "<leader>xs", ":XcodebuildSetup<CR>", "Setup Xcode Project")
 
 table.insert(AllKeymapGroups, { "<leader>h", group = " Harpoon" })
 keymap("n", "<leader>ha", ":lua Harpoon:list():add()<CR>", "Add current file to harpoon")
@@ -154,11 +143,11 @@ keymap("n", "<leader>h6", ":lua Harpoon:list():select(6)<CR>", "Select harpoon i
 keymap("n", "<leader>ht", ":lua Toggle_telescope_haroon(Harpoon:list())<CR>", "Toggle harpoon telescope")
 
 table.insert(AllKeymapGroups, { "<leader>o", group = "Obsidian" })
-keymap("n", "<leader>oo", ":tabnew /Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents <CR>", "Edit Obsidian")
+keymap("n", "<leader>oo", ":tabnew /Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents/KhojDil/ <CR>", "Edit Obsidian")
 keymap("n", "<leader>ot", ":ObsidianToday ", "Open today note")
 
 keymap("n", "<leader>ct", ":CodeiumToggle<CR>", "Codeium Toggle")
 
 keymap("n", "-", ":Oil<CR>", "Open parent directory")
 keymap("n", "yp", ":OilYankPath<CR>", "Yank Path")
-keymap("n", "<leader>P", ":MacOSQuicklook<CR>", "Preview file (MacOS)")
+keymap("n", "<leader>p", MacOSQuicklook, "Preview file (MacOS)")

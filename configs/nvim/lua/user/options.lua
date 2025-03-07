@@ -1,3 +1,5 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 vim.opt.number = true -- set numbered lines
 vim.opt.relativenumber = true
 vim.opt.incsearch = true
