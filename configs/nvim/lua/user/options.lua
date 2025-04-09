@@ -52,6 +52,6 @@ vim.opt.listchars = { tab = "→ ", eol = "¬", trail = "⋅", extends = "❯", 
 
 vim.opt.foldmethod = "indent" -- Automatically fold by indent level
 -- vim.opt.foldenable = false    -- Keep folds open by default
-vim.opt.foldlevel = 1 -- foldlevels opened on file open
+vim.opt.foldlevel = 3 -- foldlevels opened on file open
 vim.opt.shiftwidth = 2 -- the number of spaces inserted for each indentation
 vim.opt.foldignore = "" -- fixes markdown bug with folding and headers

@@ -61,6 +61,6 @@ else
   opt="${opts[$index]}"
 fi
 
-echo "Selected: $opt -r=$RUN_NUM"
 the_command=(python3 "$base/$opt" "$path")
 show_n_run_cmd "${the_command[@]}"
+echo "Selected: $opt -r=$RUN_NUM"

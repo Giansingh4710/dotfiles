@@ -22,6 +22,14 @@ alias gs="git status"
 alias glog="git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit"
 
 alias configs="v ~/dotfiles -c ':chdir ~/dotfiles'"
+alias yankp="curl 'https://yankpaste.xyz/getTexts' | jq -r '.rows[0].text'"
+pastey() {
+  local input
+  input=$(printf "%s" "$*" | jq -Rs .)  # Safely escape input for JSON
+  curl -H 'Content-Type: application/json' \
+       -d "{\"text\":${input}}" \
+       -X POST https://yankpaste.xyz/saveText
+}
 
 if [[ "$OSTYPE" == "darwin2"* ]]; then
   alias ios='open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'

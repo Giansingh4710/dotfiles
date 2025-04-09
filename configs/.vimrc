@@ -7,22 +7,14 @@ call plug#begin()
   Plug 'christoomey/vim-tmux-navigator' "tmux and vim window switcher BEST
   Plug 'itchyny/lightline.vim' "status bar
   Plug 'preservim/nerdcommenter'
-  Plug 'https://github.com/rafi/awesome-vim-colorschemes'
   Plug 'vim-scripts/AutoComplPop' "auto completion pops up automatically instead of <C-p>
   Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
-  Plug 'kshenoy/vim-signature' "view your marks
   Plug 'Yggdroot/indentLine' "show indent lines
+  " Plug 'https://github.com/rafi/awesome-vim-colorschemes'
+  " Plug 'kshenoy/vim-signature' "view your marks
 call plug#end()
 
 " functions
-  function! BookmarkDir()
-    if exists("g:NERDTree") && g:NERDTree.IsOpen()
-      :Bookmark
-    else
-      echo "NERDTree not Open"
-    endif
-  endfunction
-
   function! DiffWindo()
     if &diff
       :windo diffoff
@@ -64,7 +56,7 @@ call plug#end()
 "Settings for plugins
   set background=dark
   " colorscheme gruvbox "afterglow
-  "hi Normal guibg=NONE ctermbg=NONE "makes backdround transparent
+  " hi Normal guibg=NONE ctermbg=NONE "makes backdround transparent
   
   nnoremap <leader>e :call ToggleNERDTree()<CR>
 
