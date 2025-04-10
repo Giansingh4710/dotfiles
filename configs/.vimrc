@@ -24,13 +24,14 @@ call plug#end()
         :10 wincmd l "go to the right most pane
         :diffthis
         :wincmd h "go to the pane on left and compare it to that
-        :diffthis 
+        :diffthis
       else
         :vs
         :Ex
       endif
     endif
   endfunction
+  nnoremap <leader>d :call DiffWindo()<CR>
 
   function! QuickFixToggle()
     if empty(filter(getwininfo(), 'v:val.quickfix'))
@@ -39,6 +40,7 @@ call plug#end()
       cclose
     endif
   endfunction
+  nnoremap <leader>q :call QuickFixToggle()<CR>
 
   function! ToggleNERDTree()
     if exists("g:NERDTree")
@@ -51,14 +53,48 @@ call plug#end()
       :25Lex
     endif
   endfunction
+  nnoremap <leader>e :call ToggleNERDTree()<CR>
+
+  let g:terminal_bufnr = -1
+  let g:last_buffer_before_terminal = -1
+  function! ToggleTerminal()
+    let in_terminal = &buftype ==# 'terminal'
+    if in_terminal
+      let curr_terminal = bufnr('%')
+      hide
+      if bufexists(g:last_buffer_before_terminal) && g:last_buffer_before_terminal != -1
+        execute 'buffer ' . g:last_buffer_before_terminal
+      endif
+      let g:terminal_bufnr = curr_terminal
+      return
+    endif
+    
+    let g:last_buffer_before_terminal = bufnr('%')
+    if bufexists(g:terminal_bufnr) && getbufvar(g:terminal_bufnr, '&buftype') ==# 'terminal'
+      let terminal_window = bufwinnr(g:terminal_bufnr)
+      if terminal_window != -1
+        execute terminal_window . 'wincmd w'
+      else
+        botright split
+        execute 'buffer ' . g:terminal_bufnr
+        startinsert
+      endif
+    else
+      botright split
+      terminal
+      let g:terminal_bufnr = bufnr('%')
+      startinsert
+    endif
+  endfunction
+  nnoremap <silent> \\ :call ToggleTerminal()<CR>
+  tnoremap <silent> \\ <C-\><C-n>:call ToggleTerminal()<CR>
 " Done
 
 "Settings for plugins
   set background=dark
   " colorscheme gruvbox "afterglow
   " hi Normal guibg=NONE ctermbg=NONE "makes backdround transparent
-  
-  nnoremap <leader>e :call ToggleNERDTree()<CR>
+
 
   "for commenting. nerdcommenter toggle is <leader>c<Space>.
   map <leader>/ <space>c<space>
@@ -76,7 +112,7 @@ call plug#end()
   set cursorline " = true,             -- highlight the current line
   set sidescrolloff=8 ",
   set backspace=indent,eol,start "allow backspace to work
-  set mouse=a  
+  set mouse=a
   set cursorline
   set tabstop=2 softtabstop=2
   set shiftwidth=2
@@ -95,7 +131,7 @@ call plug#end()
   set wildmode=list,full
   set confirm
   set encoding=utf-8
-      
+
   "set background=dark
   "set t_Co=256
   set foldmethod=indent
@@ -129,12 +165,11 @@ call plug#end()
   vnoremap <leader>r yy:%s/<C-R>"//gc<LEFT><LEFT><LEFT>
 
   "complie and run code faster
-  cnoremap ,cpp !g++ <C-r>%;./a.out 
+  cnoremap ,cpp !g++ <C-r>%;./a.out
   cnoremap ,py !python3 <C-r>%
 
   "open a new tab
   nnoremap <leader>t :tabnew<CR>:Ex<CR>
-  nnoremap <leader>q :call QuickFixToggle()<CR>
 
   nnoremap <leader>V :tabnew $MYVIMRC<CR>:cd %:p:h<CR>
   nnoremap <leader><leader> :w<cr>:source $MYVIMRC <CR>
@@ -155,7 +190,6 @@ call plug#end()
   vnoremap L $
 
   "compare windows
-  nnoremap <leader>d :call DiffWindo()<CR>
 
   nnoremap  <leader>bd :bdelete<CR>
   nnoremap  <leader>bn :bnext<CR>
@@ -163,8 +197,8 @@ call plug#end()
 "Done Remapings
 
 "Other Things
-  "c++ formatting :help cinoptions-values 
-  autocmd FileType cpp set cinoptions=l1 
+  "c++ formatting :help cinoptions-values
+  autocmd FileType cpp set cinoptions=l1
 
   " Reference chart of values:
   "   Ps = 0  -> blinking block.

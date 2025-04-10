@@ -106,10 +106,15 @@ return {
           sh = {
             function()
               return {
-                exe = "beautysh",
-                args = { "--indent-size", vim.opt.shiftwidth:get(), vim.api.nvim_buf_get_name(0) },
-                stdin = false, -- beautysh does not support stdin
+                exe = "shfmt",
+                args = { "-i", vim.opt.shiftwidth:get(), vim.api.nvim_buf_get_name(0) },
+                stdin = true,
               }
+              -- return {
+              --   exe = "beautysh",
+              --   args = { "--indent-size", vim.opt.shiftwidth:get(), vim.api.nvim_buf_get_name(0) },
+              --   stdin = false, -- beautysh does not support stdin
+              -- }
             end,
           },
           dart = {

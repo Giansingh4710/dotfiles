@@ -11,8 +11,8 @@ filesForSymLink=( #everything that goes in ~/
 foldersForSymLink=( #everything that goes in ~/.config
   "./configs/nvim"
   "./configs/kitty"     # terminal
-  "./configs/aerospace"   # tiling window manager
-  "./configs/borders"    # border around windows
+  "./configs/aerospace" # tiling window manager
+  "./configs/borders"   # border around windows
   # "./configs/yabai"     # tiling window manager
   # "./configs/skhd"      # keybindings for window manager etc
 
@@ -86,23 +86,21 @@ if [ "$1" = "-y" ]; then
 fi
 
 makeSymLinks ~ "${filesForSymLink[@]}"
-makeSymLinks ~/.config "${foldersForSymLink[@]}"
-
 # chsh -s $(which zsh) #change shell to zsh
 
 if ask "Download Vim Plug for ~/.vimrc"; then
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-
 if [[ "$OSTYPE" == "darwin2"* ]]; then
+  makeSymLinks ~/.config "${foldersForSymLink[@]}"
   if ask "Download Brew"; then
     echo Downloading Brew
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" #install brew
   fi
 
   if ask "Install Brew and Pip Packages"; then # Needed for stuff to run in ./scripts folder
-    xargs brew install < ./brewlist.txt
+    xargs brew install <./brewlist.txt
 
     pip3 install selenium
     pip3 install requests

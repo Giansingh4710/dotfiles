@@ -20,7 +20,7 @@ for ((i=0;i<${#src[@]};++i)); do
     echo "${src[i]}" >> "${FILENAMES_FILE}"
 done
 
-${EDITOR:-nvim} "${FILENAMES_FILE}"
+${EDITOR:-vim} "${FILENAMES_FILE}"
 
 IFS=$'\r\n' GLOBIGNORE='*' command eval 'dest=($(cat "${FILENAMES_FILE}"))'
 
