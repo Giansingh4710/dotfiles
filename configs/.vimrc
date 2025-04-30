@@ -31,7 +31,7 @@ call plug#end()
       endif
     endif
   endfunction
-  nnoremap <leader>d :call DiffWindo()<CR>
+  nnoremap <leader>dw :call DiffWindo()<CR>
 
   function! QuickFixToggle()
     if empty(filter(getwininfo(), 'v:val.quickfix'))
@@ -54,6 +54,48 @@ call plug#end()
     endif
   endfunction
   nnoremap <leader>e :call ToggleNERDTree()<CR>
+
+  function! SplitLongLine()
+    let line = getline('.')
+    let line = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '') " trim leading/trailing whitespace
+    let spaces = matchstr(getline('.'), '^\s*') " preserve leading spaces
+    let line_length = strlen(line)
+
+    if line_length <= 80
+      return
+    endif
+
+    let words = split(line)
+    let lines = []
+    let current_line = spaces
+
+    for i in range(len(words))
+      let word = words[i]
+      if i == 0
+        let new_line = current_line . word
+      else
+        let new_line = current_line . ' ' . word
+      endif
+
+      if strlen(new_line) <= 80
+        let current_line = new_line
+      else
+        call add(lines, current_line)
+        let current_line = spaces . word
+      endif
+    endfor
+
+    call add(lines, current_line)
+
+    " Replace the current line with the split lines
+    let lnum = line('.')
+    call setline(lnum, lines[0])
+    if len(lines) > 1
+      call append(lnum, lines[1:])
+    endif
+  endfunction
+
+  nnoremap <leader>s :call SplitLongLine()<CR>
 
   let g:terminal_bufnr = -1
   let g:last_buffer_before_terminal = -1

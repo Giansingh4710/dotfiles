@@ -13,8 +13,8 @@ foldersForSymLink=( #everything that goes in ~/.config
   "./configs/kitty"     # terminal
   "./configs/aerospace" # tiling window manager
   "./configs/borders"   # border around windows
-  # "./configs/yabai"     # tiling window manager
-  # "./configs/skhd"      # keybindings for window manager etc
+  "./configs/yabai"     # tiling window manager
+  "./configs/skhd"      # keybindings for window manager etc
 
   # "./configs/ghostty"     # terminal
   # "./configs/alacritty" # terminal

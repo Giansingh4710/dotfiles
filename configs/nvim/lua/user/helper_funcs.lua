@@ -288,7 +288,7 @@ vim.cmd([[
         :diffthis
       else
         :vs
-      :Ex
+      :ex
       endif
     endif
   endfunction

@@ -18,6 +18,7 @@ alias concatAudios="~/dotfiles/scripts/code/concatAudios.sh"
 alias js_obj_to_py_dict="~/dotfiles/scripts/code/js_obj_to_py_dict.sh"
 alias sshLogin="~/dotfiles/scripts/code/sshLogin.sh"
 alias mkgif="~/dotfiles/scripts/code/mkgif.sh"
+alias convert_format="~/dotfiles/scripts/code/convert_format.sh"
 
 alias coolCmds="v '/Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents/Technical/coolCmds.md' -c ':chdir /Users/gians/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents/Technical' "
 alias todo="v  '/Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents/Technical/todo.md' -c ':chdir /Users/gians/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents/Technical' "

@@ -27,7 +27,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
-    Transparent()
+    -- Transparent()
   end,
 })
 

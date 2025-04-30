@@ -111,5 +111,4 @@ if [[ "$OSTYPE" == "darwin2"* ]]; then
   [ -s "/Users/gians/.bun/_bun" ] && source "/Users/gians/.bun/_bun"
   export BUN_INSTALL="$HOME/.bun"
   export PATH="$BUN_INSTALL/bin:$PATH"
-  export PATH=$HOME/dev/flutter/bin:$PATH
 fi

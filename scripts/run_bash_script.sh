@@ -54,6 +54,6 @@ else
   opt="${opts[$index]}"
 fi
 
-echo "Selected: $opt (-r=$RUN_NUM)"
 fileToRun="$base/$opt"
 "$fileToRun"
+echo "Selected: $opt (-r=$RUN_NUM)"

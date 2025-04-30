@@ -28,6 +28,7 @@ text=$(cat <<-END
   keys available after in service mode
     / - show keys
     r - reload config
+    l - list aerospace windows
     t - Toggle between floating and tiling layout
     = - reset layout
 

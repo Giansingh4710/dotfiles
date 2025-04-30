@@ -66,6 +66,7 @@ alt-enter = 'exec-and-forget /Applications/kitty.app/Contents/MacOS/kitty'
 alt-shift-semicolon = 'mode service'
 [mode.service.binding]
 slash = ['exec-and-forget ~/dotfiles/configs/aerospace/show_keys.sh'] # slash(/) is same as key as ?
+l = ['exec-and-forget ~/dotfiles/configs/aerospace/show_lst.sh']
 r = ['reload-config', 'mode main', 'exec-and-forget ~/dotfiles/scripts/code/notify.sh "Reloaded config"']
 t = ['layout floating tiling', 'mode main', 'exec-and-forget ~/dotfiles/scripts/code/notify.sh "Toggled layout"'] # Toggle between floating and tiling layout
 equal = ['flatten-workspace-tree', 'mode main', 'exec-and-forget ~/dotfiles/scripts/code/notify.sh "Reset layout"'] # reset layout
