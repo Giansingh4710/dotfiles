@@ -1,4 +1,4 @@
-import requests, os, re, sys
+import requests, os, re, sys, json
 import urllib.request
 from bs4 import BeautifulSoup as bs
 from datetime import datetime as dt
@@ -34,7 +34,7 @@ def getKbFromText(fileObj):
     return ans
 
 
-def getAllLinks(url, folderName, printLink, getAllSubDirs):
+def getAllLinks(url, folderName, getAllSubDirs):
     res = requests.get(url)
     soup = bs(res.text, "html.parser")
     kathas = soup.find_all("table", cellpadding="4")[4:-2]
@@ -57,7 +57,7 @@ def getAllLinks(url, folderName, printLink, getAllSubDirs):
             folderWithLinks[folderName]["metadata"]["size_kb"] += int(kbs)
             title = f"{str(count).zfill(3)} ) {title}"
             folderWithLinks[folderName][title] = newUrl
-            if printLink:
+            if PRINTLINKS:
                 print(newUrl)
         else:
             newFolder = title
@@ -67,9 +67,7 @@ def getAllLinks(url, folderName, printLink, getAllSubDirs):
                 )
                 if "n" in dlFolder.lower():
                     continue
-            newFolderWithLinks = getAllLinks(
-                newUrl, newFolder, printLink, getAllSubDirs
-            )
+            newFolderWithLinks = getAllLinks(newUrl, newFolder, getAllSubDirs)
             folderWithLinks[folderName]["metadata"]["size_kb"] += newFolderWithLinks[
                 newFolder
             ]["metadata"]["size_kb"]
@@ -102,14 +100,17 @@ def download(kathasObj, thePath, justPrinting, recursiveDepth=-1):
         urllib.request.urlretrieve(link, pathToDl)
 
 
-def EnterUrl(link, path, printing, downloadAllSubDirs, folderNameToPutAllFiles):
+def EnterUrl(link, path, downloadAllSubDirs, folderNameToPutAllFiles):
     start = str(dt.now())
-    kathas = getAllLinks(link, folderNameToPutAllFiles, printing, downloadAllSubDirs)
+    kathas = getAllLinks(link, folderNameToPutAllFiles, downloadAllSubDirs)
 
     print("\n")
-    download(kathas, path, printing)
+    if PRINT_OBJ:
+        pretty_json = json.dumps(kathas, indent=2)
+        print(pretty_json)
+    else:
+        download(kathas, path, PRINTLINKS)
     end = str(dt.now())
-
     print(f"\nTotal MBs: {allKbSum/1000}")
     print(f"Total GBs: {allKbSum/1000000}")
     print("In total: " + str(totalFiles) + " total files\n")
@@ -127,13 +128,15 @@ def EnterUrl(link, path, printing, downloadAllSubDirs, folderNameToPutAllFiles):
 path = sys.argv[1] if len(sys.argv[1]) > 1 else './'
 urls = input("Enter the urls seperated by space: ").strip().split(" ")
 
-printing = (
-    "p" in input("Would you like Just print the links or Download? [p/d]: ").lower()
-)
+PRINT_OBJ = ( "y" in input("Would you like to just print the json obj? [y/n]: ").lower())
+PRINTLINKS = False
+if not PRINT_OBJ:
+    PRINTLINKS = ( "p" in input("Would you like to tust print the links or Download? [p/d]: ").lower())
 
-subDirsDl = input("Do you want to download ALL Subdirectories? [y/n]: ").lower()
-downloadAllSubDirs = "y" in subDirsDl or "a" in subDirsDl
-
+downloadAllSubDirs = True
+if not downloadAllSubDirs:
+    subDirsDl = input("Do you want to include all sub dirs? [y/n]: ").lower()
+    downloadAllSubDirs = "y" in subDirsDl or "a" in subDirsDl
 
 if path[-1] != "/":
     path += "/"
@@ -141,4 +144,4 @@ if path[-1] != "/":
 for url in urls:
     url = url.strip()
     title = url.split("%2F")[-1].split("/")[-1]
-    EnterUrl(url, path, printing, downloadAllSubDirs, title)
+    EnterUrl(url, path, downloadAllSubDirs, title)

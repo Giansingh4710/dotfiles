@@ -2,6 +2,10 @@ local icons = require("user.icons")
 
 return {
   {
+    "sphamba/smear-cursor.nvim", -- cursor trail like in kitty
+    opts = {},
+  },
+  {
     -- colorschemes
     "rafi/awesome-vim-colorschemes",
     "bluz71/vim-nightfly-colors",

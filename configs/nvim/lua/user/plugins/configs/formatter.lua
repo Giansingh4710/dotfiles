@@ -4,6 +4,7 @@ return {
     config = function()
       local util = require("formatter.util")
 
+      -- require("configs.nvim.lua.user.plugins.configs.formatter").setup({
       require("formatter").setup({
         logging = true,
         log_level = vim.log.levels.WARN,
@@ -27,6 +28,23 @@ return {
                   "--",
                   "-",
                 },
+                stdin = true,
+              }
+            end,
+          },
+          ruby = {
+            function()
+              return {
+                exe = "rubyfmt",
+                stdin = true,
+              }
+            end,
+          },
+          eruby = {
+            function()
+              return {
+                exe = "erb-formatter",
+                args = { "--stdin" }, -- some versions need this
                 stdin = true,
               }
             end,

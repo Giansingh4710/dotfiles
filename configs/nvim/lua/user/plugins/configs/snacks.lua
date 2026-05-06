@@ -15,7 +15,7 @@ return {
         notify = true, -- show notification when big file detected
       },
       explorer = { enabled = true }, -- File explorer
-      image = { enabled = true }, -- Image viewer
+      image = { enabled = true, doc = { enabled = false } }, -- Image viewer (doc/at_cursor disabled: crashes on nvim 0.12.2)
       indent = { enabled = true }, -- Visualize indent guides and scopes based on treesitter or indent.
       notifier = { enabled = true },
       picker = { enabled = true }, -- telescope replacer
@@ -135,6 +135,7 @@ return {
     end,
 
     config = function(_, opts)
+      -- local Snacks = require("configs.nvim.lua.user.plugins.configs.snacks")
       local Snacks = require("snacks")
       Snacks.setup(opts)
       vim.api.nvim_create_autocmd("User", {

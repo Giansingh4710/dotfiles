@@ -8,6 +8,8 @@ if [ -f ~/dotfiles/api_keys.sh ]; then
   . ~/dotfiles/api_keys.sh
 fi
 
+alias CC='claude --dangerously-skip-permissions'
+
 alias ls='ls --color=auto' # see colors when using ls
 alias ll='ls -l'
 alias ..='cd ..'
@@ -44,8 +46,12 @@ uploadyp() {
   curl -X POST -F "file=@$1" https://yankpaste.xyz/upload
 }
 
+# diskspace() {
+#   df -BG --total | grep 'total' | awk '{print "🖥️  Total: " $2 "  |  📂 Used: " $3 "  |  📦 Free: " $4}'
+# }
+
 if [[ "$OSTYPE" == "darwin2"* ]]; then
-  alias oo="v  '/Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents/KhojDil/' -c ':chdir /Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents/KhojDil/'"
+  alias oo="v  '/Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents/KhojDil/Home(main).md' -c ':chdir /Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents/KhojDil/'"
   alias diskspace="system_profiler SPStorageDataType | grep 'Free' | head -1"
   alias ios='open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'
   alias battery="pmset -g batt"
@@ -67,17 +73,17 @@ if [[ "$OSTYPE" == "darwin2"* ]]; then
   }
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   alias battery="upower -i $(upower -e | grep 'BAT') | grep -E \"state|to\\ full|percentage\""
-  diskspace() {
-    df -BG --total | grep 'total' | awk '{print "🖥️  Total: " $2 "  |  📂 Used: " $3 "  |  📦 Free: " $4}'
-  }
 fi
 
 if command -v nvim &>/dev/null; then
   alias v="nvim"
+  alias vi="nvim"
   alias vimrc="nvim ~/dotfiles/configs/nvim/init.lua -c ':chdir ~/dotfiles/configs/nvim'"
+  EDITOR=nvim
 else
   alias v="vim"
   alias vimrc="vim ~/.vimrc"
+  EDITOR=vi
 fi
 
 if command -v tmux &>/dev/null; then
@@ -92,6 +98,10 @@ if command -v lazygit &>/dev/null; then
   alias lg='lazygit'
 fi
 
+if command -v zoxide &>/dev/null; then
+  alias z='zoxide'
+fi
+
 if command -v python3 &>/dev/null; then
   alias py="python3"
   alias python="python3"
@@ -101,14 +111,14 @@ cap() { tee /tmp/capture.out; } # capture the output of a command so it can be r
 ret() { cat /tmp/capture.out; } # return the output of the most recent command that was captured by cap
 
 if [[ "$OSTYPE" == "darwin2"* ]]; then
-  export REACT_EDITOR=nvim
+  export REACT_EDITOR="$EDITOR"
   export ANDROID_HOME=$HOME/Library/Android/sdk
   export PATH=$PATH:$ANDROID_HOME/emulator
   export PATH=$PATH:$ANDROID_HOME/platform-tools
   export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
-  [ -s "/Users/gians/.bun/_bun" ] && source "/Users/gians/.bun/_bun"
+  # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+  # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+  # [ -s "/Users/gians/.bun/_bun" ] && source "/Users/gians/.bun/_bun"
   export BUN_INSTALL="$HOME/.bun"
   export PATH="$BUN_INSTALL/bin:$PATH"
 fi

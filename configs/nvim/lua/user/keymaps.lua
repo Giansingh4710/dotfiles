@@ -145,6 +145,7 @@ keymap("n", "<leader>ht", ":lua Toggle_telescope_haroon(Harpoon:list())<CR>", "T
 table.insert(AllKeymapGroups, { "<leader>o", group = "Obsidian" })
 keymap("n", "<leader>oo", ":tabnew /Users/gians/Library/Mobile Documents/iCloud~md~obsidian/Documents/KhojDil/ <CR>", "Edit Obsidian")
 keymap("n", "<leader>ot", ":ObsidianToday ", "Open today note")
+keymap("n", "<leader>oc", ":ObsidianToggleCheckbox<CR>", "Toggle checkbox")
 
 keymap("n", "<leader>ct", ":CodeiumToggle<CR>", "Codeium Toggle")
 

@@ -17,7 +17,7 @@ if [ $? != 0 ]; then
   tmux send-keys -t $SESH:3  "cd ~/Desktop/dev/webdev/keerat/app/Keertan/AkhandKeertan/scraping/dl_all_links_from_yt_link/" C-m
 
   tmux new-window -t $SESH
-  tmux send-keys -t $SESH:4  "cd ~/Desktop/dev/webdev/getshabads/" C-m
+  tmux send-keys -t $SESH:4  "cd ~/Desktop/dev/webdev/keerat_backend/" C-m
   tmux send-keys -t $SESH:4  "npm run dev" C-m
 
   tmux select-window -t $SESH:2

@@ -24,22 +24,56 @@ return {
         group = vim.api.nvim_create_augroup("user_lsp_attach", { clear = true }),
         callback = function(event)
           -- Keymaps moved to keymaps.lua
+          -- Setup lsp_signature on attach
+          local lsp_signature = require("lsp_signature")
+          lsp_signature.on_attach({}, event.buf)
         end,
       })
 
       local lspconfig = require("lspconfig")
-      lspconfig.sourcekit.setup({
-        capabilities = {
-          workspace = {
-            didChangeWatchedFiles = {
-              dynamicRegistration = true,
-            },
-          },
-        },
-      }) -- for swift
-
       local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local lsp_signature = require("lsp_signature")
+
+      -- Swift LSP (sourcekit-lsp) setup using new vim.lsp.config API (Neovim 0.11+)
+      -- Known issues: inlay hints cause timeouts, dynamic registration not fully supported
+      -- vim.lsp.config.sourcekit = {
+      --   cmd = { "sourcekit-lsp" },
+      --   filetypes = { "swift" },
+      --   root_markers = { "Package.swift", ".git", "buildServer.json" },
+      --   capabilities = lsp_capabilities,
+      --   settings = {
+      --     sourcekit = {
+      --       -- Disable background indexing which can cause slowdowns
+      --       backgroundIndexing = false,
+      --     },
+      --   },
+      -- }
+
+      -- Setup autocmd to start sourcekit-lsp for Swift files
+      -- vim.api.nvim_create_autocmd("FileType", {
+      --   pattern = "swift",
+      --   callback = function(args)
+      --     vim.lsp.enable("sourcekit")
+      --
+      --     -- Disable inlay hints to prevent timeout issues (see: swiftlang/sourcekit-lsp#2021)
+      --     vim.defer_fn(function()
+      --       local clients = vim.lsp.get_clients({ bufnr = args.buf, name = "sourcekit" })
+      --       for _, client in ipairs(clients) do
+      --         if client.server_capabilities.inlayHintProvider then
+      --           vim.lsp.inlay_hint.enable(false, { bufnr = args.buf })
+      --         end
+      --       end
+      --     end, 100)
+      --   end,
+      -- })
+
+      -- Reduce diagnostic update frequency to prevent slowdowns
+      vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+        update_in_insert = false, -- Don't update diagnostics while typing
+        virtual_text = {
+          spacing = 4,
+          prefix = "●",
+        },
+      })
 
       require("mason").setup({})
       require("mason-lspconfig").setup({
@@ -62,7 +96,6 @@ return {
             lspconfig[server_name].setup({
               capabilities = lsp_capabilities,
             })
-            lsp_signature.on_attach()
           end,
           lua_ls = function()
             lspconfig.lua_ls.setup({
@@ -131,16 +164,20 @@ return {
     config = true,
   },
   {
-    "wojciech-kulik/xcodebuild.nvim",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-      "MunifTanjim/nui.nvim",
-      "nvim-treesitter/nvim-treesitter", -- (optional) for Quick tests support (required Swift parser)
-    },
-    config = function()
-      require("xcodebuild").setup({
-        -- put some options here or leave it empty to use default settings
-      })
-    end,
+    "j-hui/fidget.nvim",
+    opts = {},
   },
+  -- {
+  --   "wojciech-kulik/xcodebuild.nvim",
+  --   dependencies = {
+  --     "nvim-telescope/telescope.nvim",
+  --     "MunifTanjim/nui.nvim",
+  --     "nvim-treesitter/nvim-treesitter", -- (optional) for Quick tests support (required Swift parser)
+  --   },
+  --   config = function()
+  --     require("xcodebuild").setup({
+  --       -- put some options here or leave it empty to use default settings
+  --     })
+  --   end,
+  -- },
 }

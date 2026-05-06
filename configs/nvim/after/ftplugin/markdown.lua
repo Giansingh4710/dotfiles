@@ -1,3 +1,4 @@
+-- this file will only run in a 'markdown' buffer
 -- check if current zone is table
 -- find count of columns from | - | - |
 -- for each column find max width for each cell
@@ -79,4 +80,4 @@ vim.api.nvim_buf_create_user_command(0, "TableFormat", function()
 end, {})
 
 -- vim.keymap.set("n", "<leader>lf", ":TableFormat<CR>", { silent = false, desc = "Format Table (Lsp Format)" })
--- vim.opt.shiftwidth = 2 -- for some reason shiftwidth is set to 4 by some plugin probably
+vim.opt.shiftwidth = 2 -- for some reason shiftwidth is set to 4 by some plugin probably

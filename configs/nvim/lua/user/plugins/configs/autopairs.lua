@@ -1,3 +1,4 @@
+-- :AutopairsToggle
 return {
   {
     "windwp/nvim-autopairs",

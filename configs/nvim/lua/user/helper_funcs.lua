@@ -26,7 +26,7 @@ vim.api.nvim_create_user_command("FixGrammar", function()
   vim.api.nvim_buf_set_text(0, start_line - 1, start_col - 1, end_line - 1, end_col, vim.split(FIXED_TEXT, "\n"))
 end, { range = true })
 
-vim.api.nvim_create_user_command("ToggleAutoPairs", function()
+vim.api.nvim_create_user_command("AutoPairsToggle", function()
   local a = require("nvim-autopairs")
   vim.ui.input({ prompt = "Enter 0 to disable or 1 to enable autopairs: " }, function(input)
     if input == "0" then
@@ -141,6 +141,77 @@ end, {})
 vim.api.nvim_create_user_command("WordCount", function()
   print(tostring(vim.fn.wordcount().words))
 end, {})
+
+local function csv_format()
+  local function is_csv_line(line)
+    -- A simple heuristic: line must contain at least one comma
+    return line:match(",") ~= nil
+  end
+
+  local function find_csv_block(line_num, buf)
+    local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+    local top, bottom = line_num, line_num
+
+    -- expand upward
+    while top > 1 and is_csv_line(lines[top - 1]) do
+      top = top - 1
+    end
+
+    -- expand downward
+    while bottom < #lines and is_csv_line(lines[bottom + 1]) do
+      bottom = bottom + 1
+    end
+
+    return top, bottom
+  end
+
+  local function format_csv_block(top, bottom, buf)
+    local lines = vim.api.nvim_buf_get_lines(buf, top - 1, bottom, false)
+    local max_lengths = {}
+
+    -- First pass: compute max column widths
+    local split_fields = function(line)
+      local fields = {}
+      for field in line:gmatch("([^,]+)") do
+        table.insert(fields, vim.trim(field))
+      end
+      return fields
+    end
+
+    for _, line in ipairs(lines) do
+      local fields = split_fields(line)
+      for i, field in ipairs(fields) do
+        max_lengths[i] = math.max(max_lengths[i] or 0, #field)
+      end
+    end
+
+    -- Second pass: reformat
+    local new_lines = {}
+    for _, line in ipairs(lines) do
+      local fields = split_fields(line)
+      local formatted_fields = {}
+      for i, field in ipairs(fields) do
+        local padding = max_lengths[i] - #field
+        table.insert(formatted_fields, field .. string.rep(" ", padding))
+      end
+      table.insert(new_lines, table.concat(formatted_fields, ", "))
+    end
+
+    vim.api.nvim_buf_set_lines(buf, top - 1, bottom, false, new_lines)
+  end
+  local buf = vim.api.nvim_get_current_buf()
+  local line_num = vim.api.nvim_win_get_cursor(0)[1]
+
+  local line = vim.api.nvim_get_current_line()
+  if not is_csv_line(line) then
+    return
+  end
+
+  local top, bottom = find_csv_block(line_num, buf)
+  format_csv_block(top, bottom, buf)
+end
+vim.api.nvim_create_user_command("CSVFormat", csv_format, {})
+
 
 function MacOSQuicklook()
   local oil = require("oil")
@@ -298,3 +369,163 @@ vim.cmd([[
   "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())
   com! FormatXML :%!python3 -c "import xml.dom.minidom, sys; print('\n'.join([line for line in xml.dom.minidom.parse(sys.stdin).toprettyxml(indent=' '*2).split('\n') if line.strip()]))"
 ]])
+
+-- ============================================================================
+-- Performance Monitoring Commands for Debugging Slowdowns
+-- ============================================================================
+
+-- Track performance metrics over time
+local perf_stats = {
+  start_time = vim.loop.hrtime(),
+  samples = {},
+}
+
+-- Command to start profiling
+vim.api.nvim_create_user_command("PerfStart", function()
+  local profile_file = "/tmp/nvim-profile-" .. os.time() .. ".log"
+  vim.cmd("profile start " .. profile_file)
+  vim.cmd("profile func *")
+  vim.cmd("profile file *")
+  print("Profiling started. Output will be in: " .. profile_file)
+  print("Work for a few minutes, then run :PerfStop")
+  vim.g.perf_profile_file = profile_file
+end, {})
+
+vim.api.nvim_create_user_command("PerfStop", function()
+  vim.cmd("profile pause")
+  local file = vim.g.perf_profile_file or "/tmp/nvim-profile.log"
+  print("Profiling stopped. View results with:")
+  print("  :edit " .. file)
+  print("Or in terminal: less " .. file)
+end, {})
+
+-- Command to show current performance metrics
+vim.api.nvim_create_user_command("PerfStats", function()
+  local stats = {
+    uptime = (vim.loop.hrtime() - perf_stats.start_time) / 1e9,
+    buffers = #vim.api.nvim_list_bufs(),
+    windows = #vim.api.nvim_list_wins(),
+    lsp_clients = #vim.lsp.get_clients(),
+    memory_kb = collectgarbage("count"),
+  }
+
+  -- Get treesitter info
+  local ts_status = "not available"
+  local ok, ts = pcall(require, "nvim-treesitter.parsers")
+  if ok then
+    local bufnr = vim.api.nvim_get_current_buf()
+    local parser = ts.get_parser(bufnr)
+    if parser then
+      ts_status = parser:lang() .. " (enabled)"
+    end
+  end
+
+  print("=== Neovim Performance Stats ===")
+  print(string.format("Uptime: %.1f seconds", stats.uptime))
+  print(string.format("Memory: %.2f MB", stats.memory_kb / 1024))
+  print(string.format("Buffers: %d", stats.buffers))
+  print(string.format("Windows: %d", stats.windows))
+  print(string.format("LSP Clients: %d", stats.lsp_clients))
+  print(string.format("Treesitter: %s", ts_status))
+
+  -- Show LSP client details
+  if stats.lsp_clients > 0 then
+    print("\nActive LSP Clients:")
+    for _, client in ipairs(vim.lsp.get_clients()) do
+      print(string.format("  - %s (buf: %s)", client.name, table.concat(vim.lsp.get_buffers_by_client_id(client.id), ", ")))
+    end
+  end
+
+  -- Store sample for trend analysis
+  table.insert(perf_stats.samples, {
+    time = os.time(),
+    memory = stats.memory_kb,
+    buffers = stats.buffers,
+  })
+
+  -- Show trend if we have multiple samples
+  if #perf_stats.samples > 1 then
+    local first = perf_stats.samples[1]
+    local last = perf_stats.samples[#perf_stats.samples]
+    local mem_growth = last.memory - first.memory
+    local time_diff = last.time - first.time
+    if time_diff > 0 then
+      print(string.format("\nMemory growth: %.2f MB over %d seconds (%.2f KB/s)",
+        mem_growth / 1024, time_diff, mem_growth / time_diff))
+    end
+  end
+end, {})
+
+-- Command to monitor performance continuously
+vim.api.nvim_create_user_command("PerfWatch", function()
+  -- Clear previous samples
+  perf_stats.samples = {}
+  perf_stats.start_time = vim.loop.hrtime()
+
+  print("Performance monitoring started. Check stats with :PerfStats")
+  print("This will track memory growth over time.")
+
+  -- Set up autocommand to collect samples periodically
+  local group = vim.api.nvim_create_augroup("PerfWatch", { clear = true })
+  vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+    group = group,
+    callback = function()
+      local stats = {
+        time = os.time(),
+        memory = collectgarbage("count"),
+        buffers = #vim.api.nvim_list_bufs(),
+      }
+      table.insert(perf_stats.samples, stats)
+    end,
+  })
+end, {})
+
+-- Command to check what's slow in the current buffer
+vim.api.nvim_create_user_command("PerfBuffer", function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local bufinfo = vim.fn.getbufinfo(bufnr)[1]
+
+  print("=== Buffer Performance Info ===")
+  print(string.format("Buffer: %d (%s)", bufnr, vim.api.nvim_buf_get_name(bufnr)))
+  print(string.format("Lines: %d", vim.api.nvim_buf_line_count(bufnr)))
+  print(string.format("Loaded: %s", bufinfo.loaded == 1 and "yes" or "no"))
+  print(string.format("Modified: %s", bufinfo.changed == 1 and "yes" or "no"))
+  print(string.format("Filetype: %s", vim.bo.filetype))
+
+  -- Check treesitter status
+  local ok, ts = pcall(require, "nvim-treesitter.parsers")
+  if ok then
+    local parser = ts.get_parser(bufnr)
+    if parser then
+      print(string.format("Treesitter: %s parser loaded", parser:lang()))
+      local tree = parser:parse()[1]
+      if tree then
+        print(string.format("  Parse tree nodes: %d", tree:root():named_child_count()))
+      end
+    else
+      print("Treesitter: no parser")
+    end
+  end
+
+  -- Check LSP
+  local clients = vim.lsp.get_clients({ bufnr = bufnr })
+  if #clients > 0 then
+    print("\nLSP Clients:")
+    for _, client in ipairs(clients) do
+      print(string.format("  - %s", client.name))
+    end
+  else
+    print("\nLSP: no clients attached")
+  end
+
+  -- Check undo history
+  local undolevels = vim.fn.undotree().seq_last or 0
+  print(string.format("\nUndo levels: %d", undolevels))
+end, {})
+
+-- Quick command to see what's consuming CPU
+vim.api.nvim_create_user_command("PerfTop", function()
+  vim.cmd("PerfStats")
+  print("\nRun :PerfStart to begin detailed profiling")
+  print("Run :PerfBuffer to see current buffer details")
+end, {})
