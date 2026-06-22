@@ -107,6 +107,14 @@ if command -v python3 &>/dev/null; then
   alias python="python3"
 fi
 
+if command -v podman &>/dev/null; then
+  alias docker="podman"
+fi
+
+if command -v podman-compose &>/dev/null; then
+  alias docker-compose="podman-compose"
+fi
+
 cap() { tee /tmp/capture.out; } # capture the output of a command so it can be retrieved with ret
 ret() { cat /tmp/capture.out; } # return the output of the most recent command that was captured by cap
 
@@ -116,9 +124,9 @@ if [[ "$OSTYPE" == "darwin2"* ]]; then
   export PATH=$PATH:$ANDROID_HOME/emulator
   export PATH=$PATH:$ANDROID_HOME/platform-tools
   export NVM_DIR="$HOME/.nvm"
-  # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
-  # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
-  # [ -s "/Users/gians/.bun/_bun" ] && source "/Users/gians/.bun/_bun"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+  [ -s "/Users/gians/.bun/_bun" ] && source "/Users/gians/.bun/_bun"
   export BUN_INSTALL="$HOME/.bun"
   export PATH="$BUN_INSTALL/bin:$PATH"
 fi

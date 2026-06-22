@@ -1,5 +1,6 @@
 import requests, os, re, sys, json
 import urllib.request
+import subprocess
 from bs4 import BeautifulSoup as bs
 from datetime import datetime as dt
 
@@ -97,7 +98,8 @@ def download(kathasObj, thePath, justPrinting, recursiveDepth=-1):
         link = kathasObj[title]
         pathToDl = f"{thePath}{title}.mp3"
         print(f"{spaces}{spaces}{link}")
-        urllib.request.urlretrieve(link, pathToDl)
+        # urllib.request.urlretrieve(link, pathToDl)
+        subprocess.run( ["wget", "-O", pathToDl, link], check=True)
 
 
 def EnterUrl(link, path, downloadAllSubDirs, folderNameToPutAllFiles):
